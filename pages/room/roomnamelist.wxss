@@ -1,0 +1,7 @@
+@import "../calendar/index";
+page{background-color: #fff}
+.sbtn view input{width: 600rpx}
+view.viewlt{width: 80rpx;border-radius: 80rpx}
+view.viewlt image{width: 80rpx;height: 80rpx;}
+view.viewrt{margin-left: 100rpx;height: 80rpx;line-height: 70rpx;border-bottom: 1rpx solid #eeeeee;}
+.ainput{color: red;border: 1px solid red}

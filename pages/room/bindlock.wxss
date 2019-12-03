@@ -1,0 +1,40 @@
+@import "../order/ordercreate";
+page{background-color: #fff}
+.fimg{width:0;
+    height:0;
+    border-width:5px 5px 0;
+    border-style:solid;
+    border-color:#696969 transparent transparent;/*灰 透明 透明 */
+    position:relative;margin-top: 18rpx;margin-left: 5rpx;float: right}
+.radio-group{font-size: 34rpx;float: right}
+
+.radio-group radio .wx-radio-input{ 
+  /* 自定义样式.... */
+    height: 30rpx; 
+    width: 30rpx;
+    margin-top: -4rpx;
+    border-radius: 50%;
+    border: 2rpx solid #999;
+    background: transparent;
+ }
+/* 选中后的 背景样式 （红色背景 无边框 可根据UI需求自己修改） */
+.radio-group radio .wx-radio-input.wx-radio-input-checked{
+   border: none;
+   background: #f5c343;
+}
+/* 选中后的 对勾样式 （白色对勾 可根据UI需求自己修改） */
+.radio-group radio .wx-radio-input.wx-radio-input-checked::before{
+   border-radius: 50%;/* 圆角 */
+   width: 35rpx; /* 选中后对勾大小，不要超过背景的尺寸 */
+   height: 35rpx; /* 选中后对勾大小，不要超过背景的尺寸 */
+   line-height: 35rpx;
+   text-align: center;
+   font-size:30rpx; /* 对勾大小 30rpx */
+   color:#fff; /* 对勾颜色 白色 */
+   background: #f5c343;
+   transform:translate(-50%, -50%) scale(1);
+   -webkit-transform:translate(-50%, -50%) scale(1);
+
+}
+.createroom>view.Twobindlock{text-align: right;color: #00a5f2;margin-top: 30rpx;border-bottom: 0;font-size: 30rpx}
+view>image{width: 40rpx;height: 40rpx; position: absolute;}

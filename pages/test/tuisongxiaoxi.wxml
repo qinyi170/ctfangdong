@@ -1,0 +1,11 @@
+<form bindsubmit="form" report-submit='true' >
+<button form-type="submit" class='xx'>
+<text>123</text>
+</button>
+</form>
+
+<form bindsubmit="form1" report-submit='true' >
+<button form-type="submit" class='xx'>
+<text>123</text>
+</button>
+</form>

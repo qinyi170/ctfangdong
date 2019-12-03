@@ -1,0 +1,9 @@
+page{overflow: hidden}
+.imgwidth{width: 100%;display: block}
+.img1{width: 594rpx;height: 287rpx;position: absolute;top:23rpx;left:16rpx;z-index: 99}
+.con{position: absolute;top:240rpx; left: 55rpx; width: 640rpx;height: 660rpx;border-radius: 10px;z-index: 100;background-color: #fff}
+.con1{width: 600rpx;height: 620rpx;border-radius: 10px;border:3px dashed #000000;margin-left:14rpx;margin-top:14rpx;}
+.con1 image{width: 580rpx;height: 600rpx;display: block;margin: 0 auto}
+.btm{position: absolute;top:930rpx;left: 55rpx}
+.btm view{color: #8c8b86;font-size: 28rpx;margin-bottom: 10rpx;width: 630rpx;}
+.btm view:first-of-type{color: #333333;font-size: 32rpx}

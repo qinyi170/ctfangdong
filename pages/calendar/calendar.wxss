@@ -1,0 +1,46 @@
+page{background-color: #f7f7f7;font-size: 28rpx}
+.cal_width{width: 650rpx;margin: 60rpx auto 0 auto;}
+.cal_con{overflow: visible;position: relative}
+.cal_date{font-size: 28rpx;color: #333333;position: absolute;top:0;left: 0}
+.cal_date>view{display: inline-block}
+.cal_date>view:first-of-type{font-size: 135rpx;line-height: 120rpx;font-family:"Microsoft YaHei";margin-right: 10rpx}
+.cal_date>view:last-of-type view:first-of-type{font-weight: bold}
+.cal_date>view:last-of-type view:last-of-type{color: #c8c8c8}
+.cal_con>view:last-of-type{float: right;margin-right: -25rpx}
+.cal_con image{width: 470rpx;height: 197rpx;}
+.cal_state{text-align: center;margin: 30rpx 0}
+.cal_state view{display: inline-block;margin: 0 20rpx}
+.cal_state text{display: inline-block;width: 15rpx;height: 15rpx;border-radius: 15rpx;vertical-align: middle;margin-right: 20rpx;position: relative;top:-3rpx}
+.cal_state text.tcol1{background-color: #fc9b4c}
+.cal_state text.tcol2{background-color: #ffca3e}
+.cal_state text.tcol3{background-color: #cccccc}
+
+.clear{ clear:both} 
+
+/* 日历 */
+.calendar{background: #fff;border-bottom-right-radius: 20rpx;border-bottom-left-radius: 20rpx;font-family: FZZhunYuan-M02S;border-radius: 6px;margin-top: 20rpx}
+.oct{display: flex;box-sizing: border-box;margin-top: 35rpx}
+.oct view{text-align: center}
+.oct .oct_lt{width: 200rpx;}
+.oct .oct_time{flex-grow:1;color: #333333;font-size: 34rpx}
+
+.header{font-size: 0;width: 630rpx;margin: 0 auto;}
+.header>view{display: inline-block;width: 90rpx;height:90rpx;line-height: 90rpx; color: #666;font-size: 30rpx;text-align: center;}
+.date-box{width: 630rpx;margin: 0 auto;}
+.date-box>view{position: relative;display: inline-block;width: 90rpx;height:90rpx;text-align: center;margin: 10rpx 0}
+.date-head{height: 90rpx;font-size: 26rpx;}
+.date-head view:first-of-type{margin-top:10rpx;color: #333333;font-weight: bold}
+.date-head view:last-of-type{color: #8c8c8c;font-size: 25rpx}
+.daystate1 .date-head view:first-of-type,.daystate1 .date-head view:last-of-type{color: #999999}
+.daystate1.houseusestate2 .date-head,.daystate1.houseusestate1 .date-head,.daystate1.houseusestate11 .date-head,.daystate2.houseusestate4 .date-head{background-color: #cccccc;}
+.daystate1.houseusestate2 .date-head view,.daystate1.houseusestate1 .date-head view,.daystate1.houseusestate11 .date-head view,.daystate2.houseusestate4 .date-head view{color: #fff;}
+.daystate2.houseusestate1 .date-head{background-color: #fc9b4c;}
+.daystate2.houseusestate2 .date-head{background-color: #ffca3e;}
+.daystate2.hovers .date-head{background-color: #ff6000;}
+.daystate2.houseusestate1 .date-head view,.daystate2.houseusestate2 .date-head view,.daystate2.hovers .date-head view{color: #fff;}
+.nowtext{display: none}
+.nowDay .nowtext{display: block;position: absolute;right: 5rpx;top:5rpx; width: 13rpx;height: 13rpx;border-radius: 13rpx;background-color: #07f707}
+
+
+
+

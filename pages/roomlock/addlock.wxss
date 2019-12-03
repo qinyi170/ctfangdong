@@ -1,0 +1,13 @@
+@import "../user/bindphone";
+.cont{padding: 100rpx 0;font-size: 28rpx;color: #8c8c8c}
+.cont view{margin-bottom: 50rpx}
+.cont view:first-of-type{font-size: 30rpx;color: #333333}
+.cont view:last-of-type{margin-top: 100rpx;}
+.cont image{width: 425rpx;height: 350rpx;}
+.cont button{width: 680rpx;}
+
+.cont_list{background-color: #f7f7f7;padding: 0 20rpx;font-size: 30rpx;margin-top: 15rpx;}
+.cont_list>view{border-bottom:1px solid #fff;display: flex;justify-content:space-between;align-items:center;padding: 40rpx 0}
+.cont_list>view>view{width: 50%;}
+.cont_list>view>view:last-of-type{text-align: right}
+.cont_list image{width: 40rpx;height: 40rpx;margin-right: 10rpx;vertical-align: text-top}

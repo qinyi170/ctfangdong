@@ -1,0 +1,14 @@
+<view class="createroom discontainer">
+  <view>
+      <input type="number" bindinput='getphone' bindblur='getphone' placeholder='请输入手机号' placeholder-class='inputplaceholder'></input>
+  </view>
+  <view>
+      <input bindinput='getcode' bindblur='getcode' disabled='{{codedisabled}}' placeholder='请输入验证码' placeholder-class='inputplaceholder'></input>
+      <text class="getphonecode" bindtap='getphonecode' wx:if="{{condeindex==1}}">{{codevalue}}</text>
+      <text class="getphonecode" wx:if="{{condeindex==2}}">{{codevalue}}</text>
+  </view>
+  <view>
+      <input type='password' bindinput='getpass' bindblur='getpass' placeholder='请设置密码' placeholder-class='inputplaceholder'></input>
+  </view>
+  <button class="button1_1" bindtap='saveform' disabled='{{codedisabled}}'>确定</button>
+</view>

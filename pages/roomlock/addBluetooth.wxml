@@ -1,0 +1,25 @@
+<view class="container cont" wx:if="{{seachstate==1}}">
+  <view>摸亮触摸屏</view>
+  <view>
+    <image src="../images/lock_1.jpg"></image>
+  </view>
+  <view>摸亮触摸屏，锁进入可添加状态，点击下一步</view>
+  <view>
+    <button class="button1_1" bindtap="gosearchlock">下一步</button>
+  </view>
+</view>
+<view class="cont_list" wx:if="{{seachstate==2}}">
+  <view wx:for="{{devices}}" wx:for-item="item" wx:for-index="index" wx:key="id">
+    <view bindtap="addlock" data-lockname="{{item.name}}" data-deviceid="{{item.deviceId}}" style="height: 121rpx;display: flex;">
+      <text style="align-self: center;">{{item.name}}</text>
+    </view>
+    <view>
+      <image src="../images/2019.9.3/lock_3.png"></image>
+    </view>
+  </view>
+</view>
+<view>
+  <modal wx:if="{{modalHidden == 1}}" confirm-text="确定" cancel-text="取消" bindconfirm="confirm" bindcancel="cancel">
+    <input bindinput="adminPwdInput" name="adminPwd" class="fixeright" placeholder-class="phcolor" placeholder='请设置锁管理员密码'></input>
+  </modal>
+</view>

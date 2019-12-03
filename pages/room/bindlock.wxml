@@ -1,0 +1,172 @@
+<view wx:if="{{addandedit==0}}" class="createroom posi">
+  <view bindtap='openlockbrandmodal'>
+    <text>门锁品牌</text>
+    <view class="fixeright fimg"></view>
+    <text class="fixeright finput">{{lock_brand}}</text>
+  </view>
+  <!-- ---------------------科技侠公寓锁、蓝牙锁 开始----------------------------- -->
+  <button wx:if="{{locktitle==1 || locktitle==12}}" data-locktitle="{{locktitle}}" class="button1_1" bindtap='gobindlock'>下一步</button>
+  <!-- ---------------------科技侠公寓锁、蓝牙锁 结束----------------------------- -->
+
+  <!-- ---------------------密码锁 开始----------------------------- -->
+  <view wx:if="{{locktitle==8}}" bindtap='openlockversionmodal'>
+    <text>门锁型号</text>
+    <view class="fixeright fimg"></view>
+    <text class="fixeright finput">{{lock_version}}</text>
+  </view>
+  <view wx:if="{{locktitle==8}}">
+    <text>门锁显示方式</text>
+    <radio-group class="radio-group" bindchange="radioChange" name="">
+      <label wx:for="{{locktypearray.type_list}}" class="radio">
+        <radio value="{{item.value}}" checked="{{item.value==locktypearray.lock_type_default}}" /> {{item.name}}
+      </label>
+    </radio-group>
+  </view>
+  <!-- ---------------------密码锁 结束----------------------------- -->
+
+  <!-- ---------------------漫行 开始----------------------------- -->
+    <view wx:if="{{locktitle==10}}">
+    <text>门锁显示方式</text>
+    <radio-group class="radio-group" bindchange="radioChange" name="locktype">
+      <label class="radio">
+        <radio value="0100" checked="true" /> 身份证锁
+      </label>
+      <label class="radio">
+        <radio value="0200"/> 密码锁
+      </label>
+    </radio-group>
+  </view>
+  <view wx:if="{{locktitle==10}}" bindtap="scanCodeGateway">
+    <text>网关编号</text>
+    <text class="fixeright finput" style="margin-right: 20px;">{{gateway}}</text>
+    <image src="../images/2019.9.3/scan.png" style="right:{{right}}"></image>
+  </view>
+  <view wx:if="{{locktitle==10}}" bindtap="scanCodeLock">
+    <text>门锁编号</text>
+    <text class="fixeright finput" style="margin-right: 20px;">{{lockname}}</text>
+    <image src="../images/2019.9.3/scan.png" style="right:{{right}}"></image>
+  </view>
+  <!-- ---------------------漫行 结束----------------------------- -->
+
+  <!-- ---------------------四通猫眼 开始----------------------------- -->
+  <view wx:if="{{locktitle==11}}" bindtap="scanCodeGateway">
+    <text>网关编号</text>
+    <text class="fixeright finput" style="margin-right: 20px;">{{gateway}}</text>
+    <image src="../images/2019.9.3/scan.png" style="right:{{right}}"></image>
+  </view>
+  <view wx:if="{{locktitle==11}}" bindtap="scanCodeLock">
+    <text>门锁编号</text>
+    <text class="fixeright finput" style="margin-right: 20px;">{{lockname}}</text>
+    <image src="../images/2019.9.3/scan.png" style="right:{{right}}"></image>
+  </view>
+  <view wx:if="{{locktitle==11}}" bindtap="scanCodeCamera">
+    <text>摄像头编号</text>
+    <text class="fixeright finput" style="margin-right: 20px;">{{camera}}</text>
+    <image src="../images/2019.9.3/scan.png" style="right:{{right}}"></image>
+  </view>
+  <!-- ---------------------四通猫眼 结束----------------------------- -->
+
+  <!-- ---------------------四通蓝牙 开始----------------------------- -->
+  <!-- ---------------------四通蓝牙 结束----------------------------- -->
+
+  <button wx:if="{{locktitle!=1 && locktitle!=12}}" class="button1_1" bindtap='saverooms'>确定</button>
+
+
+  <!-- 
+  <view wx:if="{{locktitle==1}}" bindtap='openlockversionmodal'>
+    <text>门锁型号</text>
+    <view class="fixeright fimg"></view>
+    <text class="fixeright finput">{{lock_version}}</text>
+  </view>
+  <view wx:if="{{locktitle==1}}">
+    <text>门锁显示方式</text>
+    <radio-group class="radio-group" bindchange="radioChange" name="">
+      <label wx:for="{{locktypearray.type_list}}" class="radio">
+        <radio value="{{item.value}}" checked="{{item.value==locktypearray.lock_type_default}}" /> {{item.name}}
+      </label>
+    </radio-group>
+  </view>
+  <block wx:if="{{locktitle==1}}">
+    <view wx:if="{{lock_brand!='密码锁' && lock_version!='密码'}}">
+      <text>门锁编码</text>
+      <input class="fixeright finput" bindinput='getroomlockid' bindblur='getroomlockid' value='{{lock_name}}'></input>
+    </view>
+  </block> 
+  -->
+  <!-- <button wx:if="{{locktitle!=3}}" class="button1_1" bindtap='saverooms'>确定</button> -->
+  <!-- <button wx:if="{{locktitle==3}}" class="button1_1" bindtap='gobindlock'>下一步</button> -->
+</view>
+
+
+<view wx:if="{{addandedit==1}}" class="createroom posi">
+  <view>
+    <text>门锁品牌</text>
+    <text class="fixeright finput">{{lock_brand}}</text>
+  </view>
+  <view wx:if="{{locktitle==10 || locktitle==11}}">
+    <text>网关编号</text>
+    <input class="fixeright finput" bindinput='getroomlockid' bindblur='getroomlockid' value='{{gateway}}' disabled></input>
+  </view>
+  <view wx:if="{{locktitle!=8 && locktitle!=9 }}">
+    <text>门锁编码</text>
+    <input class="fixeright finput" bindinput='getroomlockid' bindblur='getroomlockid' value='{{lock_name}}' disabled></input>
+  </view>
+  <view wx:if="{{locktitle==11}}">
+    <text>摄像头编号</text>
+    <input class="fixeright finput" bindinput='getroomlockid' bindblur='getroomlockid' value='{{camera}}' disabled></input>
+  </view>
+  <view wx:if="{{locktitle!=9}}">
+    <text>门锁显示方式</text>
+    <radio-group class="radio-group" bindchange="radioChange" name="">
+      <label wx:for="{{locktypearray.type_list}}" class="radio">
+        <radio value="{{item.value}}" checked="{{item.value==locktypearray.lock_type_default}}" /> {{item.name}}
+      </label>
+    </radio-group>
+  </view>
+  <view wx:if="{{locktitle!=9}}">
+    <text>门锁型号</text>
+    <text class="fixeright finput">{{lock_version}}</text>
+  </view>
+  <button class="button1_1" bindtap='saverooms'>确定</button>
+  <view class="Twobindlock" bindtap='Twobindlock'>重新绑定</view>
+</view>
+
+
+<view wx:if="{{medalstate==2}}" class="medalbcg"></view>
+<view wx:if="{{medalstate==2}}" class="medalcon mwidth1">
+  <text class="medalclose" bindtap='closemodal'>×</text>
+  <view class="medaltitle">门锁品牌</view>
+  <view class="medallist">
+    <view 
+      wx:for="{{lockbrandarray}}"
+      wx:for-item="item"
+      wx:for-index="index"
+      data-lockid='{{item.lock_id}}'
+      data-lockbrand='{{item.lock_brand}}'
+      data-biztype='{{item.biz_type}}'
+      data-lockversion='{{item.lock_version}}'
+      data-locktype='{{item.lock_type_default}}'
+      bindtap='choselockbrandmodal'
+      class="medalconce">
+      <text>{{item.lock_brand}}</text>
+    </view>
+  </view>
+</view>
+
+<view wx:if="{{medalstate==3}}" class="medalbcg"></view>
+<view wx:if="{{medalstate==3}}" class="medalcon mwidth1">
+  <text class="medalclose" bindtap='closemodal'>×</text>
+  <view class="medaltitle">门锁型号</view>
+  <view class="medallist">
+    <view
+      wx:for="{{lockversionarray}}"
+      wx:for-item="item"
+      wx:for-index="index"
+      data-lockid='{{item.lock_id}}'
+      data-lockversion='{{item.lock_version}}'
+      bindtap='choselockversionmodal'
+      class="medalconce">
+      <text>{{item.lock_version}}</text>
+    </view>
+  </view>
+</view>

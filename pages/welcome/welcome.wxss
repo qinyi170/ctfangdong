@@ -1,0 +1,6 @@
+.imgwidth{width: 100%;display: block}
+.viewlogo{position: fixed;left: 50%;top:20%;margin-left: -175rpx;width: 350rpx;height: 350rpx;background-color: #b5b8b7;border-radius: 350rpx;opacity: 0.9}
+.viewlogo view{font-size: 34rpx;color: #333333;text-align: center}
+.viewlogo image{width: 149rpx;height: 149rpx;margin-top: 90rpx;margin-bottom: 10rpx;}
+button.btnwidth{position: fixed;width: 700rpx;left: 50%;bottom:20%; margin-left: -350rpx;background: #fff;color: #fc9b4c}
+button.buttonhouer{background: #fc9b4c;color: #fff}

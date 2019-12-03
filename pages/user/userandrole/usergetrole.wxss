@@ -1,0 +1,13 @@
+@import "../../calendar/index";
+@import "../userandrole";
+page{background-color: #f7f7f7}
+.con_user>view{height: auto;padding-bottom: 25rpx;}
+.con_user>view>view{padding: 0 20rpx}
+.scrollview{margin-bottom: 100rpx;background-color: #fff;padding-top: 0;margin-top: 20rpx;}
+.scrollview view.oview{border-radius: 0;margin:0}
+.scrollview view.oview:last-of-type view.viewrt{border-bottom: 0}
+view.viewlt{width: 60rpx;height: 60rpx;border-radius: 0}
+view.viewlt checkbox{transform: scale(0.7,0.7);}
+view.viewrt{margin-left: 6rpx;height: 75rpx;line-height: 55rpx;border-bottom: 1rpx solid #eeeeee;}
+.con_image1{width: 150rpx;height: 203rpx;margin-top:20px;margin-bottom:10rpx;}
+button.abtn{width:650rpx;position:fixed;bottom:30rpx;left:50rpx;z-index: 1000}

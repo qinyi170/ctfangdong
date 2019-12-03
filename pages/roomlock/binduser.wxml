@@ -1,0 +1,16 @@
+<view class='createtitle'>
+  科技侠品牌门锁
+</view>
+<view class="createroom discontainer">
+  <view>
+      <input bindinput='getusername' bindblur='getusername' placeholder='请输入门锁帐号' placeholder-class='inputplaceholder'></input>
+  </view>
+  <view>
+      <input type='password' bindinput='getuserpass' bindblur='getuserpass' placeholder='请输入门锁密码' placeholder-class='inputplaceholder'></input>
+  </view>
+  <button class="button1_1" bindtap='gosrarchlock'>确定</button>
+  <view class='bombindtap'>
+    <text bindtap='goupdatepwd'>忘记密码</text>
+    <text bindtap='goregisteruser'>注册</text>
+  </view>
+</view>

@@ -1,0 +1,8 @@
+@import "../../calendar/index";
+page{background-color: #fff}
+.sbtn view input{width: 600rpx;}
+.scrollview{padding-bottom: 100rpx;}
+.scrollview view.oview{border-bottom: 1rpx solid #eeeeee;margin: 0;padding: 30rpx 40rpx;border-radius: 0}
+.scrollview view.oview:last-of-type{border-bottom: 0}
+button.abtn{width:650rpx;position:fixed;bottom:30rpx;left:50rpx;z-index: 1000}
+.scrollview view.hoverview{background-color: #f2f2f2}

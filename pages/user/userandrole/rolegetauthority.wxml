@@ -1,0 +1,13 @@
+
+<scroll-view class="scrollview" scroll-y="true" style="{{scrollheight}}">
+  <view class='con_title'>请为当前角色分配具体的功能权限，查看权限可对相应功能进行查看，修改权限可对功能进行修改。</view>
+  <view class="boxview" wx:for="{{allDataList}}" wx:for-item="item" wx:for-index="index" wx:key="a">
+    <view class="t">{{item.fu.name}}</view>
+    <view class="b">
+      <view wx:for="{{item.zi}}" wx:for-item="itemb" wx:for-index="index1" wx:key="b">
+        {{itemb.name}}<switch data-pindex="{{index}}" data-index="{{index1}}" bindtap='switchtap' checked='{{itemb.isChoose==1}}' bindchange="switchChange"/>
+      </view>
+    </view>
+  </view>
+</scroll-view>
+<button class='button1_1 abtn' bindtap='saverole'>保存</button>

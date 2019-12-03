@@ -1,0 +1,10 @@
+<view class="con_user">
+  <view bindtap='goRoleAdmin' hover-class='viewbcg'>
+    <image class='con_image1' src='../images/2019.9.3/user_1.jpg'></image>
+    <view>角色管理</view>
+  </view>
+  <view bindtap='goUserAdmin' hover-class='viewbcg'>
+    <image class='con_image2' src='../images/2019.9.3/user_2.jpg'></image>
+    <view>子账号管理</view>
+  </view>
+</view>

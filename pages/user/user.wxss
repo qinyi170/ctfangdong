@@ -1,0 +1,24 @@
+page{background-color: #f7f7f7}
+.userbcg{background-color: #f5c343;padding: 20rpx 40rpx;display: flex;justify-content:space-between;align-items:center}
+.userbcg view.userlt>view:first-of-type{float: left;margin-right: 15rpx;}
+.userbcg view.userlt>view:last-of-type{margin-top: 15rpx;}
+.userbcg view.userlt>view:last-of-type view{font-size: 26rpx;color: #fff}
+.luser{display: block; width: 122rpx;height: 122rpx;border-radius: 50%;overflow:hidden;border: 2px solid #fff;}
+.ruser{font-size: 32rpx;color: #fff;}
+.userbcg view.userrt{font-size: 30rpx;color: #fff;padding: 25rpx 0}
+.userbcg view.userrt image{width: 25rpx;height: 20rpx;margin-right: 10rpx;}
+
+.tablist{background-color: #fff;margin-top: 20rpx}
+.tablist view{font-size: 32rpx;border-top: 1rpx solid #e1e1e1;padding: 40rpx 50rpx}
+.tablist view:first-child{border-top:none}
+.tablist view image{width: 35rpx;height: 38rpx;vertical-align: sub;margin-right: 15rpx;}
+.tablist view.viewbutton{padding-top: 1rpx;padding-bottom: 0;}
+.tablist view.viewbutton button{background-color: #fff;line-height: 0;font-size: 32rpx;text-align: left;padding: 40rpx 0;}
+.tablist view.viewbutton button::after{border:none}
+.tablist view text{float: right;color: #666666;font-size: 30rpx;}
+.tablist view text.is_check_0{color: #71dd4b}
+.tablist view text.is_check_1{color: #666666}
+.tablist view text.is_check_2{color: #fc7a0c}
+.tablist view text.is_check_3{color: #ee3f3f}
+.tablist view text.text1{color:#666}
+.viewphone{margin-top:20rpx;font-size: 28rpx;}

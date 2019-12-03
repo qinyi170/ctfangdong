@@ -1,0 +1,3 @@
+@import "../order/ordermsg";
+.roomimg{display: flex;justify-content:space-between}
+.roomimg image{width: 100rpx;height: 100rpx;border-radius: 6px;margin-left: 5rpx;}

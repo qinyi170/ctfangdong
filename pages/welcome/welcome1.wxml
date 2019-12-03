@@ -1,0 +1,5 @@
+<image class="imgwidth" src='../images/welcome.jpg' style="{{scrollheight}}"></image>
+<view class="viewlogo">
+  <view><image src='../images/welcomelogo.png'></image></view>
+  <view>网约房登记</view>
+</view>

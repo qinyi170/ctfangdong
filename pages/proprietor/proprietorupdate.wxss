@@ -1,0 +1,11 @@
+@import "../room/roomupdate";
+.chooseproprietor{text-align: center;padding:20rpx 0}
+.chooseproprietor text{display: inline-block;width: 200rpx;height: 60rpx;line-height: 60rpx;text-align: center;background-color: #b5b5b5;font-size: 30rpx;margin:0 45rpx;border-radius: 56rpx;color: #fff}
+.chooseproprietor text.hovers{background-color: #f5c343}
+
+.createroom1{margin-bottom: 135rpx;position: relative;z-index: 100}
+.createroom1>view>view[hidden]{display: none}
+.createroom1>view>view:last-of-type {padding:30rpx;}
+.createroom1 button{width:650rpx;position:fixed;bottom:30rpx;left:50rpx;z-index: 110}
+
+.fixeright1{color: #cfcccc;}

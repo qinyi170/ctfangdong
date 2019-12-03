@@ -1,0 +1,21 @@
+.add{
+    display: inline-block;
+    line-height: 30px;
+    padding: 0 12px;
+    background: skyblue;
+}
+.box{
+    margin-top: 10px;
+    clear: both;
+    overflow: hidden;
+    padding: 0 15px;
+}
+.b-ipt{
+    overflow: hidden;
+    border: 1px solid #ccc;
+}
+.del{
+    width: 40px;
+    float: right;
+    margin-left: 10px;
+}

@@ -1,0 +1,37 @@
+<!-- <view class="createroom">
+<form bindsubmit='bindOperate'>
+	<view style="height:60px;" >
+  	<text class='login-title'>绑定科技侠用户</text>
+		<view class="fixeright fimg"></view>
+	</view>
+  <view style="height:40px;" >
+		<input type = 'text' name = 'net_house_id' value='{{net_house_id}}' hidden='true'></input>
+	 </view>
+	<view style="height:40px;">
+		<text>请输入用户名</text>
+		<view class="fixeright fimg"></view>
+  	<input type='text' name='userName' placeholder="请输入用户名" class="fixeright finput" style="height:40px;" ></input>
+	</view>
+	<view style="height:40px;">
+		<text>请输入账号密码</text>
+		<view class="fixeright fimg"></view>
+  	<input type='password' name='password' placeholder="请输入账号密码" class="fixeright finput" style="height:40px;" ></input>
+	</view>
+  <view class='ligin-button'>
+    <button formType="submit" type='primary'>确定</button>
+  </view>
+</form>
+</view>
+ -->
+<view class="container phonecon">
+  <view class="top_title">绑定科技侠用户</view>
+  <view>
+    <input bindinput='getUserName' bindblur='getUserName' value='{{userName}}' type='text' placeholder='请输入用户名'></input>
+  </view>
+  <view>
+    <input bindinput='getPassword' bindblur='getPassword' value='{{password}}' type='password' placeholder='请输入密码'></input>
+  </view>
+  <view>
+    <button class="button1_1" bindtap="loginBtnClick">确定</button>
+  </view>
+</view>

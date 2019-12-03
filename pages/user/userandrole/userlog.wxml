@@ -1,0 +1,17 @@
+<view wx:if="{{allDataList.length==0}}" class='alog'>
+  <image src='../../images/2019.9.3/nobody.png'></image>
+  <view>暂时没有相关信息</view>
+</view>
+<view wx:if="{{allDataList.length!=0}}" class='con_con'>
+  <view class='con_list' wx:for="{{allDataList}}" wx:for-item="item"  wx:key="a">
+    <view class='con_lt'>
+      <view class='con_1'></view>
+      <view class='con_2'></view>
+    </view>
+    <view class="con_rt">
+      <view>{{item.time}}</view>
+      <view>{{item.operation}}</view>
+    </view>
+  </view>
+</view>
+

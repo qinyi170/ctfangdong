@@ -1,0 +1,6 @@
+<map id="myMap" show-location class="maps" bindregionchange="bindregionchange">
+  <cover-image class='tip-bg' src='../images/icons.png'></cover-image>
+</map>
+<button type='button' bindtap='openLocation'>查看</button>
+<button type='button' bindtap='getLocation'>获取</button>
+<button type='button' bindtap='chooseLocation'>定位</button>

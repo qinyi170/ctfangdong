@@ -1,0 +1,43 @@
+@import "../order/ordercreate";
+.viewnav{height: 120rpx;background-color: #ffca3e;color: #fff;padding-top: 60rpx;}
+.viewback{float:left; height: 45px;width: 40px;line-height: 50px;text-align: center;vertical-align:middle;border-radius: 0;background: none;}
+.viewback::after{border:none;}
+.viewback image{height: 19px;width: 10px;}
+.viewbackhover{background-color: #e5e5e5;color: #fff}
+.viewnav text{font-size: 18px;height: 45px;line-height: 43px;text-align: center;display: inline-block}
+
+.createroom1>view{overflow-y: auto}
+.createroom1>view>view{display: flex;align-items:center;justify-content:space-between; padding: 30rpx 30rpx;border-bottom: 1px solid #e8e8e8;background-color: #fff}
+.createroom1>view>view[hidden]{display: none}
+.createroom1>view>view:last-of-type{padding:0}
+.createroom1>view>view>text:first-of-type{margin-right: 20rpx;}
+.createroom1>view>view>input,.createroom1>view>view>view,.createroom1>view>view>picker{flex-grow:1}
+.createroom1 text,.createroom1 input{font-size: 30rpx;}
+.createroom1 input::placeholder{font-size: 30rpx;color: #f2f2f2}
+.phcolor{color: #cfcccc;text-align: right}
+
+.roomimg1>text{width: 140rpx}
+.roomimg1 view.fixeright{color:#555555;font-size: 30rpx;width: 470rpx}
+.roomimg1 view.fixeright image{width: 24rpx;height: 29rpx;vertical-align:middle;margin-right: 5rpx;}
+.roomimg1 view.fixeright text{margin-left: 5rpx;}
+.pickers{text-align: right;font-size: 30rpx;color: #555555}
+
+.roomimages>text{width: 150rpx}
+.roomimages>view{float:right;width: 480rpx;display: flex;flex-direction: row;flex-wrap:wrap;}
+.roomimages>view view{width: 150rpx;text-align: center;margin-top: 10rpx;position: relative;margin-left: 10rpx}
+.roomimages>view view image{width: 150rpx;height: 150rpx;display: block}
+.addimages{height: 150rpx;background-color: #e5e5e5;text-align: center}
+.addimages text{display: inline-block; color: #fff;font-size: 80rpx;line-height: 140rpx}
+.addimgtitle{height: 150rpx;line-height: 150rpx;text-align: right;font-size: 30rpx;color: #c0bdbd;}
+.deleteimg text{position: absolute;top:3rpx;right: 0rpx;width: 40rpx;height: 40rpx;background-color: red;color: #fff;line-height: 35rpx;font-weight: bold;border-radius: 40rpx;}
+
+.formview2 input{float: left;text-align: right}
+
+.createroom1>view>view.buttoncroom{position: fixed;bottom:20rpx;left: 0;width: 100%;margin: 0;padding: 0;background-color: #f6f6f6;border-bottom: 0}
+.buttoncroom button::after{border:0}
+.buttoncroom .btnroom{width: 690rpx;}
+.buttoncroom .btnrooma{width: 220rpx;opacity: 0.7}
+.buttoncroom .btnroomb{width: 440rpx;}
+.createroom1>view>view.moreview{border-bottom: 0}
+.moreview>view>view{color: #fd8238;text-align: center;font-size: 30rpx;}
+.moreview>view>view image{width: 25rpx;height: 14rpx;}

@@ -1,0 +1,16 @@
+@import "../../calendar/index";
+page{background-color: #f7f7f7}
+.con_title{width: 650rpx;margin: 0 auto 20rpx auto;font-size: 28rpx;color: #a5a5a5;}
+.scrollview{padding-bottom: 100rpx;}
+.boxview{background-color: #fff;color: #333;font-size: 30rpx;margin-bottom: 20rpx;}
+.boxview .t{padding:20rpx 35rpx;border-bottom: 1rpx solid #dddddd;font-weight: bold}
+.boxview .b{margin:0 45rpx;}
+.boxview .b view{padding:20rpx 0;border-bottom: 1rpx solid #dddddd;}
+.boxview .b view switch{zoom:.6;float: right}
+.boxview .b view:last-of-type{border-bottom: 0}
+
+
+button.abtn{width:650rpx;position:fixed;bottom:30rpx;left:50rpx;z-index: 1000}
+
+
+

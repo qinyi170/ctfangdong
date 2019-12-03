@@ -1,0 +1,36 @@
+<view class="userbcg">
+  <view class='userlt'>
+    <view>
+      <open-data class="luser" type="userAvatarUrl"></open-data>
+    </view>
+    <view>
+      <open-data class="ruser" type="userNickName" lang="zh_CN"></open-data>
+      <view>{{user_phone}}</view>
+    </view>
+  </view>
+  <view class='userrt' bindtap='changeuser'>
+    <image src='../images/2019.9.3/user_4.png'></image>切换账号
+  </view>
+</view>
+<view class="tablist">
+  <view bindtap='gorecord'>
+    <image src='../images/icon1.png'></image>经营者信息登记
+  </view>
+  <view bindtap='usersystem'>
+    <image src='../images/icon2.png'></image>子账号与角色
+  </view>
+  <view bindtap='locksystem'>
+    <image src='../images/icon3.png'></image>门锁管理
+  </view>
+  <!-- <view bindtap='updatephone'>
+    <image src='../images/icon6.png'></image>手机号码
+    <text class="text1"></text>
+  </view> -->
+  <view bindtap='phonecallevent'>
+    <image src='../images/icon6.png'></image>联系客服
+  </view>
+  <!-- <view class="viewbutton">
+    <button open-type='openSetting'><image src='../images/icon5.png'></image>授权设置</button>
+  </view> -->
+</view>
+

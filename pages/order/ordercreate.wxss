@@ -1,0 +1,42 @@
+page{background-color: #f6f6f6}
+.formview{padding: 30rpx 50rpx;background-color: #fff;margin: 20rpx 0;font-size: 34rpx;color: #333333}
+.fixeright{float:right;color: #555555;text-align: right}
+.inputplaceholder,.housenamestate{font-size: 32rpx;color: #999}
+.formviewbom{margin-bottom: 130rpx}
+.usedate{display: flex;flex-direction: row;flex-wrap:wrap;}
+.usedatestart{width: 275rpx;color: #333333;text-align: center}
+.usedatestart view{font-size: 24rpx;color: #cfcfcf;margin-top: 10rpx}
+.userdatedays{width: 80rpx;font-size: 24rpx;padding-top: 20rpx;text-align: center}
+.peoples>view{float:right}
+.peoples>view .minuspeople,.peoples>view .addpeople{display: inline-block;padding:0 30rpx;font-size: 36rpx}
+.peoples>view .addpeople{margin-right: -30rpx;}
+.peoplemsg{font-size: 30rpx}
+.peoplemsg .deletepmsg{width: 38rpx;height: 39rpx;float: right}
+.peoplemsg>view{margin-top: 30rpx;border-bottom: 1px solid #e8e8e8;padding-bottom: 20rpx;}
+.peoplemsg>view:last-of-type{border-bottom:none}
+.peoplemsg>view text,.peoplemsg>view input{font-size: 30rpx;}
+.peoplemsg>view input{width: 400rpx;}
+
+.bottombtn{position: fixed; bottom: 25rpx;width: 650rpx;margin-left: 50rpx;z-index: 20}
+
+
+
+
+.createroom{width: 630rpx;margin: 0 auto}
+.createroom>view{margin: 30rpx 0;padding-bottom: 20rpx;border-bottom: 1px solid #e8e8e8}
+.createroom text,.createroom input{font-size: 32rpx;}
+.createroom input{color: #333333}
+
+
+
+.mwidth1{width: 700rpx;height: 900rpx;margin-top:-450rpx;margin-left:-350rpx;}
+.mwidth1 .medaltitle{height: 65rpx;padding-left: 30rpx;padding-top: 15rpx;border-bottom: 1px solid #e8e8e8;font-size: 32rpx;margin-top:0}
+.mwidth1 .medallist{height: 820rpx;overflow-y: auto}
+.mwidth1 .medalconce{padding: 20rpx 30rpx;border-bottom: 1px solid #e8e8e8;width: 640rpx;}
+.mwidth1 .medalconce text{font-size: 30rpx}
+
+.mwidth2 .medaltitle{font-size: 34rpx;margin-top:20rpx;}
+.mwidth2 .medalimage{margin-top:0}
+.mwidth2 .medalimage image {width:340rpx;height:340rpx;}
+.mwidth2 .medalbtn{width: 560rpx;margin-top:0}
+.mwidth2 .medalbtn button{width: 250rpx;display: inline-block;margin: 0 15rpx;}

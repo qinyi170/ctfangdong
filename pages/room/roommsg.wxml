@@ -1,0 +1,89 @@
+<view class="viewcon">
+  <view class='view3 view_width1'>
+    <view class="formview">
+      <text>审核状态</text>
+      <text wx:if="{{roomInfo.is_check=='0'}}">已审核</text>
+      <text wx:if="{{roomInfo.is_check=='1'}}">未审核</text>
+      <text wx:if="{{roomInfo.is_check=='2'}}">审核中</text>
+      <text wx:if="{{roomInfo.is_check=='3'}}">审核未通过</text>
+      <text wx:if="{{roomInfo.is_check=='9'}}">无需审核</text>
+    </view>
+  </view>
+  <view class='view3 view_width1'>
+    <view>
+      <text>网约房名称</text>
+      <text>{{roomInfo.net_house_name}}</text>
+    </view>
+    <view>
+      <text>网约房地址</text>
+      <text>{{roomInfo.net_house_provinces}}-{{roomInfo.net_house_addr_name}}</text>
+    </view>
+    <view>
+      <text>门牌号</text>
+      <text>{{roomInfo.net_house_addr}}</text>
+    </view>
+    <view wx:if="{{roomInfo.net_house_addr_id!=''}}">
+      <text>地址编码</text>
+      <text>{{roomInfo.net_house_addr_id}}</text>
+    </view>
+  </view>
+  <view class='view3 view_width1'>
+    <view>
+      <text>房屋间数</text>
+      <text>{{roomInfo.house_num}}间</text>
+    </view>
+    <view>
+      <text>房屋面积</text>
+      <text>{{roomInfo.house_acreage}}平方米</text>
+    </view>
+    <view>
+      <text>房屋来源</text>
+      <text wx:if="{{roomInfo.house_source==1}}">转租</text>
+      <text wx:if="{{roomInfo.house_source==2}}">自营</text>
+    </view>
+    <view>
+      <text>出租类型</text>
+      <text wx:if="{{roomInfo.house_rentout_type==1}}">整租</text>
+      <text wx:if="{{roomInfo.house_rentout_type==2}}">分租</text>
+      <text wx:if="{{roomInfo.house_rentout_type==9}}">其他</text>
+    </view>
+    <view>
+      <text>房屋类型</text>
+      <text>{{roomInfo.house_type}}</text>
+    </view>
+    <view>
+      <text>床位数</text>
+      <text>{{roomInfo.house_bed_num}}个</text>
+    </view>
+    <view class="roomimg">
+      <text>房屋图片</text>
+      <view>
+        <image bindtap="previewImage" wx:for="{{roomInfo.house_photo}}" wx:for-item="item" src='data:image/png;base64,{{item.house_photo}}' data-src='{{item.house_photo}}' wx:key="a" mode='aspectFill'></image>
+      </view>
+    </view>
+  </view>
+  <view class='view3 view_width1'>
+    <view>
+      <text>创建时间</text>
+      <text>{{roomInfo.register_date}}</text>
+    </view>
+    <view wx:if="{{roomInfo.start_date!=''}}">
+      <text>审核时间</text>
+      <text>{{roomInfo.start_date}}</text>
+    </view>
+    <view wx:if="{{roomInfo.stop_date!=''}}">
+      <text>有效日期</text>
+      <text>{{tiems}}</text>
+    </view>
+  </view>
+</view>
+<view class='group_btn statetwo' wx:if="{{roomInfo.is_check=='0' || roomInfo.is_check=='9'}}">
+  <button type="button" class="button1_1" bindtap='deleteroom'>删除</button>
+  <button type="button" class="button1_1" data-ischeck="{{roomInfo.is_check}}" bindtap='updateroom'>编辑</button>
+</view>
+<view class='group_btn statewait' wx:if="{{roomInfo.is_check=='1' || roomInfo.is_check=='3'}}">
+  <button type="button" class="button1_1" bindtap='deleteroom'>删除</button>
+  <button type="button" class="button1_1" data-ischeck="{{roomInfo.is_check}}" bindtap='updateroom'>编辑</button>
+  <button type="button" class="button1_1" bindtap='auditingroom' data-cid="0" wx:if="{{roomInfo.is_check=='1'}}">审核</button>
+  <button type="button" class="button1_1" bindtap='auditingroom' data-cid="1" wx:if="{{roomInfo.is_check=='3'}}">重新审核</button>
+</view>

@@ -1,0 +1,3 @@
+@import "../../proprietor/proprietormsg";
+.createroom1:first-of-type{margin-top:20rpx}
+button.abtn{width:650rpx;position:fixed;bottom:30rpx;left:50rpx;z-index: 1000}

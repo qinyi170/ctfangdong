@@ -1,0 +1,13 @@
+@import "../../calendar/index";
+page{background-color: #fff}
+.sbtn view input{width: 600rpx}
+.scrollview{padding-bottom: 100rpx;}
+.scrollview view.oview{padding-top: 0;margin: 0;padding: 15rpx 40rpx;border-radius: 0}
+.scrollview view.hoverview{background-color: #f2f2f2}
+view.viewlt{width: 90rpx;height: 90rpx;line-height: 90rpx;border-radius: 90rpx;background-color: #f5dc9d;color: #fff;text-align: center}
+view.viewrt{margin-left: 110rpx;height: 100rpx;line-height: 90rpx;border-bottom: 1rpx solid #eeeeee;}
+view.viewrt .view1{float: left}
+view.viewrt .view9.is_bypass2{color: #eb0303}
+view.viewrt .view9.is_bypass1{color: #11b400}
+view.viewrt .view9.is_bypass0{color: #707070}
+button.abtn{width:650rpx;position:fixed;bottom:30rpx;left:50rpx;z-index: 1000}

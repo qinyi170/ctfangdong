@@ -1,0 +1,37 @@
+<view class="searchbtn sbtn">
+  <view>
+    <image class="searchimg" show-menu-by-longpress="true" src='../images/2019.9.3/searchs.png'></image>
+    <input type='text' value="{{query_param}}" bindinput='getqueryparam' bindblur='getqueryparam' placeholder='请输入房源名称'></input>
+  </view>
+</view>
+<view class='alog' wx:if="{{allDataList.length==0 && morestate==1}}">
+  <image src='../images/2019.9.3/nobody.png'></image>
+  <view>暂时没有相关信息</view>
+</view>
+<scroll-view wx:if="{{allDataList.length!=0}}" class="scrollview" scroll-y="true" bindscrolltolower="loadMoreData" style="{{scrollheight}}">
+  <view class="oview" wx:for="{{allDataList}}" wx:for-item="item" wx:for-index="index" wx:key="a" data-nethouseid="{{item.net_house_id}}" data-nethousename="{{item.net_house_name}}" data-lockid="{{item.lock_id}}" data-locktype="{{item.lock_type}}" bindtap="isWritePass">
+    <view class="viewlt">
+      <image src='data:image/png;base64,{{item.house_photo[0].house_photo}}' mode='aspectFill'></image>
+    </view>
+    <view class="viewrt">
+      <view class="view1">{{item.net_house_name}}</view>
+    </view>              
+  </view>           
+</scroll-view>
+
+<view class="medalbcg" wx:if="{{medalstate==2}}"></view>
+<view class="medalcon mwidth1" wx:if="{{medalstate==2}}">
+  <view class="medalbox">
+    <view class="medalfrom">
+      <view class="viewb">请为房间{{net_new_house_name}}设置密码</view>
+      <view class="viewb">
+        <text class="texta">密码：</text> 
+        <input type="number" value="{{ordermoney}}" bindinput='gethousepass' bindblur='gethousepass'></input>
+      </view>
+    </view>
+    <view class="medalbutton">
+      <view bindtap="closemedal">取消</view>
+      <view bindtap="chosemodal">确定</view>
+    </view>
+  </view>
+</view>

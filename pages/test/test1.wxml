@@ -1,0 +1,6 @@
+<view class='add' bindtap='addInput'>增加</view>
+<view class='box' wx:for='{{array}}' wx:key=''>
+    <view class='del' bindtap='delInput' data-idx='{{index}}'>删除</view>
+    <input type='text' class='b-ipt' placeholder='请输入' data-idx='{{index}}' value='{{inputVal[index].name}}' bindinput='getNameVal'/>
+    <input type='text' class='b-ipt' placeholder='请输入' data-idx='{{index}}' value='{{inputVal[index].age}}' bindinput='getAgeVal'/>
+</view>

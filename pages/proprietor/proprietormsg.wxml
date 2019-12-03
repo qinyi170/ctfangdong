@@ -1,0 +1,154 @@
+<view class="placelist">
+  <view class="placetitle">经营地
+    <!-- <view>
+      <image src="../images/people2.png"></image>添加
+    </view> -->
+  </view>
+  <view class="placecon">
+    <text class='isChek{{item.isChek}}' wx:for="{{placearr}}" wx:for-item="item" wx:for-index="index" wx:key="a">{{item.operateBusinessAddress}}</text>
+  </view>
+</view>
+<view class="createroom1">
+  <view class="placetitle1">经营者信息
+    <view data-ischeck="{{roomInfo.is_check}}" bindtap='updateproprietor'>
+      <image src="../images/people1.png"></image>编辑
+    </view>
+  </view>
+  <view wx:if="{{roomInfo.operate_type==1}}">
+    <view>
+      <text>实际经营人姓名</text>
+      <view>
+        <text>{{roomInfo.operate_name}}</text>
+      </view>
+    </view>
+    <view>
+      <text>民族</text>
+      <view>
+        <text>{{operate_nation}}</text>
+      </view>
+    </view>
+    <view>
+      <text>证件种类</text>
+      <view>
+        <text wx:if="{{roomInfo.operate_id_type==111}}">身份证</text>
+        <text wx:if="{{roomInfo.operate_id_type==414}}">护照</text>
+        <text wx:if="{{roomInfo.operate_id_type==113}}">户口簿</text>
+        <text wx:if="{{roomInfo.operate_id_type==114}}">军官证</text>
+        <text wx:if="{{roomInfo.operate_id_type==123}}">警官证</text>
+        <text wx:if="{{roomInfo.operate_id_type==513}}">港澳通行证</text>
+        <text wx:if="{{roomInfo.operate_id_type==990}}">其他</text>
+      </view>
+    </view>
+    <view>
+      <text>证件号码</text>
+      <view>
+        <text>{{roomInfo.operate_id_num}}</text>
+      </view>
+    </view>
+    <view>
+      <text>联系电话</text>
+      <view>
+        <text>{{roomInfo.operate_phone}}</text>
+      </view>
+    </view>
+    <view wx:if="{{roomInfo.operate_type==1}}">
+      <text>邮箱</text>
+      <view>
+        <text>{{roomInfo.operate_email}}</text>
+      </view>
+    </view>
+    <view>
+      <text>居住地址</text>
+      <view>
+        <text>{{roomInfo.operate_addr}}</text>
+      </view>
+    </view>
+    <view>
+      <text>门牌号</text>
+      <view>
+        <text>{{roomInfo.operate_roomId}}</text>
+      </view>
+    </view>
+    <view wx:if="{{roomInfo.create_date!=''}}">
+      <text>创建时间</text>
+      <view>
+        <text>{{roomInfo.create_date}}</text>
+      </view>
+    </view>
+  </view>
+  <view wx:if="{{roomInfo.operate_type==2}}">
+    <view>
+      <text>经营单位名称</text>
+      <view>
+        <text>{{roomInfo.unit_name}}</text>
+      </view>
+    </view>
+    <view>
+      <text>统一社会信用代码</text>
+      <view>
+        <text>{{roomInfo.unit_legal_person_id}}</text>
+      </view>
+    </view>
+    <view>
+      <text>单位联系电话</text>
+      <view>
+        <text>{{roomInfo.unit_phone}}</text>
+      </view>
+    </view>
+    <view>
+      <text>法定代表人</text>
+      <view>
+        <text>{{roomInfo.unit_legal_person_name}}</text>
+      </view>
+    </view>
+    <view>
+      <text>法人民族</text>
+      <view>
+        <text>{{unit_legal_person_nation}}</text>
+      </view>
+    </view>
+    <view>
+      <text>证件种类</text>
+      <view>
+        <text wx:if="{{roomInfo.unit_legal_person_id_type==111}}">身份证</text>
+        <text wx:if="{{roomInfo.unit_legal_person_id_type==414}}">护照</text>
+        <text wx:if="{{roomInfo.unit_legal_person_id_type==113}}">户口簿</text>
+        <text wx:if="{{roomInfo.unit_legal_person_id_type==114}}">军官证</text>
+        <text wx:if="{{roomInfo.unit_legal_person_id_type==123}}">警官证</text>
+        <text wx:if="{{roomInfo.unit_legal_person_id_type==513}}">港澳通行证</text>
+        <text wx:if="{{roomInfo.unit_legal_person_id_type==990}}">其他</text>
+      </view>
+    </view>
+    <view>
+      <text>证件号码</text>
+      <view>
+        <text>{{roomInfo.unit_legal_person_id_num}}</text>
+      </view>
+    </view>
+    <view>
+      <text>居住地址</text>
+      <view>
+        <text>{{roomInfo.unit_legal_person_id_addr}}</text>
+      </view>
+    </view>
+    <view>
+      <text>门牌号</text>
+      <view>
+        <text>{{roomInfo.unit_legal_person_roomId}}</text>
+      </view>
+    </view>
+    <view>
+      <text>法人联系电话</text>
+      <view>
+        <text>{{roomInfo.unit_legal_person_phone}}</text>
+      </view>
+    </view>
+    <view wx:if="{{roomInfo.create_date==''}}">
+      <text>创建时间</text>
+      <view>
+        <text>{{roomInfo.create_date}}</text>
+      </view>
+    </view>
+  </view>
+</view>
+

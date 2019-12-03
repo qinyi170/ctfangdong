@@ -1,0 +1,196 @@
+
+<form bindsubmit="formSubmit" bindreset="formReset">
+  <view class="viewnav">
+    <button class="viewback" form-type="submit" data-btnindex="0" hover-class="viewbackhover">
+      <image src='../images/backicon.png'></image>
+    </button>
+    <text wx:if="{{type==''}}">创建房源</text>
+    <text wx:if="{{type=='update'}}">修改房源</text>
+  </view>
+  <view class="createroom1">
+    <view hidden='{{roompage1}}' style="{{scrollheight}};">
+      <view>
+        <text>网约房名称</text>
+        <input class="fixeright" name="net_house_name" value='{{roomInfo.net_house_name}}' placeholder='请输入网约房名称' placeholder-class="phcolor"></input>
+      </view>
+      <view class="roomimg1" bindtap='choosemap' hidden='{{ischeck}}'>
+        <text>选择地址</text>
+        <view class="fixeright" wx:if="{{addrstate==1}}"><image src='../images/iconss.png'></image>点击选择<text></text></view>
+        <view class="fixeright" wx:if="{{addrstate==2}}">{{addrmsg.address}}-{{addrmsg.name}}</view>
+        <input name="net_house_provinces" style='display:none' value='{{addrmsg.address}}-{{addrmsg.name}}'></input>
+        <input name="house_latitude" style='display:none' value='{{addrmsg.latitude}}'></input>
+        <input name="house_longitude" style='display:none' value='{{addrmsg.longitude}}'></input>
+      </view>
+      <view hidden='{{ischeck}}'>
+        <text>详细地址</text>
+        <!-- placeholder='例：30号楼3单元302室' -->
+        <input class="fixeright" name="room_id" placeholder-class="phcolor" placeholder='请输入详细地址' value='{{roomInfo.room_id}}'></input>
+      </view>
+      <view hidden='{{ischeck}}'>
+        <text>地址编码</text>
+        <input class="fixeright" name='net_house_addr_id' value='{{roomInfo.net_house_addr_id}}' placeholder-class="phcolor" placeholder='非必填项'></input>
+      </view>
+      <view class="buttoncroom">
+        <button class="button1_1 btnroom" form-type="submit" data-btnindex="1">下一步</button>
+      </view>
+    </view>
+    <view hidden="{{roompage2}}" style="{{scrollheight}}">
+      <view>
+        <text>房屋间数</text>
+        <input type="number" class="fixeright" name="house_num" value='{{roomInfo.house_num}}'></input>
+      </view>
+      <view>
+        <text>最大入住人数</text>
+        <input type="number" class="fixeright" name="reside_num_max" value='{{roomInfo.reside_num_max}}'></input>
+      </view>
+      <view>
+        <text>房屋面积</text>
+        <input type="digit" class="fixeright" name="house_acreage" placeholder='单位：平方米' value='{{roomInfo.house_acreage}}'></input>
+      </view>
+      <view>
+        <text>房屋来源</text>
+        <picker class="pickers" bindchange="bindPickerChange" value="{{roomoriginindex}}" range="{{roomoriginarray}}">
+          <view class="picker">
+            {{roomoriginarray[roomoriginindex]}}
+            <text class="fimg"></text>
+            <input name="house_source" style='display:none' value='{{roomorigin}}'></input>
+          </view>
+        </picker>
+      </view>
+      <view>
+        <text>出租类型</text>
+        <picker class="pickers" bindchange="bindPickerChange1" value="{{lendtypeindex}}" range="{{lendtypearray}}">
+          <view class="picker">
+            {{lendtypearray[lendtypeindex]}}
+            <text class="fimg"></text>
+            <input name="house_rentout_type" style='display:none' value='{{lendtype}}'></input>
+          </view>
+        </picker>
+      </view>
+      <view>
+        <text>房屋类型</text>
+        <picker class="pickers" bindchange="bindPickerChange2" value="{{roomtypeindex}}" range="{{roomtypearray}}">
+          <view class="picker">
+            {{roomtypearray[roomtypeindex]}}
+            <text class="fimg"></text>
+            <input name="house_type" style='display:none' value='{{roomtype}}'></input>
+          </view>
+        </picker>
+      </view>
+      <view>
+        <text>床位数</text>
+        <input type="number" class="fixeright" name="house_bed_num" value='{{roomInfo.house_bed_num}}'></input>
+      </view>
+      <view class="roomimages">
+        <text>房屋图片</text>
+        <view>
+          <view wx:for="{{roomimaegsarray}}" wx:for-item="item" wx:for-index="index" class="deleteimg" wx:key="a">
+            <image src='{{item}}' bindtap="previewImage" data-src="{{item}}" mode="aspectFill"></image>
+            <text bindtap='delederoomimages' data-imageindex="{{index}}">—</text>
+          </view>
+          <view class="addimages" bindtap='addroomimages' wx:if="{{roomimaegstitle==1}}">
+            <text>+</text>
+          </view>
+        </view>
+      </view>
+      <view class="buttoncroom">
+        <button class="button1_1 btnrooma" type="button" bindtap='back_page1'>上一步</button>
+        <button class="button1_1 btnroomb" form-type="submit" data-btnindex="2">下一步</button>
+      </view>
+    </view>
+    <view hidden="{{roompage3}}" style="{{scrollheight}}">
+      <view>
+        <text>产权人类型</text>
+        <picker class="pickers" bindchange="bindPickerChange4" value="{{propertytypeindex}}" range="{{propertytypearray}}">
+          <view class="picker">
+            {{propertytypearray[propertytypeindex]}}
+            <text class="fimg"></text>
+            <input name="house_property_type" style='display:none' value='{{propertytype}}'></input>
+          </view>
+        </picker>
+      </view>
+      <view>
+        <text>产权人/法人姓名</text>
+        <input class="fixeright" name="house_property_name" value='{{roomInfo.house_property_name}}'></input>
+      </view>
+      <view bindtap='openmodal'>
+        <text>产权人民族</text>
+        <view>
+          <text class="fimg"></text>
+          <text class="fixeright">{{checkname}}</text>
+          <input class="fixeright" style='display:none' name="house_property_nation" value='{{checkid}}'></input>
+        </view>
+      </view>
+      <view>
+        <text>产权人证件种类</text>
+        <picker class="pickers" bindchange="bindPickerChange3" value="{{idcardindex}}" range="{{idcardarray}}">
+          <view class="picker">
+            {{idcardarray[idcardindex]}}
+            <text class="fimg"></text>
+            <input name="house_property_id_type" style='display:none' value='{{idcard}}'></input>
+          </view>
+        </picker>
+      </view>
+      <view>
+        <text>产权人证件号码</text>
+        <input class="fixeright" name="house_property_id_num" value='{{roomInfo.house_property_id_num}}'></input>
+      </view>
+      <view>
+        <text>产权人联系电话</text>
+        <input type='number' class="fixeright" name="house_property_phone" value='{{roomInfo.house_property_phone}}'></input>
+      </view>
+      <view hidden="{{moreview}}">
+        <text>不动产权证件编号</text>
+        <input class="fixeright" name="no_property_credentice_id" placeholder-class="phcolor" placeholder='非必填项' value='{{roomInfo.no_property_credentice_id}}'></input>
+      </view>
+      <view hidden="{{moreview}}">
+        <text>产权单位名称</text>
+        <input class="fixeright" name="house_property_unit_name" placeholder-class="phcolor" placeholder='非必填项' value='{{roomInfo.house_property_unit_name}}'></input>
+      </view>
+      <view hidden="{{moreview}}" class="formview2">
+        <text>组织统一社会信用代码</text>
+        <input class="fixeright" name="house_property_legal_person_id" placeholder-class="phcolor" placeholder='非必填项' value='{{roomInfo.house_property_legal_person_id}}'></input>
+      </view>
+      <view class="roomimages" hidden="{{moreview}}">
+        <text>不动产证照片</text>
+        <view>
+          <view wx:for="{{cardimaegsarray}}" wx:for-item="item" wx:for-index="index" data-imageindex='{{index}}' class="deleteimg" wx:key="b">
+            <image src='{{item}}' mode="aspectFill"></image>
+            <text bindtap='deledecardimages'>—</text>
+          </view>
+          <view class="addimages" bindtap='addcardimages' wx:if="{{cardimagestitle==1}}">
+            <text>+</text>
+          </view>
+          <view class="addimgtitle" wx:if="{{cardimagestitle==1}}">非必填项</view>
+        </view>
+      </view>
+      <view class="moreview">
+        <view>
+          <view class="moreshow" bindtap='showmoreview' wx:if="{{moreshow==1}}"><image src='../images/downiocn.png'></image></view>
+          <view class="morehide" bindtap='hidemoreview' wx:if="{{moreshow==2}}"><image src='../images/upicon.png'></image></view>
+          <view wx:if="{{moreshow==1}}" bindtap='showmoreview'>更多信息</view>
+          <view wx:if="{{moreshow==2}}" bindtap='hidemoreview'>收起</view>
+        </view>
+      </view>
+      <view class="buttoncroom">
+        <button class="button1_1 btnrooma" type="button" bindtap='back_page2'>上一步</button>
+        <button class="button1_1 btnroomb" form-type="submit" data-btnindex="3">确定</button>
+      </view>
+    </view>
+  </view>
+</form>
+<view class="medalbcg" wx:if="{{medalstate==2}}"></view>
+<view class="medalcon mwidth1" wx:if="{{medalstate==2}}">
+  <text class="medalclose" bindtap='closemedal'>×</text>
+  <view class="medaltitle">
+    民族列表
+  </view>
+  <view class="medallist">
+    <view class="medalconce" wx:for="{{nationarray}}" wx:for-item="item" wx:for-index="index" bindtap='chosemodal' data-nationid='{{item.id}}' data-nationname='{{item.name}}'>
+    <text style='display:none'>{{item.id}}</text><text>{{item.name}}</text>
+    </view>
+  </view>
+</view>
+
+<view class="border-down-empty">
+</view>

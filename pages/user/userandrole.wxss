@@ -1,0 +1,6 @@
+page{background-color: #f7f7f7}
+.con_user{padding: 25rpx 30rpx;display: flex;justify-content:space-between;flex-wrap:wrap}
+.con_user>view{width: 335rpx;height: 335rpx;background-color: #fff;border-radius: 10rpx;box-shadow: 0 0 2px #ccc;text-align: center;font-size: 34rpx;margin-bottom: 20rpx}
+.con_image1{width: 125rpx;height: 193rpx;margin-top:20px;margin-bottom:10rpx;}
+.con_image2{width: 200rpx;height: 132rpx;margin-top:62rpx;margin-bottom:44rpx;}
+.con_user>view.viewbcg{box-shadow: 0 0 2px #f5c343;}

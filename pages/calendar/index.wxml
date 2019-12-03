@@ -1,0 +1,87 @@
+<view class="searchbtn">
+  <view>
+    <picker bindchange="bindMultiPickerChange2" value="{{groupindex}}" range="{{goruparray}}">
+      <image class="groupimg" src='../images/2019.9.3/groups.png'></image>分组
+    </picker>
+  </view>
+  <view>
+    <image class="searchimg" src='../images/2019.9.3/searchs.png'></image>
+    <input type='text' value="{{query_param}}" bindinput='getqueryparam' bindblur='getqueryparam' placeholder='请输入房源名称'></input>
+  </view>
+  <view>
+    <picker mode="date" bindchange="bindMultiPickerChange1" value="{{startDate}}">
+     <image class="calendarimg" src='../images/2019.9.3/calendars.png'></image>
+    </picker>
+  </view>
+</view>
+<view class="tablist">
+  <view class="{{currentTopItem==idx ? 'hovers' : ''}}" wx:for="{{tabitems}}" wx:for-index="idx" data-idx="{{idx}}" bindtap='switchTab' wx:key="a">{{item}}</view>
+</view>
+<swiper current="{{currentTopItem}}" duration="300" bindchange="swiperTab" style="{{scrollheight}}">
+  <block wx:for="{{currentTopItems}}" wx:key="b">
+    <swiper-item>
+      <view class='alog' wx:if="{{allDataList.length==0 && morestate==1}}">
+        <image src='../images/2019.9.3/nobody.png'></image>
+        <view>暂时没有相关信息</view>
+      </view>
+      <scroll-view wx:if="{{allDataList.length!=0}}" class="scrollview" scroll-y="true" bindscrolltolower="loadMoreData" style="{{scrollheight}}">
+          <view class="oview" wx:for="{{allDataList}}" wx:for-item="item" wx:for-index="index" wx:key="c" data-nethouseid="{{item.net_house_id}}" data-nethousename="{{item.net_house_name}}" data-lockid="{{item.lock_id}}" data-locktype="{{item.lock_type}}" bindtap='housecalendar'>
+            <view class="viewlt">
+              <image mode='aspectFill' src='data:image/png;base64,{{item.house_photo[0].house_photo}}' mode='aspectFill'></image>
+              <view class="text0" wx:if="{{item.house_use_state=='0'}}">
+                空闲</view>
+              <view class="text5" wx:if="{{item.house_use_state=='1'}}">
+                已入住</view>
+              <view class="text4" wx:if="{{item.house_use_state=='2'}}">
+                待入住</view>
+            </view>
+            <view class="viewrt">
+              <view class="view1">{{item.net_house_name}}</view>
+              <block wx:if="{{item.orderList.length==0}}">
+                <view class="view2">当前预定：无</view>
+              </block>
+              <block wx:if="{{item.orderList.length!=0}}">
+                <view class="view2">当前预定：{{item.orderList[0].reside_new_date}}-{{item.orderList[0].reside_retreat_new_date}}</view>
+              </block>
+              <view class="viewbtn"> 
+                <block wx:if="{{item.house_use_state==0}}">
+                  <view wx:if="{{item.date==nowDate}}" hover-stop-propagation='true' catchtap="createorder" data-nethouseid="{{item.net_house_id}}" data-nethousename="{{item.net_house_name}}" data-lockid="{{item.lock_id}}" data-locktype="{{item.lock_type}}" data-orderlist="{{item.orderList}}">办理入住</view>
+                  <view wx:if="{{item.date!=nowDate}}" hover-stop-propagation='true' catchtap="createorder" data-nethouseid="{{item.net_house_id}}" data-nethousename="{{item.net_house_name}}" data-lockid="{{item.lock_id}}" data-locktype="{{item.lock_type}}" data-orderlist="{{item.orderList}}">预定</view>
+                </block>
+                <view wx:if="{{item.house_use_state==2 || item.house_use_state==1}}" hover-stop-propagation='true' catchtap="updateorder" data-orderid="{{item.orderList[0].order_id}}" data-nethousename="{{item.net_house_name}}">换房</view>
+                <view wx:if="{{item.house_use_state==2}}" hover-stop-propagation='true' data-orderid="{{item.orderList[0].order_id}}" data-residedate="{{item.orderList[0].reside_new_date}}" catchtap="cancelorder">取消</view>
+                <view wx:if="{{item.house_use_state==1}}" hover-stop-propagation='true' data-nethouseid="{{item.net_house_id}}" data-orderid="{{item.orderList[0].order_id}}" data-price="{{item.orderList[0].money}}" data-residedate="{{item.orderList[0].reside_date}}" data-resideretreatdate="{{item.orderList[0].reside_retreat_date}}" catchtap="openmodal">续住</view>
+                <view wx:if="{{item.house_use_state==1}}" hover-stop-propagation='true' data-orderid="{{item.orderList[0].order_id}}" data-residedate="{{item.orderList[0].reside_new_date}}" catchtap="exitorder">退房</view>
+              </view>
+            </view>              
+          </view>           
+      </scroll-view>
+    </swiper-item>
+  </block>
+</swiper>
+
+<view class="medalbcg" wx:if="{{medalstate==2}}"></view>
+<view class="medalcon mwidth1" wx:if="{{medalstate==2}}">
+  <view class="medalbox">
+    <view class="medalfrom">
+      <view class="viewa">
+        <text>续住天数（天）</text>
+        <view>
+          <text bindtap="removedays" class="{{tt1}}">-</text>
+          <text>{{nowdays}}</text>
+          <text bindtap="adddays">+</text>
+        </view>
+      </view>
+      <view class="viewb">
+        <text class='texta'>退房时间</text>
+        <text>{{orderstoptime}}</text></view>
+      <view class="viewb">
+        <text class='texta'>价格（元）</text>
+        <input type="text" value="{{ordermoney}}" bindinput='getordermoney' bindblur='getordermoney'></input></view>
+    </view>
+    <view class="medalbutton">
+      <view bindtap="closemedal">取消</view>
+      <view bindtap="chosemodal">确定</view>
+    </view>
+  </view>
+</view>

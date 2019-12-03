@@ -1,0 +1,72 @@
+page{background-color: #f7f7f7}
+/* 搜索框 */
+.searchbtn{height: 50px;background-color: #f5c343;display: flex;
+  box-sizing: border-box;justify-content:center;align-items:center}
+.searchbtn view{margin: 0 10rpx;color: #fff;font-size: 30rpx;position: relative}
+.searchbtn view image{width: 30rpx;height: 30rpx;}
+.searchbtn view input{height: 35px;width:430rpx;background-color: #fff;border-radius: 40px;font-size: 28rpx;color: #999999;padding-left: 70rpx}
+.searchbtn .groupimg{vertical-align: middle;margin-right: 10rpx}
+.searchbtn .calendarimg{width: 35rpx;height: 30rpx;}
+.searchbtn .searchimg{position: absolute;top:22rpx;left: 20rpx}
+/* tab标签样式 */
+.tablist{display: flex;justify-content: space-between;background-color: #fff;color: #333;height: 35px;}
+.tablist view{width: 150rpx;text-align: center;font-size: 30rpx;border-bottom: 1px solid #fff;height: 34px;margin: 0 50rpx;line-height: 34px;}
+.tablist view.hovers{border-bottom: 1px solid #f5c343;font-weight: bold}
+/*  */
+.scrollview{position: relative;z-index: 999;padding-top: 10px;}
+.scrollview view.oview{margin: 20rpx;padding: 20rpx;border-radius: 6px;color: #677587;background-color: #fff}
+.scrollview view.oview:first-child{margin-top: 0}
+view.viewlt{float: left;width: 220rpx;position: relative;border-radius: 25rpx;}
+view.viewlt image{width: 220rpx;height: 140rpx;display: block;}
+view.viewlt view{position: absolute;top:0;left: 0;color: #fff;font-size: 26rpx;padding: 4rpx 19rpx;border-bottom-right-radius: 35rpx;}
+view.viewlt view.text0{background-color: #33a533}
+view.viewlt view.text4{background-color: #ffa633}
+view.viewlt view.text5{background-color: #ff5c5c}
+view.viewrt{margin-left: 240rpx}
+view.viewrt .view1{color: #333;font-size: 34rpx}
+view.viewrt .view2{color: #999999;font-size: 28rpx}
+view.viewrt .view9{float:right;color: #333;font-size: 32rpx}
+view.viewbtn{margin-top: 10rpx}
+view.viewbtn view{display: inline-block;padding: 3rpx 25rpx 5rpx 25rpx;background-color: #fff4d9;color: #e5a400;font-size: 30rpx;border-radius: 20px;margin-right: 15rpx}
+view.viewbtn view:hover{background-color: #fef1cd;color: #fd7400}
+
+.mwidth1{width: 550rpx;height: 360rpx;margin-top:-180rpx;margin-left:-275rpx;}
+.medalbox{height: 360rpx;position: relative}
+.medalfrom{padding: 40rpx;font-size: 28rpx;color: #666;}
+.medalfrom>view{height: 70rpx;line-height: 70rpx}
+.medalfrom>view.viewa>text{font-size: 30rpx;color: #333}
+.medalfrom>view.viewa>view{float: right;}
+.medalfrom>view.viewa>view text{display: inline-block;font-size: 35rpx;}
+.medalfrom>view.viewa>view text:first-of-type,.medalfrom>view.viewa>view text:last-of-type{width: 68rpx;height:68rpx;line-height: 68rpx;text-align: center;font-size: 40rpx;color: #f5c343}
+.medalfrom>view.viewa>view text.tt1{color: #ccc}
+.medalfrom>view.viewb{display: flex;justify-content:space-between;align-items:center;}
+.medalfrom>view.viewb text.texta{width: 190rpx;}
+.medalfrom>view.viewb input{border:1px solid #ccc;text-align: right;width: 280rpx;}
+.medalbutton{position: absolute;bottom: 0;width: 100%;}
+.medalbutton view{float: left;width: 50%;background-color: #ffd666;color: #fff;text-align: center;height: 70rpx;line-height: 70rpx;font-size: 28rpx}
+.medalbutton view:last-of-type{background-color: #ffc526}
+
+
+
+
+
+.commodity_screen {width: 100%;height: 100%;position: fixed;top: 0;left: 0;background: #000;opacity: 0.5;overflow: hidden;z-index: 1000;color: #fff;}
+
+
+.commodity_attr_box {width: 100%;overflow: hidden;position: fixed;bottom: 0;left: 0;z-index: 2000;background: #fff;}
+.commodity_attr_box view{border-top: 1px solid #d5d7d9;}
+.commodity_attr_box view button{background-color: #fff;color: #333;border-radius: 0;}
+.commodity_attr_box view button::after{border:none;}
+
+.commodity_attr_box1{width: 100%;position: fixed;z-index: 2000;top:20%;display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;background-color:initial}
+.commodity_attr_box1 view{margin-bottom: 50rpx;}
+.commodity_attr_box1 .imgview1 image{width: 420rpx;height: 420rpx;display: block}
+.commodity_attr_box1 .imgview2{width: 530rpx;background-color:initial;font-size: 26rpx;color: #fff;text-align: center;line-height: 40rpx;}
+.commodity_attr_box1 .imgview3{width: 270rpx;height: 70rpx;line-height: 70rpx;text-align: center; font-size: 30rpx;border-radius: 6px}
+
+.movablearea{width: 100%}
+.addroom{position: absolute;bottom:5%;right: 5%; width: 91rpx;height: 90rpx;text-align: center;line-height: 90rpx;background-color: #fb9a3f;font-size: 50rpx;color: #fff;border-radius: 50%;box-shadow: 0px 2px 8px #888888}
+.addroom image{width: 91rpx;height: 90rpx}

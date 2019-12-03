@@ -1,0 +1,22 @@
+@import "../room/roomupdate";
+.placelist{margin: 20rpx 0;padding: 30rpx;background-color: #fff;font-size: 30rpx}
+.placetitle{font-size: 34rpx;color: #333333;font-weight: bold}
+.placecon{padding: 20rpx 30rpx;}
+.placecon text{display: inline-block;padding: 8rpx 35rpx;color: #333333;border-radius: 30rpx;margin-right: 20rpx;margin-bottom: 20rpx;}
+.placecon text.isChek0{color: #44c540;border:1rpx solid #44c540}
+.placecon text.isChek1{color: #333333;border:1rpx solid #999999}
+.placecon text.isChek2{color: #e6a400;border:1rpx solid #e6a400}
+.placecon text.isChek3{color: #ff4c52;border:1rpx solid #ff4c52}
+.placecon text.isChek9{color: #333333;border:1rpx solid #999999}
+
+.createroom1{margin-bottom: 20rpx;}
+.placetitle1{background-color: #fff;padding: 30rpx 30rpx 0 30rpx;font-size: 34rpx;font-weight: bold}
+.createroom1>view.placetitle1>view{border-bottom: 0}
+.createroom1>view.placetitle1>view:last-of-type{padding: 0}
+.placetitle view,.placetitle1 view{float: right;font-size: 30rpx;color: #999999;font-weight: normal}
+.placetitle view image,.placetitle1 view image{width: 26rpx;height: 26rpx;margin-right:10rpx;}
+.createroom1>view>view{justify-content:space-between}
+.createroom1>view>view>view{text-align: right}
+.createroom1>view>view[hidden]{display: none}
+.createroom1>view>view:last-of-type {padding:30rpx;}
+button.btnbom{width:650rpx;position:fixed;bottom:30rpx;left:50rpx;}

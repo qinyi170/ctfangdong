@@ -1,0 +1,6 @@
+@import "../room/roomupdate";
+.createroom1{margin-bottom: 135rpx;position: relative;z-index: 9}
+.createroom1 view{padding: 30rpx 30rpx;border-bottom: 1px solid #e8e8e8;background-color: #fff;font-size: 30rpx;position: relative}
+.createroom1 view checkbox{width: 100%;position: relative;z-index: 2;zoom: 0.7}
+.createroom1 view text{position: absolute;left: 80rpx;z-index: 1;top: 32rpx;font-size: 34rpx;}
+button.btnbom{width:650rpx;position:fixed;bottom:30rpx;left:50rpx;z-index: 10}

@@ -1,0 +1,85 @@
+<view class="tablist">
+  <view class="{{currentTopItem==idx ? 'hovers' : ''}}" wx:for="{{tabitems}}" wx:for-index="idx" data-idx="{{idx}}" bindtap='switchTab' wx:key="a">{{item}}</view>
+</view>
+<movable-area class="movablearea" style="{{scrollheight}}">
+  <swiper current="{{currentTopItem}}" duration="300" bindchange="swiperTab" style="{{scrollheight}}">
+    <block wx:for="{{currentTopItems}}" wx:key="b">
+      <swiper-item>
+        <view class='alog' wx:if="{{allDataList.length==0 && morestate==1}}">
+          <image src='../images/2019.9.3/nobody.png'></image>
+          <view>暂时没有相关信息</view>
+        </view>
+        <scroll-view wx:if="{{allDataList.length!=0}}" class="scrollview" scroll-y="true" bindscrolltolower="loadMoreData" style="{{scrollheight}}">
+            <view class="oview" wx:for="{{allDataList}}" wx:for-item="item" wx:key="c">
+              <view data-roomcode="{{item.order_id}}" bindtap='ordermsg'>
+                <view class="view1">
+                  <text class="otext1">{{item.net_house_name}}</text>
+                  <text class="otext2 state{{item.check_state}}" wx:if="{{item.check_state=='wait'}}">待入住</text>
+                  <text class="otext2 state{{item.check_state}}" wx:if="{{item.check_state=='check'}}">已入住</text>
+                  <text class="otext2 state{{item.check_state}}" wx:if="{{item.check_state=='retreat'}}">已退房</text>
+                  <text class="otext2 state{{item.check_state}}" wx:if="{{item.check_state=='cancel'}}">已取消</text>
+                </view>
+                <view class="view2">{{item.reside_date}}-{{item.reside_retreat_date}} {{item.total}}</view>
+              </view>
+              <view class="viewbtn"> 
+                <text bindtap='cancelorder' wx:if="{{item.check_state=='wait'}}" data-roomcode="{{item.order_id}}" data-residephone="{{item.reside_phone}}">取消</text>
+                <text bindtap='exitorder' wx:if="{{item.check_state=='check'}}" data-roomcode="{{item.order_id}}" data-residephone="{{item.reside_phone}}">退房</text>
+                <text bindtap='openmodal' wx:if="{{item.check_state=='check'}}" data-roomcode="{{item.order_id}}" data-nethouseid="{{item.net_house_id}}" data-residedate="{{item.reside_date}}" data-resideretreatdate="{{item.reside_retreat_date}}" data-price="{{item.money}}">续住</text>
+                <text bindtap='updatehouse' data-roomcode="{{item.order_id}}" data-nethousename="{{item.net_house_name}}" wx:if="{{item.check_state=='wait' || item.check_state=='check'}}">换房</text>
+                <text bindtap='shareorder' data-orderid="{{item.order_id}}" wx:if="{{item.check_state=='wait'}}">分享订单</text> 
+              </view>
+            </view>   
+        </scroll-view>
+      </swiper-item>
+    </block>
+  </swiper>
+  <movable-view x="650rpx" y="{{movableheight}}" direction="all" class="addroom" bindtap='addroomorder'>
+    <image src='../images/addorder.png'></image>
+  </movable-view>
+</movable-area>
+
+<view class="medalbcg" wx:if="{{medalstate==2}}"></view>
+<view class="medalcon mwidth1" wx:if="{{medalstate==2}}">
+  <view class="medalbox">
+    <view class="medalfrom">
+      <view class="viewa"><text>续住天数</text>（天）
+        <view>
+          <text bindtap="removedays" class="{{tt1}}">-</text>
+          <text>{{nowdays}}</text>
+          <text bindtap="adddays">+</text>
+        </view>
+      </view>
+      <view class="viewb">
+        <text class='texta'>退房时间</text>
+        <text>{{orderstoptime}}</text>
+      </view>
+      <view class="viewb">
+        <text class='texta'>价格（元）</text>
+        <input type="text" value="{{ordermoney}}" bindinput='getordermoney' bindblur='getordermoney'></input>
+      </view>
+    </view>
+    <view class="medalbutton">
+      <view bindtap="closemedal">取消</view>
+      <view bindtap="chosemodal">确定</view>
+    </view>
+  </view>
+</view>
+
+
+<view class="commodity_screen" bindtap="hideModal" wx:if="{{showModalStatus}}"></view>
+<view animation="{{animationData}}" class="commodity_attr_box" wx:if="{{showModalStatus}}">
+  <view>
+    <button bindtap='opentypeshare' open-type="share">转发给好友</button>
+  </view>
+  <view>
+    <button bindtap='getqrcode'>生成二维码转发</button>
+  </view>
+</view>
+
+<view class="commodity_screen" wx:if="{{imagesmadel==2}}"></view>
+<view class="commodity_attr_box1" wx:if="{{imagesmadel==2}}">
+  <view class="imgview1"><image src='data:image/png;base64,{{imgqrcode}}' data-src='data:image/png;base64,{{imgqrcode}}'bindtap="previewImage"></image></view>
+  <view class="imgview2">该图片已保存到手机相册，可与房客加微信好友 后发送给房客，以方便房客办理入住</view>
+  <view class="imgview3" bindtap='closeqrcode'>我知道了</view>
+</view>
+

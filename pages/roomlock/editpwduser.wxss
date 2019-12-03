@@ -1,0 +1,4 @@
+@import "../roomlock/binduser";
+.discontainer text.getphonetext{width: 200rpx;}
+.getphoneinput{text-align: left}
+.discontainer text.getphonecode{color: #fc9b4c;display: inline-block;width: 140rpx;text-align: right}

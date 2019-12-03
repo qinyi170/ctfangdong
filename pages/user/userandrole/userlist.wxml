@@ -1,0 +1,24 @@
+<view class="searchbtn sbtn">
+  <view>
+    <image class="searchimg" show-menu-by-longpress="true" src='../../images/2019.9.3/searchs.png'></image>
+    <input type='text' value="{{query_param}}" bindinput='getqueryparam' bindblur='getqueryparam' placeholder='请输入子账号'></input>
+  </view>
+</view>
+<view class='alog' wx:if="{{allDataList.length==0 && morestate==1}}">
+  <image src='../../images/2019.9.3/nobody.png'></image>
+  <view>暂时没有相关信息</view>
+</view>
+<scroll-view class="scrollview" scroll-y="true" bindscrolltolower="loadMoreData" style="{{scrollheight}}" wx:if="{{allDataList.length!=0}}">
+  <view class="oview" hover-class="hoverview" wx:for="{{allDataList}}" wx:for-item="item" wx:for-index="index" wx:key="a" data-aid="{{item.id}}" data-operatorid="{{item.operator_id}}" bindtap="gousermsg" bindlongpress='deleteuser'>
+    <view class="viewlt">
+      {{item.operatornamel}}
+    </view>
+    <view class="viewrt">
+      <view class="view1">{{item.operator_phone}}</view>
+      <view class="view9 is_bypass{{item.is_bypass}}" wx:if="{{item.is_bypass==0}}">等待接受邀请</view>
+      <view class="view9 is_bypass{{item.is_bypass}}" wx:if="{{item.is_bypass==1}}">已接受</view>
+      <view class="view9 is_bypass{{item.is_bypass}}" wx:if="{{item.is_bypass==2}}">已拒绝</view>
+    </view>              
+  </view>  
+</scroll-view>
+<button class='button1_1 abtn' bindtap='gouseradd'>添加子账号</button>

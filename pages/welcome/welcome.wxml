@@ -1,0 +1,9 @@
+<image class="imgwidth" src='../images/welcome.jpg' style="{{scrollheight}}"></image>
+<view class="viewlogo">
+  <view>
+    <image src='../images/logo.png'></image>
+  </view>
+  <view>安e住房东版</view>
+</view>
+<button wx:if="{{buttontype==2}}" class="button1_1 {{currentTopItem==1 ? 'hover1' : 'hover2'}} btnwidth" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" hover-class='buttonhouer'>微信授权登录</button>
+<button wx:if="{{buttontype==1}}" class="button1_1 btnwidth" bindtap='getrefech' hover-class='buttonhouer'>登录</button>

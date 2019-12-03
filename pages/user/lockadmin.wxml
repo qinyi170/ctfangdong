@@ -1,0 +1,25 @@
+<movable-area class="movablearea" style="{{scrollheight}}">
+  <view class="searchlist">
+    <block wx:if="{{roomstate==2}}">
+      <view class="nolock">暂无绑定门锁</view>
+    </block>
+    <block wx:if="{{roomstate==1}}">
+      <scroll-view class="scrollview" scroll-y="true" bindscrolltolower="loadMoreData" bindscrolltoupper="crolltoupper" style="{{scrollheight}}">
+        <view class="oview" hover-class="hoverview" wx:for="{{allDataList}}" wx:for-item="item" wx:for-index="index" bindtap='golocklist' data-lockbrand="{{item.lock_brand}}" data-username='{{item.user_name}}' wx:key="id">
+          <view class="viewlt">
+            {{item.lock_brand_frist}}
+          </view>
+          <view class="viewrt">
+            <view class="viewllt">
+              <view class="view1">{{item.lock_brand}}</view>
+              <view class="view2">{{item.user_name}}</view>
+            </view>
+            <view class="viewrrt">
+              <text class="viewright" catchtap='untying' hover-stop-propagation='true' data-lockbrand="{{item.lock_brand}}" data-username='{{item.user_name}}'>解绑</text>
+            </view>
+          </view>     
+        </view>
+      </scroll-view>
+    </block>
+  </view>
+</movable-area>

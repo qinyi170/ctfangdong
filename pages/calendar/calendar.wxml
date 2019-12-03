@@ -1,0 +1,40 @@
+<view class="cal_con cal_width">
+  <view class="cal_date">
+    <view>{{day}}</view>
+    <view>
+      <view>{{oldmonth}}月</view>
+      <view>{{returned_date}}</view>
+    </view>
+  </view>
+  <view><image class="searchimg" src='../images/2019.9.3/calendar_1.png'></image></view>
+</view>
+<view class="clear"></view>
+<view class="cal_state">
+  <view><text class="tcol1"></text>入住中</view>
+  <view><text class="tcol2"></text>待入住</view>
+  <view><text class="tcol3"></text>已退房</view>
+</view>
+<!-- 日历主体 -->
+<view class='calendar cal_width'>
+  <view class="oct">
+    <view class="oct_lt" bindtap='lastMonth'>〈</view>
+    <view class="oct_time">{{year}}年{{month}}月</view>
+    <view class="oct_lt" bindtap='nextMonth'>〉</view>
+  </view>
+  <view class='header'>
+    <view wx:for='{{date}}' wx:key='' class='{{(index == todayIndex) && isTodayWeek ? "weekMark" : ""}}'>{{item}}
+      <view></view>
+    </view>
+  </view>
+  <view class='date-box'>
+    <block wx:for='{{dateArr}}' wx:key=''>
+      <view class='houseusestate{{item.house_use_state}} daystate{{item.daystate}}  {{isToday == item.isToday ? "nowDay" : ""}}' hover-class="hovers">
+        <view class='date-head' bindtap='lookHuoDong' data-housesatte='{{item}}'>
+          <view>{{item.dateNum}}</view>
+          <view>{{item.price}}</view>
+          <text class='nowtext'></text>
+        </view>
+      </view>
+    </block>
+  </view>
+</view>

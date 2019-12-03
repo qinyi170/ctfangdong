@@ -1,0 +1,141 @@
+ <view class="chooseproprietor">
+  <text class="{{currentTopItem==idx ? 'hovers' : ''}}" wx:for="{{tabitems}}" wx:for-index="idx" data-idx="{{idx}}" wx:key="b" bindtap='switchTab'>{{item}}</text>
+ </view>
+ <form bindsubmit="formSubmit" bindreset="formReset">
+  <view class="createroom1">
+    <view wx:if='{{currentTopItem==0}}'>
+      <view>
+        <text>实际经营人姓名</text>
+        <input class="fixeright" name="operate_name" value='{{proprietorinfo.operate_name}}'></input>
+      </view>
+      <view bindtap='choosePlace' hidden="{{placeshow}}">
+        <text>经营地</text>
+        <view>
+          <text class="fixeright fixeright{{placestate}}">{{placename}}</text>
+          <input class="fixeright" style='display:none' name="operate_business_address" value='{{placename}}'></input>
+        </view>
+      </view>
+      <view bindtap='openmodal'>
+        <text>民族</text>
+        <view>
+          <text class="fimg"></text>
+          <text class="fixeright">{{checkname}}</text>
+          <input class="fixeright" style='display:none' name="operate_nation" value='{{checkid}}'></input>
+        </view>
+      </view>
+      <view>
+        <text>证件种类</text>
+        <picker class="pickers" bindchange="bindPickerChange3" value="{{idcardindex}}" range="{{idcardarray}}">
+          <view class="picker">
+            {{idcardarray[idcardindex]}}
+            <text class="fimg"></text>
+            <input name="operate_id_type" style='display:none' value='{{idcard}}'></input>
+          </view>
+        </picker>
+      </view>
+      <view>
+        <text>证件号码</text>
+        <input class="fixeright" name="operate_id_num" value='{{proprietorinfo.operate_id_num}}'></input>
+      </view>
+      <view>
+        <text>联系电话</text>
+        <input class="fixeright" name="operate_phone" value='{{proprietorinfo.operate_phone}}'></input>
+      </view>
+      <view>
+        <text>邮箱</text>
+        <input class="fixeright" name="operate_email" placeholder='非必填项' placeholder-class="phcolor" value='{{proprietorinfo.operate_email}}'></input>
+      </view>
+      <view class="roomimg1" bindtap='choosemap'>
+        <text>居住地址</text>
+        <view class="fixeright" wx:if="{{addrstate==1}}"><image src='../images/iconss.png'></image>点击选择<text>></text></view>
+        <view class="fixeright" wx:if="{{addrstate==2}}">{{addrmsg.address}}-{{addrmsg.name}}</view>
+        <input name="operate_addr" style='display:none' value='{{addrmsg.address}}-{{addrmsg.name}}'></input>
+        <input name="operate_latitude" style='display:none' value='{{addrmsg.latitude}}'></input>
+        <input name="operate_longitude" style='display:none' value='{{addrmsg.longitude}}'></input>
+      </view>
+      <view>
+        <text>详细地址</text>
+        <input class="fixeright" name="operate_roomId" placeholder-class="phcolor" placeholder='例：30号楼3单元302室' value='{{proprietorinfo.operate_roomId}}'></input>
+      </view>
+    </view>
+    <view wx:if='{{currentTopItem==1}}'>
+      <view>
+        <text>经营单位名称</text>
+        <input class="fixeright" name="unit_name" value='{{proprietorinfo.unit_name}}'></input>
+      </view>
+      <view>
+        <text>统一社会信用代码</text>
+        <input class="fixeright" name="unit_legal_person_id" value='{{proprietorinfo.unit_legal_person_id}}'></input>
+      </view>
+      <view bindtap='choosePlace' hidden="{{placeshow}}">
+        <text>经营地</text>
+        <view>
+          <text class="fixeright fixeright{{placestate1}}">{{placename1}}</text>
+          <input class="fixeright" style='display:none' name="unit_legal_operate_business_address" value='{{placename1}}'></input>
+        </view>
+      </view>
+      <view>
+        <text>单位联系电话</text>
+        <input class="fixeright" name="unit_phone" value='{{proprietorinfo.unit_phone}}'></input>
+      </view>
+      <view>
+        <text>法定代表人</text>
+        <input class="fixeright" name="unit_legal_person_name" value='{{proprietorinfo.unit_legal_person_name}}'></input>
+      </view>
+      <view bindtap='openmodal'>
+        <text>法人民族</text>
+        <view>
+          <text class="fimg"></text>
+          <text class="fixeright">{{checkname}}</text>
+          <input class="fixeright" style='display:none' name="unit_legal_person_nation" value='{{checkid}}'></input>
+        </view>  
+      </view>
+      <view>
+        <text>证件种类</text>
+        <picker class="pickers" bindchange="bindPickerChange3" value="{{idcardindex}}" range="{{idcardarray}}">
+          <view class="picker">
+            {{idcardarray[idcardindex]}}
+            <text class="fimg"></text>
+            <input name="unit_legal_person_id_type" style='display:none' value='{{idcard}}'></input>
+          </view>
+        </picker>
+      </view>
+      <view>
+        <text>证件号码</text>
+        <input class="fixeright" name="unit_legal_person_id_num" value='{{proprietorinfo.unit_legal_person_id_num}}'></input>
+      </view>
+      <view class="roomimg1" bindtap='choosemap'>
+        <text>居住地址</text>
+        <view class="fixeright" wx:if="{{addrstate==1}}"><image src='../images/iconss.png'></image>点击选择<text>></text></view>
+        <view class="fixeright" wx:if="{{addrstate==2}}">{{addrmsg.address}}-{{addrmsg.name}}</view>
+        <input name="unit_legal_person_id_addr" style='display:none' value='{{addrmsg.address}}-{{addrmsg.name}}'></input>
+        <input name="unit_legal_latitude" style='display:none' value='{{addrmsg.latitude}}'></input>
+        <input name="unit_legal_longitude" style='display:none' value='{{addrmsg.longitude}}'></input>
+      </view>
+      <view>
+        <text>详细地址</text>
+        <input class="fixeright" name="unit_legal_person_roomId" placeholder-class="phcolor" placeholder='例：30号楼3单元302室' value='{{proprietorinfo.unit_legal_person_roomId}}'></input>
+      </view>
+      <view>
+        <text>法人联系电话</text>
+        <input class="fixeright" name="unit_legal_person_phone" value='{{proprietorinfo.unit_legal_person_phone}}'></input>
+      </view>
+    </view>
+    <input type='text' name="biz_sequence_id" style='display:none' value='{{proprietorinfo.biz_sequence_id}}'></input>
+    <input type='text' name="operate_id" style='display:none' value='{{proprietorinfo.operate_id}}'></input>
+    <input type='text' name="type" style='display:none' value='{{type}}'></input>
+    <button class="button1_1 btnbom" form-type="submit">确定</button>
+  </view>
+</form>
+<view class="medalbcg" wx:if="{{medalstate==2}}"></view>
+<view class="medalcon mwidth1" wx:if="{{medalstate==2}}">
+  <text class="medalclose" bindtap='closemedal'>×</text>
+  <view class="medaltitle">
+    民族列表
+  </view>
+  <view class="medallist">
+    <view class="medalconce" wx:for="{{nationarray}}" wx:for-item="item" wx:for-index="index" bindtap='chosemodal' data-nationid='{{item.id}}' data-nationname='{{item.name}}'>
+    <text style='display:none'>{{item.id}}</text><text>{{item.name}}</text>
+    </view>
+  </view>
+</view>

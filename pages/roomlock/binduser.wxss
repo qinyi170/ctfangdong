@@ -1,0 +1,11 @@
+@import "../order/ordercreate";
+page{background-color: #fff}
+.createtitle{width: 680rpx;color: #333333;font-size: 36rpx;margin:30rpx auto}
+.discontainer{margin-top: 30rpx}
+.discontainer>view{display: flex;box-sizing: border-box;align-items:center;} 
+.discontainer>view text:first-of-type{margin-right: 10rpx}
+.discontainer>view input{flex-grow:1}
+.discontainer>button{margin-top: 160rpx;}
+.discontainer>view.bombindtap{border-bottom: 0;margin-top: 15rpx;display:block}
+.discontainer>view.bombindtap text{font-size: 30rpx;color: #30b6f4}
+.discontainer>view.bombindtap text:last-of-type{float: right}

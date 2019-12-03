@@ -1,0 +1,81 @@
+<view class="formview usedate">
+  <picker class='usedatestart' mode="multiSelector" bindchange="bindMultiPickerChange1" bindcolumnchange="bindMultiPickerColumnChange1" value="{{starttimeIndex}}" range="{{starttimeArray}}">
+    <text>{{date1timeview}}</text>
+    <view>最早{{starthour}}:00入住</view>
+  </picker>
+  <view class="userdatedays">{{daycount}}</view>
+  <picker class='usedatestart' mode="multiSelector" bindchange="bindMultiPickerChange2" bindcolumnchange="bindMultiPickerColumnChange2" value="{{stoptimeIndex}}" range="{{stoptimeArray}}">
+    <text>{{date2timeview}}</text>
+    <view>最晚{{stophour}}：00退房</view>
+  </picker>
+</view>
+<view class="formview" wx:if="{{createstate==2}}">
+  <text>房源名称</text>
+  <text class="fixeright">{{net_house_name}}</text>
+</view>
+<view class="formview" wx:if="{{createstate==1}}" bindtap='openmodal'>
+  <text>选择房源</text>
+  <text class="fixeright housenamestate" wx:if="{{housenamestate==1}}">请选择房源</text>
+  <text class="fixeright" wx:if="{{housenamestate==2}}">{{net_house_name}}</text>
+</view>
+<view class="formview" wx:if="{{isneedpwd==1}}">
+  <text>门锁密码</text>
+  <input type="number" class="fixeright" bindblur='getuserroompassword' value='{{userroompassword}}' placeholder-class="inputplaceholder" placeholder="请输入密码"></input>
+</view>
+<view class="formview">
+  <text>订单价格</text>
+  <input type="text" class="fixeright" bindblur='getuserroomorice' value='{{userroomorice}}' placeholder-class="inputplaceholder" placeholder="请输入订单价格"></input>
+</view>
+<view class="formview peoples">
+  <text>入住人数</text>
+  <view>
+    <text class="minuspeople" bindtap='minuspeople'>－</text>
+    <text>{{roompeoplelength}}</text>
+    <text class="addpeople" bindtap='addpeople'>＋</text>
+  </view>
+</view>
+<view class="formview peoplemsg" wx:for="{{infolength}}" wx:key="b">
+  <text wx:if="{{index+1==1}}">入住人信息</text>
+  <text wx:if="{{index+1!=1}}">入住人{{index+1}}信息</text>
+  <image src='../images/deletepeople.png' class="deletepmsg" bindtap='deletepmsg' data-idx='{{index}}'></image>
+  <view>
+    <text>姓名</text>
+    <input type='text' class="fixeright" placeholder='非必填项' data-idx='{{index}}' value='{{infomsg[index].reside_name}}' bindblur="setResideName"></input>
+  </view>
+  <view>
+    <text>身份号码</text>
+    <input type='idcard' class="fixeright" placeholder='非必填项' data-idx='{{index}}' value='{{infomsg[index].reside_id_num}}' bindinput="setResideIdNum"></input>
+  </view>
+  <view>
+    <text>联系方式</text>
+    <input type='number' class="fixeright" placeholder='此手机号用于房客办理入住' data-idx='{{index}}' value='{{infomsg[index].reside_phone}}' bindinput="setResidePhone"></input>
+  </view>
+</view>
+<view class="formviewbom"></view>
+<button class="button1_1 bottombtn" bindtap='saverooms'>确定</button>
+
+<view class="medalbcg" wx:if="{{medalstate==2}}"></view>
+<view class="medalcon mwidth1" wx:if="{{medalstate==2}}">
+  <text class="medalclose" bindtap='closemedal'>×</text>
+  <view class="medaltitle">
+    房源列表
+  </view>
+  <view class="medallist">
+    <view class="medalconce" wx:for="{{array}}" wx:for-item="item" wx:for-index="index" bindtap='chosemodal' data-nethouseid='{{item.net_house_id}}' data-nethousename='{{item.net_house_name}}' data-lockid="{{item.lock_id}}" data-locktype="{{item.lock_type}}" wx:key="a">
+    <text style='display:none'>{{item.net_house_id}}</text><text>{{item.net_house_name}}</text>
+    </view>
+  </view>
+</view>
+
+<view class="medalbcg" wx:if="{{medalstate==3}}"></view>
+<view class="medalcon mcon1 mwidth2" wx:if="{{medalstate==3}}">
+  <text class="medalclose" bindtap='closemedal'>×</text>
+  <view class="medaltitle">
+    订单二维码
+  </view>
+  <view class="medalimage"><image src='data:image/png;base64,{{roomqrcode}}'></image></view>
+  <view class="medalbtn">
+    <button class="button1_1" bindtap='saveqrcode'>保存</button>
+    <button class="button1_1" bindtap='shareqrcode'>分享</button>
+  </view>
+</view>

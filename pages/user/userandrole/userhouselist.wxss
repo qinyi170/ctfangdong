@@ -1,0 +1,8 @@
+page{background-color: #f7f7f7}
+.houselist{padding: 20rpx;margin-bottom: 100rpx}
+.houseitem{background-color: #fff;border-radius: 6px;padding: 20rpx;margin-bottom: 20rpx;}
+.houseitem image{width: 105rpx;height: 105rpx;border-radius: 105rpx;float: left}
+.houseitem>view{margin-left: 125rpx}
+.houseitem>view>view:first-of-type{font-size: 32rpx;margin-top: 10rpx;}
+.houseitem>view>view:last-of-type{font-size: 27rpx;color: #999999;margin-top: 10rpx;}
+button.abtn{width:650rpx;position:fixed;bottom:30rpx;left:50rpx;z-index: 1000}

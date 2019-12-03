@@ -1,0 +1,2 @@
+.maps{width: 750rpx;height: 800rpx}
+.tip-bg{position: absolute;width: 40rpx;height: 55rpx;left: 50%;top:50%;margin-left: -20rpx;margin-top: -55rpx;}

@@ -1,0 +1,33 @@
+<view class="top" wx:if="{{!lockbrand}}">
+  <view></view>
+  <view class='right' bindtap='changeuser'>账号管理</view>
+</view>
+<movable-area class="movablearea" style="{{scrollheight}}">
+  <view class="searchlist">
+    <block wx:if="{{allDataList.length==0}}">
+      <view class="nolock">暂无绑定门锁</view>
+    </block>
+    <block wx:else>
+      <scroll-view class="scrollview" scroll-y="true" bindscrolltolower="loadMoreData" bindscrolltoupper="crolltoupper" style="{{scrollheight}}">
+        <view class="listview" hover-class="hoverview" wx:for="{{allDataList}}" wx:for-item="item" wx:for-index="index" wx:key="id">
+          <image src="../images/2019.9.3/lock_1.png"></image>
+          <view class="text2">
+            <view>{{item.lockName}}</view>
+            <view>{{item.netHouse}}</view>
+          </view>
+          <view
+            class="text3"
+            catchtap='deletelock'
+            hover-stop-propagation='true'
+            data-lockname="{{item.lockName}}"
+            data-lockid="{{item.lock_id}}"
+
+            data-username="{{item.userName}}"
+            data-gateway="{{item.gateway}}"
+            data-camera="{{item.camera}}"
+          >删除</view>
+        </view>
+      </scroll-view>
+    </block>
+  </view>
+</movable-area>

@@ -1,0 +1,12 @@
+<image class="imgwidth" src='../images/2019.9.3/share.jpg' style="{{scrollheight}}"></image>
+<image class="img1" src='../images/2019.9.3/share1.png'></image>
+<view class="con">
+  <view class='con1'>
+    <image src='data:image/png;base64,{{imgqrcode}}' bindtap="previewImage" data-src='data:image/png;base64,{{imgqrcode}}'></image>
+  </view>  
+</view>
+<view class='btm'>
+  <view>使用方法：</view>
+  <view>1.点击实名入住二维码</view>
+  <view>2.长按图片保存在本地或转发给朋友，以便住客收到二维码后便捷入住</view>
+</view>

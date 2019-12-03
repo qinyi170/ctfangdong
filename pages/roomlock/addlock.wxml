@@ -1,0 +1,22 @@
+<view class="container cont" wx:if="{{seachstate==1}}">
+  <view>摸亮触摸屏</view>
+  <view><image src="../images/lock_1.jpg"></image></view>
+  <view>摸亮触摸屏，锁进入可添加状态，点击下一步</view>
+  <view>
+    <button class="button1_1" bindtap="gosearchlock">下一步</button>
+  </view>
+</view>
+<view class="cont_list" wx:if="{{seachstate==2}}">
+  <view wx:for="{{devices}}" wx:for-item="item" wx:for-index="index" wx:key="id">
+    <view>
+      <image wx:if="{{item.isSettingMode==true}}" src="../images/2019.9.3/lock_1.png"></image>
+      <image wx:if="{{item.isSettingMode==false}}" src="../images/2019.9.3/lock_2.png"></image>
+      <text>{{item.lockName}}</text>
+    </view>
+    <view wx:if="{{item.isSettingMode==true}}" bindtap='addlock' data-indexid="{{index}}">
+      <image src="../images/2019.9.3/lock_3.png"></image>
+    </view>
+    <view wx:if="{{item.isSettingMode==false}}"></view>
+  </view>
+</view>
+

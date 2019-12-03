@@ -1,0 +1,16 @@
+<view class="searchbtn sbtn">
+  <view>
+    <image class="searchimg" show-menu-by-longpress="true" src='../../images/2019.9.3/searchs.png'></image>
+    <input type='text' value="{{query_param}}" bindinput='getqueryparam' bindblur='getqueryparam' placeholder='请输入角色名称'></input>
+  </view>
+</view>
+<view class='alog' wx:if="{{allDataList.length==0 && morestate==1}}">
+  <image src='../../images/2019.9.3/nobody.png'></image>
+  <view>暂时没有相关信息</view>
+</view>
+<scroll-view class="scrollview" scroll-y="true" bindscrolltolower="loadMoreData" style="{{scrollheight}}" wx:if="{{allDataList.length!=0}}">
+  <view class="oview" hover-class="hoverview" wx:for="{{allDataList}}" wx:for-item="item" data-roleid="{{item.id}}" wx:key="id" bindtap='gorolegetpower' bindlongpress='deleterole'>
+    {{item.name}}
+  </view>
+</scroll-view>
+<button class='button1_1 abtn' bindtap='goroleadd'>添加</button>

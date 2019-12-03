@@ -1,0 +1,92 @@
+<view class="searchbtn sbtn">
+  <view>
+    <image class="searchimg" show-menu-by-longpress="true" src='../images/2019.9.3/searchs.png'></image>
+    <input type='text' value="{{query_param}}" bindinput='getsearchcon' bindblur='getsearchcon' placeholder='请输入房源名称、审核状态'></input>
+  </view>
+</view>
+<movable-area class="movablearea" style="{{scrollheight}}">
+  <view class="searchlist">
+    <block wx:if="{{roomstate==2}}">
+      <view class='alog'>
+        <image src='../images/2019.9.3/nobody.png'></image>
+        <view>暂时没有相关信息</view>
+      </view>
+    </block>
+    <block wx:if="{{roomstate==1}}">
+      <scroll-view class="scrollview" scroll-y="true" bindscrolltolower="loadMoreData" bindscrolltoupper="crolltoupper" style="{{scrollheight}}">
+        <view class="oview" hover-class="hoverview" bindtap='roommsg' wx:for="{{allDataList}}" wx:for-item="item" wx:for-index="index" data-nethouseid="{{item.net_house_id}}" data-nethousename='{{item.net_house_name}}' wx:key="id">
+          <view class="viewlt">
+            <image class="imagea" src='data:image/png;base64,{{item.house_photo[0].house_photo}}' mode='aspectFill'></image>
+          </view>
+          <view class="viewrt">
+            <view class="viewllt">
+              <view class="view1">
+                {{item.net_house_name}}
+                <text wx:if="{{item.lock_id==0}}" class="lockid0">未绑锁</text>
+              </view>
+              <view class="view2">{{item.net_house_addr}}-{{item.room_id}}</view>
+              <view class="view2 ischeck{{item.is_check}}" wx:if="{{item.is_check==0}}">已审核</view>
+              <view class="view2 ischeck{{item.is_check}}" wx:if="{{item.is_check==1}}">未审核</view>
+              <view class="view2 ischeck{{item.is_check}}" wx:if="{{item.is_check==2}}">审核中</view>
+              <view class="view2 ischeck{{item.is_check}}" wx:if="{{item.is_check==3}}">审核未通过</view>
+              <view class="view2 ischeck{{item.is_check}}" wx:if="{{item.is_check==9}}">无需审核</view>
+            </view>
+            <view class="viewrrt" style="height: 26px;" wx:if="{{item.lock_id==0}}" catchtap='bindlock' hover-stop-propagation='true' data-nethouseid="{{item.net_house_id}}" data-locktype="{{item.lock_id}}">绑定门锁</view>
+            <view class="viewrrt" style="height: 26px;" wx:if="{{item.lock_id!=0}}" catchtap='bindlock' hover-stop-propagation='true' data-nethouseid="{{item.net_house_id}}" data-locktype="{{item.lock_id}}">设置门锁</view>
+          </view>
+          <view wx:if="{{item.isShowOpenButton==1}}"
+            class="openroom"
+            catchtap='openroom'
+            hover-stop-propagation='true'
+            data-nethouseid="{{item.net_house_id}}"
+            data-locktype="{{item.lock_type}}"
+            data-lockid="{{item.lock_id}}"
+            data-lockname="{{item.lock_name}}"
+          >一键开门</view>
+        </view>
+      </scroll-view>
+    </block>
+  </view>
+  <movable-view wx:if="{{medaltitle==1}}" x="650rpx" y="{{movableheight}}" direction="all" class="addroom" bindtap='createroom'>
+    <image src='../images/addroom.png'></image>
+  </movable-view>
+</movable-area>
+
+<view class="medalbcg" wx:if="{{medalstate==2}}"></view>
+<view class="medalcon mcon1" wx:if="{{medalstate==2}}">
+  <text class="medalclose" bindtap='closemedal'>×</text>
+  <block wx:if="{{medaltitle==1}}">
+    <view class="medalcoms">
+      <view class="viewwidth">您登记房源时预留的手机号是否为{{phone_operate}}，如果不是此号码，请点击下方按钮修改为当时预留的手机号码。</view>
+      <button class="button1_1 buwidth" bindtap='gobindphone'>绑定</button>
+    </view>
+  </block>
+  <block wx:if="{{medaltitle==2}}">
+    <view class="medalcoms">
+      <view class="viewwidth">您还没有登记经营者信息，请先登记经营者信息再创建房源</view>
+      <button class="button1_1 buwidth" bindtap='gocreateproprietor'>登记</button>
+    </view>
+  </block>
+  <view class="medalbtn">
+    <button clsas="button1_1"></button>
+  </view>
+</view>
+
+<view class="medalbcg" wx:if="{{medalstate1==2}}"></view>
+<view class="medalcon mcon1" wx:if="{{medalstate1==2}}">
+  <text class="medalclose" bindtap='closemedal'>×</text>
+  <view class="medaltitle" style='color:#fff'>认证成功</view>
+  <block wx:if="{{medalmsg=='1'}}">
+    <view class="medalimage"><image src='../images/medal1.jpg'></image></view>
+    <view class="medalbtn"><button class="button1" bindtap='lanyaopen' disabled='{{!enable}}'>{{enablestate}}</button></view>
+    <view class="medaltext">请点击立即开门，开门入住</view>
+  </block>
+  <block wx:if="{{medalmsg=='2'}}">
+    <view class="medalimage"><image src='../images/medal2.jpg'></image></view>
+    <view class="medaltext1">请把身份证放在门锁读卡区</view>
+  </block>
+  <block wx:if="{{medalmsg=='3'}}">
+    <view class="medalimage1">{{mima}}</view>
+    <view class="medaltext1">请在门锁密码区输入密码</view>
+  </block>
+</view>

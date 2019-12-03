@@ -1,0 +1,20 @@
+<view class='scrollview' wx:if="{{showstate==1}}">
+  <checkbox-group bindchange="checkboxChange">
+    <view class='oview' wx:for="{{allDataList}}" wx:for-item="item" wx:key="a">
+      <view class="viewlt">
+        <checkbox value="{{item.id}}" checked="{{item.checked}}"/>
+      </view>
+      <view class="viewrt">
+        <view class="view1">{{item.name}}</view>
+      </view> 
+    </view> 
+  </checkbox-group>
+</view>
+<view class="con_user" wx:if="{{showstate==2}}">
+  <view wx:for="{{allCheckDataList}}" wx:for-item="item" wx:key="b" hover-class='viewbcg'>
+    <image class='con_image1' src='../../images/2019.9.3/user_3.png'></image>
+    <view>{{item.name}}</view>
+  </view>
+</view>
+<button class='button1_1 abtn' wx:if="{{showstate==1}}" bindtap='saverole'>保存</button>
+<button class='button1_1 abtn' wx:if="{{showstate==2}}" bindtap='updaterole'>编辑</button>

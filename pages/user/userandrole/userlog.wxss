@@ -1,0 +1,15 @@
+/* .con_list{padding: 20rpx 30rpx;font-size: 32rpx;}
+.con_list view{padding: 20rpx 0;border-bottom: 1rpx solid #dddddd}
+.con_list view:last-of-type{border-bottom: 0}
+.con_list view text{font-size: 32rpx;}
+.con_list view text:last-of-type{float: right; color: #9f9f9f;font-size: 30rpx;} */
+
+.con_con{padding: 20rpx 0}
+.con_list{margin:0 40rpx 0 20rpx;}
+.con_lt{float: left; width: 55rpx;position: relative}
+.con_lt{position: absolute;}
+.con_1{height: 165rpx;width: 2rpx;background-color: #dddddd;margin-left: 25rpx;}
+.con_2{position: absolute;width: 20rpx;height: 20rpx;border-radius: 20rpx;background-color: #dddddd;top:25rpx;left:18rpx;}
+.con_rt{margin-left: 65rpx;font-size: 34rpx;color: #999999;border-bottom: 1rpx solid #dddddd;padding: 10rpx 0 25rpx 0;margin-bottom: 10rpx;}
+.con_rt view:last-of-type{color: #333;font-size: 34rpx;}
+.con_list:last-of-type .con_rt{border-bottom: 0}

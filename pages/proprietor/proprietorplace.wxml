@@ -1,0 +1,13 @@
+<view class="createroom1">
+  <!-- <view wx:for="{{placearray}}" wx:for-item="item" wx:for-index="index" bindtap='chosemodal' wx:key="a">
+    <text>{{item.nation}}</text>
+    
+  </view> -->
+  <checkbox-group bindchange="checkboxChange">
+    <view class="checkbox" wx:for="{{placearray}}" wx:for-item="item" wx:for-index="index" wx:key="a">
+      <checkbox value="{{item.nation}}" checked="{{item.checked}}"/>
+      <text>{{item.nation}}</text>
+    </view>
+  </checkbox-group>
+</view>
+<button class="button1_1 btnbom" bindtap='backproupdate'>确定</button>

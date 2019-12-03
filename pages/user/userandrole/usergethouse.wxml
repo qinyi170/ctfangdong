@@ -1,0 +1,18 @@
+<view class='con_ztree'>
+  <checkbox-group bindchange="checkboxChange">
+    <view class='ztreeitem' wx:for="{{allDataList}}" wx:for-item="item" wx:for-index="index" wx:key="a">
+      <view class='ztree1' data-index="{{index}}" bindtap='changeToggle'>
+        <!-- <checkbox value="{{item.id}}" checked="{{item.checked}}" catchtap='checkboxtap' hover-stop-propagation='true' data-pid="" data-uid="{{index}}" data-uchecked="{{item.checked}}"/> -->
+        <text class="ztree1_1">{{item.groupName}}</text>
+        <image class='ztree1_img_1' wx:if="{{selectedFlag[index]}}" src='../../images/2019.9.3/ztree_1.png'></image>
+        <image class='ztree1_img_2' wx:if="{{!selectedFlag[index]}}" src='../../images/2019.9.3/ztree_2.png'></image>
+      </view>
+      <view class='ztree2' hidden="{{!selectedFlag[index]}}">
+        <view wx:for="{{item.children}}" wx:for-item="item1" wx:for-index="index1" wx:key="b">
+          <checkbox value="{{item1.net_house_id}}" checked="{{item1.checked}}" bindtap='checkboxtap' data-pid="{{index}}" data-uid="{{index1}}" data-uchecked="{{item1.checked}}"/>{{item1.net_house_name}}
+        </view>
+      </view>
+    </view>
+  </checkbox-group>
+</view>
+<button class='button1_1 abtn' bindtap='saverole'>保存</button>

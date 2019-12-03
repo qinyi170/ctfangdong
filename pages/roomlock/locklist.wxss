@@ -1,0 +1,10 @@
+page{background-color: #fff}
+.top{background-color: #f5c343;padding: 10rpx 40rpx;display: flex;justify-content:space-between;align-items:center}
+.right{font-size: 32rpx;color: #fff;}
+
+.movablearea{width: 100%}
+.listview{display: flex;box-sizing: border-box;width: 700rpx;padding:20rpx 0;font-size: 28rpx;margin: 0 auto;border-bottom: 1rpx solid #dddddd;align-items: center;}
+.listview image{width: 35rpx;height: 35rpx;margin-right: 10rpx;}
+.listview view.text2{flex-grow:1;}
+.listview view.text3{color: #00a5f2;padding:15rpx 0 15rpx 15rpx;}
+.nolock{text-align: center;margin-top: 100rpx;font-size: 34rpx;}

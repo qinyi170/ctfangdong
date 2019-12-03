@@ -1,0 +1,15 @@
+<view wx:if="{{allDataList.length==0}}" class='alog'>
+  <image src='../../images/2019.9.3/nobody.png'></image>
+  <view>暂时没有相关信息</view>
+</view>
+<view wx:if="{{allDataList.length!=0}}" class='houselist'>
+  <view class='houseitem' wx:for="{{allDataList}}" wx:for-item="item" wx:key="a">
+    <image src='data:image/png;base64,{{item.house_photo}}' mode='aspectFill'></image>
+    <view>
+      <view>{{item.net_house_name}}</view>
+      <view wx:if="{{item.group_name==''}}">未分组</view>
+      <view wx:if="{{item.group_name!=''}}">{{item.group_name}}</view>
+    </view>
+  </view>
+</view>
+<button wx:if="{{allDataList.length!=0}}" class='button1_1 abtn' bindtap='updatehouse'>分配房源</button>

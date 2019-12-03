@@ -1,0 +1,7 @@
+<view class="con_add">
+  <view>角色名称</view>
+  <view>
+    <input type='text' placeholder='请输入角色名称' placeholder-class='placeholderclass' bindinput='getqueryparam' bindblur='getqueryparam'></input>
+  </view>
+</view>
+<button class='button1_1 abtn' bindtap='saverole'>保存</button>

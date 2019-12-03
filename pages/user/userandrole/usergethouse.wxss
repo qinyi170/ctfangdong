@@ -1,0 +1,12 @@
+.con_ztree{margin-bottom: 100rpx;}
+.ztreeitem{font-size: 32rpx;color: #333333;}
+.ztree1{padding:25rpx 35rpx;border-bottom: 1rpx solid #f7f7f7;}
+.ztree1 checkbox{transform: scale(0.7,0.7);}
+.ztree1 .ztree1_1{font-weight: bold}
+.ztree1 .ztree1_img_1{float: right;width: 30rpx;height: 16rpx;margin-top:10rpx;}
+.ztree1 .ztree1_img_2{float: right;width: 16rpx;height: 30rpx;}
+.ztree2{background-color: #f7f7f7;padding-left:70rpx;padding-right:35rpx;}
+.ztree2 view{padding:25rpx 0;border-bottom: 1rpx solid #dddddd}
+.ztree2 view:last-of-type{border-bottom: 0}
+.ztree2 view checkbox{transform: scale(0.7,0.7);}
+button.abtn{width:650rpx;position:fixed;bottom:30rpx;left:50rpx;z-index: 1000}

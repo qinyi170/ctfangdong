@@ -1,0 +1,91 @@
+<view class="viewcon">
+  <view class="view2 view_width">
+    <view class="view2_1">
+      <view>{{starttime}}</view>
+      <view>最早{{starthour}}:{{startminute}}入住</view>
+    </view>
+    <view class="view2_2 ">
+      <text>{{roomInfo.total}}</text>
+      <view>
+        <text wx:if="{{roomInfo.check_state=='wait'}}">待入住</text>
+        <text wx:if="{{roomInfo.check_state=='check'}}">已入住</text>
+        <text wx:if="{{roomInfo.check_state=='retreat'}}">已退房</text>
+        <text wx:if="{{roomInfo.check_state=='cancel'}}">已取消</text>
+      </view>
+    </view>
+    <view class="view2_1">
+      <view>{{stoptime}}</view>
+      <view>最晚{{stophour}}:{{stopminute}}退房</view>
+    </view>
+  </view>
+  <view class='view3 view_width view3top'>
+    <view>
+      <text>房源名称</text>
+      <text>{{roomInfo.net_house_name}}</text>
+    </view>
+    <view wx:if="{{isneedpwd==1}}">
+      <text>门锁密码</text>
+      <text>{{roomInfo.order_house_password}}</text>
+    </view>
+  </view>
+  <view class='view3 view_width' wx:for="{{roomInfo.reside_info}}" wx:for-item="item" wx:for-index="index" wx:key="a">
+    <view class="view_title">入住人{{index+1}}</view>
+    <view wx:if="{{item.reside_name!=''}}">
+      <text>姓名</text>
+      <text>{{item.reside_name}}</text>
+    </view>
+    <view wx:if="{{item.reside_id_num!=''}}">
+      <text>身份证号</text>
+      <text>{{item.reside_id_num}}</text>
+    </view>
+    <view>
+      <text>联系方式</text>
+      <text wx:if="{{item.reside_phone==''}}">--</text>
+      <text wx:if="{{item.reside_phone!=''}}">{{item.reside_phone}}</text>
+    </view>
+  </view>
+  <view class='view3 view_width'>
+    <view class="view_title">订单价格<text>{{roomInfo.money}}元</text>
+    </view>      
+  </view>
+</view>
+<view class="group_btn state{{check_state}}">
+  <block wx:if="{{check_state=='wait'}}">
+    <button type="button" class="button1_1" bindtap="orderupdate">编辑</button>
+    <button type="button" class="button1_1" bindtap="updateorder">换房</button>
+    <button type="button" data-orderphone="{{roomInfo.reside_info[0].reside_phone}}" class="button1_1" bindtap="cancelorder">取消</button>
+  </block>
+  <block wx:if="{{check_state=='check'}}">
+    <button type="button" class="button1_1" bindtap="orderupdate">编辑</button>
+    <button type="button" class="button1_1" bindtap="updateorder">换房</button>
+    <button type="button" class="button1_1" bindtap="openmodal">续住</button>
+    <button type="button" data-orderphone="{{roomInfo.reside_info[0].reside_phone}}" class="button1_1" bindtap="exitorder">退房</button>
+  </block>
+</view>
+
+
+<view class="medalbcg" wx:if="{{medalstate==2}}"></view>
+<view class="medalcon mwidth1" wx:if="{{medalstate==2}}">
+  <view class="medalbox">
+    <view class="medalfrom">
+      <view class="viewa"><text>续住天数</text>（天）
+        <view>
+          <text bindtap="removedays" class="{{tt1}}">-</text>
+          <text>{{nowdays}}</text>
+          <text bindtap="adddays">+</text>
+        </view>
+      </view>
+      <view class="viewb">
+        <text class='texta'>退房时间</text>
+        <text>{{orderstoptime}}</text>
+      </view>
+      <view class="viewb">
+        <text class='texta'>价格（元）</text>
+        <input type="text" value="{{ordermoney}}" bindinput='getordermoney' bindblur='getordermoney'></input></view>
+    </view>
+    <view class="medalbutton">
+      <view bindtap="closemedal">取消</view>
+      <view bindtap="chosemodal">确定</view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,7 @@
+page{background-color: #fff}
+.con_add{margin:30rpx 40rpx;font-size: 32rpx;color: #333}
+.con_add>view{font-weight: bold}
+.con_add view input{border-bottom: 1px solid #dddddd;padding: 15rpx 0;font-size: 30rpx;font-weight:normal;margin-bottom: 30rpx;}
+.con_add view input[disabled]{background-color: #fafafa}
+.placeholderclass{color: #b3b3b3}
+button.abtn{width:650rpx;position:fixed;bottom:30rpx;left:50rpx;z-index: 1000}

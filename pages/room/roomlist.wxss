@@ -1,0 +1,26 @@
+@import "../calendar/index";
+.sbtn view input{width: 600rpx}
+view.viewlt{width: 110rpx;border-radius: 110rpx;margin-top: 9rpx;}
+view.viewlt image{width: 110rpx;height: 110rpx;}
+view.viewrt{margin-left: 130rpx}
+view.viewrt .view2{color: #888787}
+view.viewrt .view2.ischeck0{color: #71dd4b}
+view.viewrt .view2.ischeck1{color: #666666}
+view.viewrt .view2.ischeck2{color: #fc7a0c}
+view.viewrt .view2.ischeck3{color: #ee3f3f}
+view.viewrt .view2.ischeck9{color: #666666}
+.viewllt{float: left;width: 380rpx;}
+.viewllt view{margin-bottom: 5rpx}
+.viewrrt{margin-left: 400rpx;text-align: right;margin-top: 30rpx;}
+.lockid0,.lockid1{display: inline-block;padding: 3rpx 15rpx;background-color: #eeeeee;color: #999999;border-radius: 20rpx;margin-left: 5rpx;font-size: 24rpx;position: relative;top: -3rpx;}
+.lockid1{background-color: #ffebdb;color: #fc7a0c;}
+.openroom{padding: 5rpx 20rpx;border: 1rpx solid #e5a400;color: #e5a400;border-radius: 26rpx;float: right;}
+
+.searchlist image.image2{width: 495rpx;height: 440rpx;margin-left: 140rpx;margin-top: 100rpx}
+.searchlist view{font-size: 28rpx;}
+.scrollview{position:static}
+
+.viewwidth{width: 500rpx;margin: 100rpx auto}
+button.buwidth{width: 300rpx}
+.medalcoms .viewwidth{font-size: 30rpx;}
+

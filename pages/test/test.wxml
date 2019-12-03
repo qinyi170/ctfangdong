@@ -1,0 +1,43 @@
+<view class="weui-cell weui-cell_input">
+	<view class="weui-cell__hd">
+		<view class="weui-label rui-justify">
+			<text space="ensp">出 发 地</text>
+		</view>
+	</view>
+	<view class="weui-cell__bd">
+		<input class="weui-input" name="beginAddress" bindinput="inputedit" data-obj="info" data-item="beginAddress" value="{{info.beginAddress}}"
+		 placeholder="请输入出发地" disabled="{{info.isPreDetail}}" />
+	</view>
+</view>
+
+<view wx:for="{{info.details}}" wx:key="key" class="forItemBorder">
+	<view class="weui-cell weui-cell_input ">
+		<view class="weui-cell__hd">
+			<view class="weui-label rui-justify">
+				<text space="ensp">途 径 地</text>
+			</view>
+		</view>
+		<input class="weui-input" id="place-{{index}}" bindinput="setPlace" placeholder="请输入途径地" />
+		<input class="weui-input lcs" id="number-{{index}}" bindinput="setNumber" placeholder="里程数(km)" />
+	</view>
+  <button bindtap='deleteitem' data-indexid='{{index}}'></button>删除
+</view>
+
+<view class="weui-cell weui-cell_input">
+	<view class="weui-cell__hd">
+		<view class="weui-label rui-justify">
+			<text space="ensp">目 的 地</text>
+		</view>
+	</view>
+	<input class="weui-input" name="destination" bindinput="inputedit" data-obj="info" data-item="destination" value="{{info.destination}}"
+	 placeholder="请输入目的地" disabled="{{info.isPreDetail}}" />
+	<input class="weui-input lcs" name="endLength" bindinput="inputedit" data-obj="info" data-item="endLength" value="{{info.endLength}}"
+	 placeholder="里程数(km)" disabled="{{info.isPreDetail}}" />
+</view>
+
+<view class="weui-cell" hidden="{{info.isPreDetail}}">
+	<button type='primary' bindtap='addItem' style='width:50%;'>增加途径地</button>
+	<button type='primary' bindtap='removeItem' style='width:50%;margin-left:5rpx;'>
+		删除途径地
+	</button>
+</view>

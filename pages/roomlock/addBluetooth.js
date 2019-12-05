@@ -38,9 +38,10 @@ Page({
       for (let i = 0, len = devices.length; i < len; i++) {
         device = devices[i];
         device.name = device.name.trim();
-        if (!device.name) {
+        if (!device.name || !device.name.startsWith("XY_")) {
           break;
         }
+        console.log(device);
         const idx = inArray(foundDevices, 'deviceId', device.deviceId)
         const data = {}
         idx === -1 && (data[`devices[${foundDevices.length}]`] = device) || (data[`devices[${idx}`] = device)
@@ -66,11 +67,13 @@ Page({
             console.log("需要设置管理员密码")
             that.connection(deviceId, lock_brand, adminPwd, lockname, () => {
               wx.hideLoading();
-              this.setData({
+              console.log("弹出输入密码框");
+              that.setData({
                 modalHidden: 1,
                 lockname,
                 deviceId
               });
+              console.log(that.data.modalHidden)
             });
           } else {
             console.log("可以直接绑锁");
@@ -96,6 +99,9 @@ Page({
                     "lock_version": "蓝牙锁",
                     "lock_type": "0000"
                   }, ({ data: { result, errorCode, message } }) => {
+                    wx.closeBLEConnection({ // 断开蓝牙连接
+                      deviceId: deviceId
+                    });
                     if (result == "0") {
                       if (errorCode != "0000000") {
                         wx.hideLoading();
@@ -132,12 +138,17 @@ Page({
     bluetooth.stopBluetoothDevicesDiscovery();
     // 先断开之前的蓝牙连接
     bluetooth.createBLEConnection({
-      name: name,
+      lockname: lockname,
       deviceId: deviceId,
       serviceId: serviceId,
       notifyCharacteristicId: notify,
-      createBLEConnectionSuccess: () => { dev.deviceId = deviceId },
+      createBLEConnectionSuccess: () => {
+        console.log("连接建立成功")
+        dev.deviceId = deviceId;
+        console.log(dev);
+      },
       onBLECharacteristicValueChange: hex => {
+        console.log("接收到蓝牙返回");
         // 将16进制字符串发送到服务器
         utils.request1("/weboperate/openLockCallback", {
           "skey": app.globalData.skey,
@@ -146,6 +157,7 @@ Page({
           "lock_name": lockname,
           hexStr: hex
         }, ({ data: { result, errorCode, message, dataObject: hexStr } }) => {
+          console.log("获取到后台返回", result, errorCode, message);
           if (result == "0") {
             if (errorCode == "0000000") {
               callback();
@@ -161,14 +173,20 @@ Page({
         });
       },
       success: () => {
-        wx.writeBLECharacteristicValue({
-          deviceId: dev.deviceId,
-          serviceId: serviceId,
-          characteristicId: write,
-          value: bluetooth.hexStr2byte(pwd),
-          success: res => console.log("发送报文成功"),
-          fail: res => console.log(res)
-        });
+        setTimeout(() => {
+          wx.writeBLECharacteristicValue({
+            deviceId: deviceId,
+            serviceId: serviceId,
+            characteristicId: write,
+            value: bluetooth.hexStr2byte(pwd),
+            success: res => {
+              console.log("发送报文成功");
+            },
+            fail: res => {
+              console.log("发送报文失败", res)
+            }
+          });
+        }, 500);
       }
     });
   },
@@ -176,7 +194,13 @@ Page({
   confirm() {
     utils.showLoading("请稍等");
     const that = this;
+    const reg = /^\d+(\.\d+)?$/
     let { lock_brand, lockname: lock_name, adminPwd, net_house_id } = that.data;
+    if (!adminPwd || adminPwd.length != 6 || !reg.test(adminPwd)) {
+      utils.alertViewNosucces("提示", "请输入6位数字", false);
+      wx.hideLoading();
+      return;
+    }
     utils.request1("/weboperate/changeAdminPwd", {
       "skey": app.globalData.skey,
       "lock_brand": lock_brand,
@@ -185,7 +209,7 @@ Page({
     }, ({ data: { result, errorCode, message, dataObject: { high, low } } }) => {
       if (result == "0") {
         if (errorCode == "0000000") {
-          this.setData({
+          that.setData({
             high: bluetooth.hexStr2byte(high),
             low: bluetooth.hexStr2byte(low)
           });
@@ -248,6 +272,9 @@ Page({
               "lock_type": "0000"
             }, ({ data: { result, errorCode, message } }) => {
               if (result == "0") {
+                wx.closeBLEConnection({ // 断开蓝牙连接
+                  deviceId: dev.deviceId
+                });
                 if (errorCode != "0000000") {
                   wx.hideLoading();
                   utils.alertViewNosucces("提示", message, false);

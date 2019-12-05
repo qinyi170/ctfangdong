@@ -92,7 +92,7 @@ Page({
         } else if (lockid == 10) {// 身份证锁
           that.deletelock10(dataset);
         } else if (lockid == 11) {// 猫眼身份证锁
-          that.deletelock11(dataset);
+          that.deletelock10(dataset);
         } else if (lockid == 12) {// 蓝牙锁
           that.deletelock12(dataset);
         }

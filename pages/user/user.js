@@ -75,7 +75,7 @@ Page({
 
   phonecallevent: function () {
     wx.makePhoneCall({
-      phoneNumber: "01058815600"
+      phoneNumber: "4000915055"
     })
   },
   gosuggestion:function(){

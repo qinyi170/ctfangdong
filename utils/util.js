@@ -193,6 +193,7 @@ function request1(url = "", parameters = "", success, method = "POST", header = 
   if (url == "/login/smsCode"){
     if (datas.type == "2") {
       headerjson.Authorization = "Bearer " + app.globalData.pcloginstate.token
+      headerjson.openid = app.globalData.openid
     }
   }else{
     headerjson.Authorization = "Bearer " + app.globalData.pcloginstate.token

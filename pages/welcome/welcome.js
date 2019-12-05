@@ -36,6 +36,7 @@ Page({
           if (ee.data.result == "0") {
             clearTimeout(timers);
             app.globalData.skey = ee.data.dataObject.skey;
+            app.globalData.openid = ee.data.dataObject.openid;
             utils.request("/queryUserState", {
               "skey": ee.data.dataObject.skey
             }, function (e) {

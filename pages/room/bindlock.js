@@ -1,5 +1,5 @@
 const app = getApp()
-const utils = require("../../utils/util.js");
+var utils = require("../../utils/util.js");
 Page({
   data: {
     medalstate: "1",

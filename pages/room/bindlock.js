@@ -207,7 +207,7 @@ Page({
       "net_house_id": athis.data.net_house_id
     }, function (e) {
       let { data: { dataObject } } = e;
-      let { lock_id, lock_brand, lock_version, lock_type_default, lock_name } = dataObject;
+      let { lock_id, lock_brand, lock_version, lock_type_default, lock_name, gateway, camera } = dataObject;
       console.log("queryHouseLock", e)
       wx.hideLoading();
       if (e.data.result == "0") {
@@ -217,34 +217,11 @@ Page({
           lock_type: lock_type_default,
           locktypearray: dataObject,
           lock_name: lock_name,
-          locktitle: lock_id
+          locktitle: lock_id,
+          gateway: gateway,
+          camera: camera,
         })
-        if (lock_id == 10) {
-          utils.request1("/weboperate/getAdditionalByLockName", {
-            "skey": app.globalData.skey,
-            "lock_name": lock_name,
-            "lock_id": lock_id
-          }, ({ data: { dataObject: additional } }) => {
-            athis.setData({
-              gateway: additional
-            });
-          });
-          athis.queryLockversion(lock_brand, 2)
-        } else if (lock_id == 11) {
-          utils.request1("/weboperate/getAdditionalByLockName", {
-            "skey": app.globalData.skey,
-            "lock_name": lock_name,
-            "lock_id": lock_id
-          }, ({ data: { dataObject: additional } }) => {
-            let [gateway, camera] = additional.split(",");
-            athis.setData({
-              gateway: gateway,
-              camera: camera,
-              locktitle: lock_id
-            });
-          });
-          athis.queryLockversion(lock_brand, 2)
-        }
+        athis.queryLockversion(lock_brand, 2);
       } else if (e.data.result == "2") {
         utils.alertView("提示", "你已退出，请点击“确认”重新登录", function () {
           app.getLogin();

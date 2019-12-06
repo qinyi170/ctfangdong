@@ -75,54 +75,54 @@ Page({
               });
               console.log(that.data.modalHidden)
             });
-          } else {
-            console.log("可以直接绑锁");
-            that.connection(deviceId, lock_brand, adminPwd, lockname, () => {
+          // } else {
+          //   console.log("可以直接绑锁");
+          //   that.connection(deviceId, lock_brand, adminPwd, lockname, () => {
 
-              utils.request1("/weboperate/initLock", {
-                "skey": app.globalData.skey,
-                "net_house_id": that.data.net_house_id,
-                "lock_name": lockname,
-                "adminPwd": adminPwd,
-                "lock_brand": lock_brand
-              }, ({ data: { result, errorCode, message } }) => {
-                if (result == "0") {
-                  if (errorCode != "0000000") {
-                    wx.hideLoading();
-                    utils.alertViewNosucces("提示", message, false);
-                  }
-                  utils.request1("/weboperate/bindHouseLock", {
-                    "skey": app.globalData.skey,
-                    "net_house_id": that.data.net_house_id,
-                    "lock_brand": lock_brand,
-                    "lock_name": lockname,
-                    "lock_version": "蓝牙锁",
-                    "lock_type": "0000"
-                  }, ({ data: { result, errorCode, message } }) => {
-                    wx.closeBLEConnection({ // 断开蓝牙连接
-                      deviceId: deviceId
-                    });
-                    if (result == "0") {
-                      if (errorCode != "0000000") {
-                        wx.hideLoading();
-                        utils.alertViewNosucces("提示", message, false);
-                      }
-                      wx.hideLoading();
-                      that.setData({ modalHidden: 0 });
-                      wx.navigateBack({ delta: 2 });
-                    } else if (result == "2") {
-                      utils.alertView("提示", "你已退出，请点击“确认”重新登录", () => app.getLogin());
-                    } else {
-                      utils.alertViewNosucces("提示", message, false);
-                    }
-                  });
-                } else if (result == "2") {
-                  utils.alertView("提示", "你已退出，请点击“确认”重新登录", () => app.getLogin());
-                } else {
-                  utils.alertViewNosucces("提示", message, false);
-                }
-              });
-            });
+          //     utils.request1("/weboperate/initLock", {
+          //       "skey": app.globalData.skey,
+          //       "net_house_id": that.data.net_house_id,
+          //       "lock_name": lockname,
+          //       "adminPwd": adminPwd,
+          //       "lock_brand": lock_brand
+          //     }, ({ data: { result, errorCode, message } }) => {
+          //       if (result == "0") {
+          //         if (errorCode != "0000000") {
+          //           wx.hideLoading();
+          //           utils.alertViewNosucces("提示", message, false);
+          //         }
+          //         utils.request1("/weboperate/bindHouseLock", {
+          //           "skey": app.globalData.skey,
+          //           "net_house_id": that.data.net_house_id,
+          //           "lock_brand": lock_brand,
+          //           "lock_name": lockname,
+          //           "lock_version": "蓝牙锁",
+          //           "lock_type": "0000"
+          //         }, ({ data: { result, errorCode, message } }) => {
+          //           wx.closeBLEConnection({ // 断开蓝牙连接
+          //             deviceId: deviceId
+          //           });
+          //           if (result == "0") {
+          //             if (errorCode != "0000000") {
+          //               wx.hideLoading();
+          //               utils.alertViewNosucces("提示", message, false);
+          //             }
+          //             wx.hideLoading();
+          //             that.setData({ modalHidden: 0 });
+          //             wx.navigateBack({ delta: 2 });
+          //           } else if (result == "2") {
+          //             utils.alertView("提示", "你已退出，请点击“确认”重新登录", () => app.getLogin());
+          //           } else {
+          //             utils.alertViewNosucces("提示", message, false);
+          //           }
+          //         });
+          //       } else if (result == "2") {
+          //         utils.alertView("提示", "你已退出，请点击“确认”重新登录", () => app.getLogin());
+          //       } else {
+          //         utils.alertViewNosucces("提示", message, false);
+          //       }
+          //     });
+          //   });
           }
         }
       } else if (result == "2") {
@@ -157,10 +157,12 @@ Page({
           "lock_name": lockname,
           hexStr: hex
         }, ({ data: { result, errorCode, message, dataObject: hexStr } }) => {
-          console.log("获取到后台返回", result, errorCode, message);
+          console.log("获取到后台返回", result, errorCode, message, hexStr);
           if (result == "0") {
             if (errorCode == "0000000") {
-              callback();
+              if (hexStr == 24){
+                callback();
+              }
             } else {
               wx.hideLoading();
               utils.alertViewNosucces("提示", message, false);
@@ -192,7 +194,7 @@ Page({
   },
 
   confirm() {
-    utils.showLoading("请稍等");
+    // utils.showLoading("请稍等");
     const that = this;
     const reg = /^\d+(\.\d+)?$/
     let { lock_brand, lockname: lock_name, adminPwd, net_house_id } = that.data;
@@ -272,16 +274,17 @@ Page({
               "lock_type": "0000"
             }, ({ data: { result, errorCode, message } }) => {
               if (result == "0") {
-                wx.closeBLEConnection({ // 断开蓝牙连接
-                  deviceId: dev.deviceId
-                });
                 if (errorCode != "0000000") {
-                  wx.hideLoading();
                   utils.alertViewNosucces("提示", message, false);
                 }
-                wx.hideLoading();
-                that.setData({ modalHidden: 0 });
-                wx.navigateBack({ delta: 2 });
+                setTimeout(() => {
+                  // wx.closeBLEConnection({ // 断开蓝牙连接
+                  //   deviceId: dev.deviceId
+                  // });
+                  wx.hideLoading();
+                  that.setData({ modalHidden: 0 });
+                  wx.navigateBack({ delta: 2 });
+                }, 1000);
               } else if (result == "2") {
                 utils.alertView("提示", "你已退出，请点击“确认”重新登录", () => app.getLogin());
               } else {

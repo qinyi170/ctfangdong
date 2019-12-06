@@ -8,13 +8,11 @@
     <button class="button1_1" bindtap="gosearchlock">下一步</button>
   </view>
 </view>
-<view class="cont_list" wx:if="{{seachstate==2}}">
+<view class="cont_list" wx:if="{{seachstate==2}}"> 
   <view wx:for="{{devices}}" wx:for-item="item" wx:for-index="index" wx:key="id">
     <view bindtap="addlock" data-lockname="{{item.name}}" data-deviceid="{{item.deviceId}}" style="height: 121rpx;display: flex;">
       <text style="align-self: center;">{{item.name}}</text>
-    </view>
-    <view>
-      <image src="../images/2019.9.3/lock_3.png"></image>
+      <image style="align-self: center; position:absolute; right:10px;" src="../images/2019.9.3/lock_3.png"></image>
     </view>
   </view>
 </view>

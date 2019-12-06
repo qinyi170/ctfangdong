@@ -14,6 +14,7 @@ Page({
     console.log(options)
     this.setData({
       net_house_id: options.nethouseid,
+      lock_brand: options.lockbrand
     })
   },
   onUnload() {
@@ -97,7 +98,8 @@ Page({
           "skey": app.globalData.skey,
           "net_house_id": athis.data.net_house_id,
           "lock_data": initLockResult.lockData,
-          "lock_name": newlock.lockName
+          "lock_name": newlock.lockName,
+          "lock_brand": athis.data.lock_brand
         }, function (respass) {
           wx.hideLoading();
           if (respass.data.result == 0) {

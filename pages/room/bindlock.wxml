@@ -29,10 +29,10 @@
     <text>门锁显示方式</text>
     <radio-group class="radio-group" bindchange="radioChange" name="locktype">
       <label class="radio">
-        <radio value="0100" checked="true" /> 身份证锁
+        <radio value="0100" checked="true" /> 身份证
       </label>
       <label class="radio">
-        <radio value="0200"/> 密码锁
+        <radio value="0200"/> 密码
       </label>
     </radio-group>
   </view>

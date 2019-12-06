@@ -14,7 +14,8 @@ Page({
   },
   onLoad: function (options) {
     this.setData({
-      net_house_id: options.nethouseid
+      net_house_id: options.nethouseid,
+      lock_brand: options.lockbrand
     })
   },
   //获取手机号
@@ -74,7 +75,8 @@ Page({
       "userName": athis.data.userName,
       "password": athis.data.password,
       "code": athis.data.code,
-      "bizId": athis.data.bizId
+      "bizId": athis.data.bizId,
+      "lock_brand": athis.data.lock_brand
     }, function (res) {
       if (res.data.result == 0) {
         utils.showSuccess("注册成功", 1500, "success");

@@ -157,13 +157,15 @@ Page({
     }, ({ data: { result, message, dataObject } }) => {
       wx.hideLoading();
       if (result == "0") {
-        utils.showSuccess("锁删除成功", 2000, "success");
         setTimeout(function () {
-          that.setData({ state: "锁删除成功" });
-          that.setData({
-            allDataList: []
-          });
-          that.refreshNewData();
+          if (errorCode == "0000000") {
+            utils.showSuccess("锁删除成功", 2000, "success");
+            that.setData({ state: "锁删除成功" });
+            that.setData({
+              allDataList: []
+            });
+            that.refreshNewData();
+          }
         }, 2000);
       } else if (result == "2") {
         utils.alertView("提示", "你已退出，请点击“确认”重新登录", () => app.getLogin());
@@ -183,12 +185,16 @@ Page({
     }, ({ data: { result, errorCode, message, dataObject: hexStr } }) => {
       wx.hideLoading();
       if (result == "0") {
-        if (errorCode == "0000000") {
-          that.setData({
-            allDataList: []
-          });
-          that.refreshNewData();
-        }
+        setTimeout(function () {
+          if (errorCode == "0000000") {
+            utils.showSuccess("锁删除成功", 2000, "success");
+            that.setData({ state: "锁删除成功" });
+            that.setData({
+              allDataList: []
+            });
+            that.refreshNewData();
+          }
+        }, 2000);
       } else if (result == "2") {
         utils.alertView("提示", "你已退出，请点击“确认”重新登录", () => app.getLogin());
       } else {

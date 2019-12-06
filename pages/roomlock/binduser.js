@@ -41,7 +41,8 @@ Page({
       "skey": app.globalData.skey,
       "net_house_id": athis.data.net_house_id,
       "userName": athis.data.username,
-      "password": athis.data.uaserpassword
+      "password": athis.data.uaserpassword,
+      "lock_brand": athis.data.lock_brand
     }, function (res) {
       if (res.data.result == 0) {
         utils.showSuccess("绑定帐号成功", 1500, "success");
@@ -63,7 +64,7 @@ Page({
   },
   goregisteruser: function () {
     wx.redirectTo({
-      url: '../roomlock/registeruser?nethouseid=' + this.data.net_house_id
+      url: '../roomlock/registeruser?nethouseid=' + this.data.net_house_id + "&lockbrand=" + this.data.lock_brand
     })
   }
 })

@@ -54,7 +54,7 @@ Page({
     // getAdminPwd
     // 如果是初始密码，重置密码，否则跟蓝牙锁交互判断密码是否正确
     let that = this;
-    // utils.showLoading("请稍等");
+    utils.showLoading("请稍等");
     let lock_brand = this.data.lock_brand;
     utils.request1("/weboperate/getAdminPwd", {
       "skey": app.globalData.skey,

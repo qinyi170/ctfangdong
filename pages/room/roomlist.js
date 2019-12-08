@@ -267,6 +267,12 @@ Page({
     let that = this;
     let { lockid, lockname, locktype, nethouseid } = that.data;
     bluetooth.openBluetoothAdapter(bluetooth.startBluetoothDevicesDiscovery, ({ devices }) => {
+      that.setData({
+        enable: false,
+        state: '正在开启蓝牙设备',
+        enablestate: "开启中"
+      });
+
       let device
       for (let i = 0, len = devices.length; i < len; i++) {
         device = devices[i];
@@ -327,7 +333,9 @@ Page({
                     console.log(result, errorCode, message, hexStr);
                     if (result == "0") {
                       if (errorCode == "0000000") {
-                        that.writeBLECharacteristicValue(deviceId, bluetooth.hexStr2byte(hexStr), () => console.log("输出删除所有密码命令成功"));
+                        setTimeout(() => { // 等待关锁
+                          that.writeBLECharacteristicValue(deviceId, bluetooth.hexStr2byte(hexStr), () => console.log("输出删除所有密码命令成功"));
+                        }, 8000);
                       }
                     } else if (result == "2") {
                       utils.alertView("提示", "你已退出，请点击“确认”重新登录", () => app.getLogin());
@@ -656,16 +664,17 @@ Page({
    */
   lanyaopen() {
     let that = this;
+    if (that.data.lockid == 12) {
+      this.openLockSitong({});
+      return;
+    }
+
     that.setData({
       enable: false,
       state: '正在开启蓝牙设备',
       enablestate: "开启中"
     });
 
-    if (that.data.lockid == 12) {
-      this.openLockSitong({});
-      return;
-    }
     wx.openBluetoothAdapter({
       success: function (res) {
         /** 三代锁并且是android 则可以直接连接 **/

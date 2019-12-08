@@ -30,8 +30,8 @@ Page({
   },
   gosearchlock() {
     var that = this;
-    this.setData({ seachstate: 2 });
     bluetooth.openBluetoothAdapter(bluetooth.startBluetoothDevicesDiscovery, ({ devices }) => {
+      this.setData({ seachstate: 2 });
       let device;
       const foundDevices = that.data.devices
 

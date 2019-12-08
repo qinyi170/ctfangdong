@@ -45,7 +45,7 @@ Page({
       "startSize": allDataList.length,
       "lock_brand": that.data.lockbrand,
       "username": that.data.username
-    }, ({ data: { result, message, dataObject: dataList } }) => {
+    }, ({ data: { result, errorCode, message, dataObject: dataList } }) => {
       wx.hideLoading();
       if (result == "0") {
         if (dataList == "" || dataList == null) {
@@ -154,7 +154,7 @@ Page({
       "skey": app.globalData.skey,
       "lock_id": lockid,
       "lock_name": lockname
-    }, ({ data: { result, message, dataObject } }) => {
+    }, ({ data: { result, errorCode, message, dataObject } }) => {
       wx.hideLoading();
       if (result == "0") {
         setTimeout(function () {

@@ -207,7 +207,7 @@ Page({
       "net_house_id": athis.data.net_house_id
     }, function (e) {
       let { data: { dataObject } } = e;
-      let { lock_id, lock_brand, lock_version, lock_type_default, lock_name, gateway, camera } = dataObject;
+      let { lock_id, lock_brand, lock_version, lock_type_default, lock_name, gateway = "", camera = "" } = dataObject;
       console.log("queryHouseLock", e)
       wx.hideLoading();
       if (e.data.result == "0") {
@@ -267,6 +267,7 @@ Page({
   },
   //表单提交
   saverooms: function () {
+    utils.showLoading("请稍等")
     var athis = this;
     if ((athis.data.lock_id == 11 || athis.data.lock_id == 10) && athis.data.gateway == "") {
       utils.alertViewNosucces("提示", "请扫描网关序列号", false);
@@ -298,7 +299,6 @@ Page({
       urls = "/bindBlueLock"
     }
     console.log(datass)
-    wx.hideLoading();
     utils.request(urls, datass, function (respass) {
       wx.hideLoading();
       console.log(urls, respass)

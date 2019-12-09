@@ -401,10 +401,10 @@ Page({
               "skey": app.globalData.skey,
               "lock_id": lockid,
               "lock_name": lockname
-            }, ({ data: { result, errorCode, message, dataObject: { adminPwd } } }) => {
+            }, ({ data: { result, errorCode, message, dataObject } }) => {
               if (result == "0") {
                 // 将二进制报文发送到蓝牙设备
-                that.writeBLECharacteristicValue(deviceId, bluetooth.hexStr2byte(adminPwd), () => console.log("输出管理员命令成功"));
+                that.writeBLECharacteristicValue(deviceId, bluetooth.hexStr2byte(dataObject.adminPwd), () => console.log("输出管理员命令成功"));
               } else if (result == "2") {
                 utils.alertView("提示", "你已退出，请点击“确认”重新登录", () => app.getLogin());
               } else {

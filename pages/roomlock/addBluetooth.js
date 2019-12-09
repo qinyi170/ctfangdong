@@ -60,9 +60,10 @@ Page({
       "skey": app.globalData.skey,
       "lock_brand": lock_brand,
       "lock_name": lockname
-    }, ({ data: { result, errorCode, message, dataObject: { status, adminPwd } } }) => {
+    }, ({ data: { result, errorCode, message, dataObject } }) => {
       if (result == "0") {
         if (errorCode == "0000000") {
+          let { status, adminPwd } = dataObject;
           if (status == 0) { // 需要设置管理员密码
             console.log("需要设置管理员密码")
             that.connection(deviceId, lock_brand, adminPwd, lockname, () => {

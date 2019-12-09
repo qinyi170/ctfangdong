@@ -103,6 +103,11 @@ function connection({
       });
     },
     fail() {
+      wx.showModal({
+        title: '提示',
+        content: '连接蓝牙失败，请重新操作',
+        showCancel: false
+      });
       console.log("连接蓝牙失败: {lockname: " + lockname + ", deviceId: " + deviceId + "}");
       wx.hideLoading();
     }

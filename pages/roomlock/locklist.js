@@ -81,7 +81,10 @@ Page({
     wx.showModal({
       title: '提示',
       content: '确定要删除锁？',
-      success(res) {
+      success({ confirm, cancel }) {
+        if (cancel) { // 点击取消按钮
+          return;
+        }
         const lockid = dataset.lockid;
         if (lockid == 1) {        // 蓝牙密码锁
           that.deletelock1(dataset);

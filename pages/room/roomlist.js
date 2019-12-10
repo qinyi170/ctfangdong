@@ -539,6 +539,9 @@ Page({
   },
   //关闭弹出框
   closemedal: function () {
+    dev.deviceId && wx.closeBLEConnection({
+      deviceId: dev.deviceId
+    })
     this.setData({
       medalstate: "1",
       medalstate1: "1",

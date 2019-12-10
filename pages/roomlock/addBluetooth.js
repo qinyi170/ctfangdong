@@ -38,6 +38,7 @@ Page({
       for (let i = 0, len = devices.length; i < len; i++) {
         device = devices[i];
         device.name = device.name.trim();
+        console.log(device);
         if (!device.name || !device.name.startsWith("XY_")) {
           break;
         }

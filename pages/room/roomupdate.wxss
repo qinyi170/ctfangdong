@@ -124,33 +124,27 @@ page{background-color: #fff;font-size: 30rpx;}
 }
 
 .imgDisposeControlLine{
-  width: 100vw;
-  height:10vh;
-  position: relative;
-  background-color: rgba(0, 0, 0, 0.8)
+  width: 690rpx;
+  height:8vh;
+  padding: 2vh 30rpx 0 30rpx;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-content: center;
+  align-items: center;
+  justify-content:space-between;
 }
 
 .editBtn{
-  position: absolute;
-  top:50%;
   transform: translateY(-50%);
-  width:260rpx;
-  height: 60rpx;
-  background: #3a8d5f;
+  width:200rpx;
+  height: 70rpx;
+  background: #F5C343;
   font-size: 30rpx;
   text-align: center;
-  line-height: 60rpx;
+  line-height: 70rpx;
   color:#fff;
 }
 
-.editBtn.reelectBtn{
-  left:10%;
-}
-
-
-.editBtn.editPerfectBtn{
-  right:10%;
-}
 
 .finalCanvasClass{
   position:absolute;

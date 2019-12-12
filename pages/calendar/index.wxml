@@ -27,7 +27,8 @@
       <scroll-view wx:if="{{allDataList.length!=0}}" class="scrollview" scroll-y="true" bindscrolltolower="loadMoreData" style="{{scrollheight}}">
           <view class="oview" wx:for="{{allDataList}}" wx:for-item="item" wx:for-index="index" wx:key="c" data-nethouseid="{{item.net_house_id}}" data-nethousename="{{item.net_house_name}}" data-lockid="{{item.lock_id}}" data-locktype="{{item.lock_type}}" bindtap='housecalendar'>
             <view class="viewlt">
-              <image mode='aspectFill' src='data:image/png;base64,{{item.house_photo[0].house_photo}}' mode='aspectFill'></image>
+              <image wx:if="{{item.head_pic==''}}" src='../images/noimg.png' mode='aspectFill'></image>
+              <image wx:if="{{item.head_pic!=''}}" src='data:image/png;base64,{{item.head_pic}}' mode='aspectFill'></image>
               <view class="text0" wx:if="{{item.house_use_state=='0'}}">
                 空闲</view>
               <view class="text5" wx:if="{{item.house_use_state=='1'}}">

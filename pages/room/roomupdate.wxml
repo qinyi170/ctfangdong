@@ -4,8 +4,9 @@
       <template is="we-cropper" data="{{...cropperOpt}}"/>
   </view>
   <view class='imgDisposeControlLine'>
-        <view class='editBtn reelectBtn' bindtap="uploadTap">重新选择</view>
-        <view class='editBtn editPerfectBtn' bindtap="getCropperImage">确定</view>
+    <view class='editBtn' bindtap="uploadTap">重新选择</view>
+    <view class='editBtn' bindtap="getCropperImage">确定</view>
+    <view class='editBtn' bindtap="closeCropperImage">取消</view>
   </view>
 </view>
 <form bindsubmit="formSubmit" bindreset="formReset" class='formSubmit'>
@@ -32,7 +33,7 @@
     <view class='group_item'>
       <view class='group_title'>房屋简介</view>
       <view class='group_form'>
-        <textarea name="house_basic_declare" value='{{roomInfo.house_basic_declare}}' placeholder='可描述房屋装修风格、小区环境、家具配套、交通情况等。' placeholder-class="phcolor"></textarea>
+        <textarea name="house_basic_declare" value='{{roomInfo.house_basic_declare}}' ></textarea>
       </view>
     </view>
     <view class='group_item'>

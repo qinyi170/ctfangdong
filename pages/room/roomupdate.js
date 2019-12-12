@@ -330,7 +330,6 @@ Page({
       }
     })
   },
-
   //上传封面图片 --begin
   touchStart(e) {
     this.cropper.touchStart(e)
@@ -382,6 +381,11 @@ Page({
       } else {
         console.log('获取图片地址失败，请稍后重试')
       }
+    })
+  },
+  closeCropperImage(){
+    this.setData({
+      picmadel: true
     })
   },
   //上传封面图片 --end

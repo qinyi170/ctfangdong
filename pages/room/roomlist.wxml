@@ -16,7 +16,8 @@
       <scroll-view class="scrollview" scroll-y="true" bindscrolltolower="loadMoreData" bindscrolltoupper="crolltoupper" style="{{scrollheight}}">
         <view class="oview" hover-class="hoverview" bindtap='roommsg' wx:for="{{allDataList}}" wx:for-item="item" wx:for-index="index" data-nethouseid="{{item.net_house_id}}" data-nethousename='{{item.net_house_name}}' wx:key="id">
           <view class="viewlt">
-            <image class="imagea" src='data:image/png;base64,{{item.head_pic}}' mode='aspectFill'></image>
+            <image wx:if="{{item.head_pic==''}}" class="imagea" src='../images/noimg.png' mode='aspectFill'></image>
+            <image wx:if="{{item.head_pic!=''}}" class="imagea" src='data:image/png;base64,{{item.head_pic}}' mode='aspectFill'></image>
           </view>
           <view class="viewrt">
             <view class="viewllt">
@@ -24,7 +25,7 @@
                 {{item.net_house_name}}
                 <text wx:if="{{item.lock_id==0}}" class="lockid0">未绑锁</text>
               </view>
-              <view class="view2">{{item.net_house_addr}}-{{item.room_id}}</view>
+              <view class="view2">{{item.net_house_addr}}{{item.room_id}}</view>
               <view class="view2 ischeck{{item.is_check}}" wx:if="{{item.is_check==0}}">已审核</view>
               <view class="view2 ischeck{{item.is_check}}" wx:if="{{item.is_check==1}}">未审核</view>
               <view class="view2 ischeck{{item.is_check}}" wx:if="{{item.is_check==2}}">审核中</view>

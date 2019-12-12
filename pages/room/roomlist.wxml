@@ -16,7 +16,7 @@
       <scroll-view class="scrollview" scroll-y="true" bindscrolltolower="loadMoreData" bindscrolltoupper="crolltoupper" style="{{scrollheight}}">
         <view class="oview" hover-class="hoverview" bindtap='roommsg' wx:for="{{allDataList}}" wx:for-item="item" wx:for-index="index" data-nethouseid="{{item.net_house_id}}" data-nethousename='{{item.net_house_name}}' wx:key="id">
           <view class="viewlt">
-            <image class="imagea" src='data:image/png;base64,{{item.house_photo[0].house_photo}}' mode='aspectFill'></image>
+            <image class="imagea" src='data:image/png;base64,{{item.head_pic}}' mode='aspectFill'></image>
           </view>
           <view class="viewrt">
             <view class="viewllt">

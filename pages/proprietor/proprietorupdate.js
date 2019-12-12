@@ -342,44 +342,62 @@ Page({
       wx.hideLoading();
       var ress = respass.data;
       if (ress.result == "0") {
-        if (ress.dataObject == "" || ress.dataObject == null){
-          wx.switchTab({
-            url: '../user/user',
-          })
+        if (jsondata.type=="update"){
+          wx.showToast({
+            title: "经营者修改成功",
+            icon: "none",
+          });
+          setTimeout(function () {
+            wx.switchTab({
+              url: '../user/user',
+            })
+          }, 1500)
         }else{
-          wx.showModal({
-            title: '提示',
-            content: "您添加的经营地“" + ress.dataObject.address + "”需要审核，是否提交审核",
-            success(res) {
-              if (res.confirm) {
-                utils.showLoading("请稍等")
-                utils.request1("/weboperate/reportBusinessAddress", {
-                  "skey": app.globalData.skey,
-                  "operate_business_address": ress.dataObject.address,
-                  "type": "submit"
-                }, function (res1) {
-                  wx.hideLoading()
-                  if (res1.data.result == "0") {
-                    wx.showToast({
-                      title: "已提交审核",
-                      icon: "none",
-                    });
-                    setTimeout(function () {
-                      wx.switchTab({
-                        url: '../user/user',
-                      })
-                    }, 1500)
-                  } else {
-                    if (!res1.data.result) {
-                      utils.alertViewNosucces("提示", "服务未响应，请稍后再试", false);
-                      return;
+          if(ress.dataObject.address==""){
+            wx.showToast({
+              title: "经营者登记成功",
+              icon: "none",
+            });
+            setTimeout(function () {
+              wx.switchTab({
+                url: '../user/user',
+              })
+            }, 1500)
+          }else{
+            wx.showModal({
+              title: '提示',
+              content: "您添加的经营地“" + ress.dataObject.address + "”需要审核，是否提交审核",
+              success(res) {
+                if (res.confirm) {
+                  utils.showLoading("请稍等")
+                  utils.request1("/weboperate/reportBusinessAddress", {
+                    "skey": app.globalData.skey,
+                    "operate_business_address": ress.dataObject.address,
+                    "type": "submit"
+                  }, function (res1) {
+                    wx.hideLoading()
+                    if (res1.data.result == "0") {
+                      wx.showToast({
+                        title: "您的经营地已提交审核",
+                        icon: "none",
+                      });
+                      setTimeout(function () {
+                        wx.switchTab({
+                          url: '../user/user',
+                        })
+                      }, 1500)
+                    } else {
+                      if (!res1.data.result) {
+                        utils.alertViewNosucces("提示", "服务未响应，请稍后再试", false);
+                        return;
+                      }
+                      utils.alertViewNosucces("提示", res1.data.message + "", false);
                     }
-                    utils.alertViewNosucces("提示", res1.data.message + "", false);
-                  }
-                })
+                  })
+                }
               }
-            }
-          })
+            })
+          }
         }
       } else if (ress.result == "2") {
         utils.alertView("提示", "你已退出，请点击“确认”重新登录", function () {

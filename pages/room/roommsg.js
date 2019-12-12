@@ -3,7 +3,11 @@ var utils = require("../../utils/util.js");
 Page({
   data:{
     roominfo:{},
-    nethouseid:""
+    nethouseid:"",
+    houseTypeArr: ["-", "普通公寓", "酒店式公寓", "精品客栈", "乡间名宿", "别墅", "loft复式", "房车", "四合院"],
+    houseLayoutArr: ["室", "厅", "卫", "厨房", "书房", "阳台"],
+    houseBedArr: ["大型双人床", "标准双人床", "单人床", "上下铺", "沙发床", "榻榻米", "其他"],
+    houseFacilityArr:[]
   },
   onLoad: function (e) {
     this.setData({
@@ -11,7 +15,7 @@ Page({
     })
   },
   onReady:function (e) {
-    this.roommsg(this.data.nethouseid);
+    this.getHouseFacility();
   },
   //获取房源列表
   roommsg: function (data) {
@@ -25,11 +29,88 @@ Page({
       wx.hideLoading();
       if (e.data.result == "0") {
         var templist = e.data.dataObject;
+        if (templist.house_type==""){
+          templist.house_type=0
+        } else if (templist.house_type.length > 2) {
+          templist.house_type=0
+        }
+        //房源户型
+        if (templist.house_layout != null) {
+          var house_layout = templist.house_layout.split(",");
+          var tempval = ""
+          for (var i in house_layout) {
+            if (house_layout[i] != 0) {
+              tempval += house_layout[i] + athis.data.houseLayoutArr[i]
+            }
+          }
+          templist.house_layout = tempval
+        } else {
+          templist.house_layout = "-"
+        }
+        //床型
+        if (templist.house_bed != null) {
+          var house_bed = templist.house_bed.split(",");
+          var tempval = ""
+          for (var i in house_bed) {
+            if (house_bed[i] != 0) {
+              tempval += house_bed[i] + athis.data.houseBedArr[i]
+            }
+          }
+          templist.house_bed = tempval
+        } else {
+          templist.house_bed = "-"
+        }
+        //便利设施
+        if (templist.house_facility != null) {
+          var house_facility = templist.house_facility.split(",");
+          var houseFacilityArr = athis.data.houseFacilityArr;
+          var tempval = ""
+          for (var i in house_facility) {
+            for (var j in houseFacilityArr) {
+              if (house_facility[i] == houseFacilityArr[j].id){
+                tempval += houseFacilityArr[j].name+'、';
+                break;
+              }
+            }
+          }
+          templist.house_facility = tempval.substring(0, tempval.length-1)
+        } else {
+          templist.house_facility = "-"
+        }
+        if (templist.price_common == null){
+          templist.price_common=''
+        }
+        if (templist.price_holiday == null) {
+          templist.price_holiday = ''
+        }
+
         athis.setData({
           roomInfo: templist,
           tiems: e.data.dataObject.start_date.substring(0, 10) + "～" + e.data.dataObject.stop_date.substring(0, 10)
         })
-        
+      } else if (e.data.result == "2") {
+        utils.alertView("提示", "你已退出，请点击“确认”重新登录", function () {
+          app.getLogin();
+        })
+      } else {
+        utils.alertViewNosucces("提示", e.data.message + " ", false);
+      }
+    })
+  },
+  //便利设施--加载所有便利设施
+  getHouseFacility() {
+    var athis = this;
+    utils.showLoading("请稍等")
+    utils.request1("/weboperate/queryFacility", {
+      "skey": app.globalData.skey
+    }, function (e) {
+      wx.hideLoading();
+      if (e.data.result == "0") {
+        var tempdata = e.data.dataObject;
+        athis.setData({
+          houseFacilityArr: tempdata
+        })
+        athis.roommsg(athis.data.nethouseid);
       } else if (e.data.result == "2") {
         utils.alertView("提示", "你已退出，请点击“确认”重新登录", function () {
           app.getLogin();

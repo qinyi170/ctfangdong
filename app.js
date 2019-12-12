@@ -3,6 +3,8 @@ App({
     var athis = this;
     wx.getSystemInfo({
       success: function (res) {
+        console.log(res)
+        athis.globalData.pixelRatio = res.pixelRatio;//手机屏幕高度
         athis.globalData.pheight = res.windowHeight;//手机屏幕高度
         athis.globalData.pwidth = res.screenWidth;//手机屏幕宽度
       }
@@ -46,17 +48,16 @@ App({
     skey: "",
     minroute:"",
     showstate:"1",//小程序跳转成功的状态
-    urls: "https://m.useid.cn:9007/operate",
-    urls1: "https://m.useid.cn:9007",
+    //urls: "https://www.anezhu.net/operate",
+    //urls1: "https://www.anezhu.net",
     //urls: "https://m.useid.cn/operate",
     //urls1: "https://m.useid.cn",
     //urls: "http://192.168.1.90:9013/operate",
     //urls1: "http://192.168.1.90:8080",
     //urls: "http://192.168.1.171:9003/operate",
     //urls1: "http://192.168.1.171:8080",
-    //urls: "http://192.168.1.58:9003/operate",
-    //urls1: "http://192.168.1.121:8080",
-    //urls1: "http://192.168.1.58:8080",
+    urls: "http://192.168.1.58:9003/operate",
+    urls1: "http://192.168.1.58:8080",
     //urls:"http://eidop.com:9002",
     //urls: "http://192.168.1.66:9003/operate",
     openstate:"1",

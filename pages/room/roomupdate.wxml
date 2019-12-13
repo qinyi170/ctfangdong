@@ -42,7 +42,7 @@
       <view class='group_form'>
         <view class='head_pic' hidden='{{imgSrc==""}}'>
           <image src='data:image/png;base64,{{imgSrc}}' bindtap="previewImage" data-src="data:image/png;base64,{{imgSrc}}"></image>
-          <textarea hidden='true' maxlength="-1" name="head_pic" value='{{imgSrc}}'></textarea>
+          <!-- <textarea hidden='true' maxlength="-1" name="head_pic" value='{{imgSrc}}'></textarea> -->
           <text bindtap='uploadTap'>重新选择</text>
         </view>
         <view class='addPhoto' bindtap='uploadTap' wx:if='{{imgSrc==""}}'>+</view>

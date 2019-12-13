@@ -13,7 +13,7 @@ var datajson = require("../../utils/datas.js");
 var formvalue;
 Page({
   data: {
-    scrollheight: "height:" + (app.globalData.pheight * app.globalData.pixelRatio - 180-80-60) + "rpx",
+    scrollheight: "height:" + (app.globalData.pheight - app.globalData.pwidth/750*(180+70+60)) + "px",
     currentTopItem:0,
     roomItem0: false,
     roomItem1: true,
@@ -29,7 +29,7 @@ Page({
       zoom: 8, // 缩放系数
       cut: {
         x: (width - 250) / 2, // 裁剪框x轴起点(width * fs * 0.128) / 2
-        y: (height * 0.5 - 250 * 0.5), // 裁剪框y轴期起点
+        y: (height * 0.5 - 180 * 0.5), // 裁剪框y轴期起点
         width: 250, // 裁剪框宽度
         height: 150// 裁剪框高度
       }
@@ -344,38 +344,42 @@ Page({
     const self = this
     wx.chooseImage({
       count: 1, // 默认9
-      sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+      sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
       success(res) {
         self.setData({
           picmadel: false
         })
-        const src = res.tempFilePaths[0];
-        self.wecropper.pushOrign(src);
+        console.log(res)
+        wx.compressImage({
+          src: res.tempFilePaths[0], // 图片路径
+          quality: 10, // 压缩质量
+          success:function(ress){
+            console.log(ress)
+            self.wecropper.pushOrign(ress.tempFilePath);
+          }
+        })      
       }
     })
   },
   getCropperImage() {
     let that = this;
-    wx.showToast({
+    wx.showLoading({
       title: '请稍等',
-      icon: 'loading',
-      duration: 20000
     })
     // 如果有需要两层画布处理模糊，实际画的是放大的那个画布
     this.wecropper.getCropperImage((src) => {
       if (src) {
-        
         var FSM = wx.getFileSystemManager();
         FSM.readFile({
           filePath: src,
           encoding: "base64",
-          success: function (data) {
-            wx.hideToast()
+          success: function (data) {   
             that.setData({
               imgSrc: data.data,
               picmadel: true
             })
+            wx.hideLoading();
           }
         });
       } else {
@@ -819,6 +823,7 @@ Page({
   formSubmit:function(e){
     console.log(e)
     formvalue = e.detail.value;
+    formvalue.head_pic = athis.data.imgSrc
     var btns = e.detail.target.dataset
     var athis=this;
     if (btns.btntype==1){
@@ -1021,87 +1026,132 @@ Page({
     } else {
       net_house_id = that.data.nethouseid
     }
-    wx.showLoading({
-      title: '正在上传第' + (count+1) + '张',
-    })
-    wx.uploadFile({
-      url: app.globalData.urls + '/saveHousePhoto',
-      filePath: imgPaths[count],
-      name: "houseImg",
-      header: {
-        "Authorization": "Bearer " + app.globalData.pcloginstate.token
-      },
-      formData: {
-        "skey": app.globalData.skey,
-        "net_house_id": net_house_id,
-        "type": that.data.type
-      },
-      success: function (e) {
-        successUp++;//成功+1
-      },
-      fail: function (e) {
-        failUp++;//失败+1
-      },
-      complete: function (e) {
-        count++;//下一张
-        if (count == length) {
-          if (imgPaths2.length==0){
-            utils.showLoading("请稍等")
-            utils.request1("/weboperate/saveHouseInfoNoFile", formvalue, function (res) {
-              wx.hideLoading();
-              if (res.data.result == "0") {
-                if (that.data.nethouseid == '') {
-                  wx.showModal({
-                    title: '提示',
-                    content: '房源添加成功，是否要绑定锁？',
-                    success(res) {
-                      if (res.confirm) {
-                        wx.redirectTo({
-                          url: '../room/bindlock?nethouseid=' + net_house_id + "&locktype=0"
-                        })
-                      } else if (res.cancel) {
-                        wx.switchTab({
-                          url: '../room/roomlist',
-                        })
-                      }
-                    }
-                  })
-                } else {
-                  utils.showSuccess("房源修改成功", 1500, "success");
-                  setTimeout(function () {
+    if (imgPaths.length==0){
+      if (imgPaths2.length == 0) {
+        utils.showLoading("请稍等")
+        utils.request1("/weboperate/saveHouseInfoNoFile", formvalue, function (res) {
+          wx.hideLoading();
+          if (res.data.result == "0") {
+            if (that.data.nethouseid == '') {
+              wx.showModal({
+                title: '提示',
+                content: '房源添加成功，是否要绑定锁？',
+                success(res) {
+                  if (res.confirm) {
+                    wx.redirectTo({
+                      url: '../room/bindlock?nethouseid=' + net_house_id + "&locktype=0"
+                    })
+                  } else if (res.cancel) {
                     wx.switchTab({
                       url: '../room/roomlist',
                     })
-                  }, 1500)            
+                  }
                 }
-              } else if (res.data.result == "2") {
-                utils.alertView("提示", "你已退出，请点击“确认”重新登录", function () {
-                  app.getLogin();
+              })
+            } else {
+              utils.showSuccess("房源修改成功", 1500, "success");
+              setTimeout(function () {
+                wx.switchTab({
+                  url: '../room/roomlist',
+                })
+              }, 1500)
+            }
+          } else if (res.data.result == "2") {
+            utils.alertView("提示", "你已退出，请点击“确认”重新登录", function () {
+              app.getLogin();
+            })
+          } else {
+            if (!res.data.result) {
+              utils.alertViewNosucces("提示", "服务未响应，请稍后再试", false);
+              return;
+            }
+            utils.alertViewNosucces("提示", res.data.message + " ", false);
+          }
+        })
+      } else {
+        wx.showLoading({
+          title: '正在上传不动产证照片',
+        })
+        wx.uploadFile({
+          url: app.globalData.urls + '/saveHouseInfo',
+          filePath: imgPaths2[0],
+          name: 'housePropertyPhoto',
+          header: {
+            "Authorization": "Bearer " + app.globalData.pcloginstate.token
+          },
+          formData: formvalue,
+          success(res) {
+            wx.hideLoading();
+            var ress = JSON.parse(res.data);
+            if (ress.result == "0") {
+              if (that.data.nethouseid == '') {
+                wx.showModal({
+                  title: '提示',
+                  content: '房源添加成功，是否要绑定锁？',
+                  success(res) {
+                    if (res.confirm) {
+                      wx.redirectTo({
+                        url: '../room/bindlock?nethouseid=' + net_house_id + "&locktype=0"
+                      })
+                    } else if (res.cancel) {
+                      wx.switchTab({
+                        url: '../room/roomlist',
+                      })
+                    }
+                  }
                 })
               } else {
-                if (!res.data.result) {
-                  utils.alertViewNosucces("提示", "服务未响应，请稍后再试", false);
-                  return;
-                }
-                utils.alertViewNosucces("提示", res.data.message + " ", false);
+                utils.showSuccess("房源修改成功", 1500, "success");
+                setTimeout(function () {
+                  wx.switchTab({
+                    url: '../room/roomlist',
+                  })
+                }, 1500)
               }
-            })
-          }else{
-            wx.showLoading({
-              title: '正在上传不动产证照片',
-            })
-            wx.uploadFile({
-              url: app.globalData.urls + '/saveHouseInfo',
-              filePath: imgPaths2[0],
-              name: 'housePropertyPhoto',
-              header: {
-                "Authorization": "Bearer " + app.globalData.pcloginstate.token
-              },
-              formData: formvalue,
-              success(res) {
+            } else if (ress.result == "2") {
+              utils.alertView("提示", "你已退出，请点击“确认”重新登录", function () {
+                app.getLogin();
+              })
+            } else {
+              if (!ress.result) {
+                utils.alertViewNosucces("提示", "服务未响应，请稍后再试", false);
+                return;
+              }
+              utils.alertViewNosucces("提示", ress.message + " ", false);
+            }
+          }
+        })
+      }
+    }else{
+      wx.showLoading({
+        title: '正在上传第' + (count + 1) + '张',
+      })
+      wx.uploadFile({
+        url: app.globalData.urls + '/saveHousePhoto',
+        filePath: imgPaths[count],
+        name: "houseImg",
+        header: {
+          "Authorization": "Bearer " + app.globalData.pcloginstate.token
+        },
+        formData: {
+          "skey": app.globalData.skey,
+          "net_house_id": net_house_id,
+          "type": that.data.type
+        },
+        success: function (e) {
+          successUp++;//成功+1
+        },
+        fail: function (e) {
+          failUp++;//失败+1
+        },
+        complete: function (e) {
+          count++;//下一张
+          if (count == length) {
+            if (imgPaths2.length == 0) {
+              utils.showLoading("请稍等")
+              utils.request1("/weboperate/saveHouseInfoNoFile", formvalue, function (res) {
                 wx.hideLoading();
-                var ress = JSON.parse(res.data);
-                if (ress.result == "0") {
+                if (res.data.result == "0") {
                   if (that.data.nethouseid == '') {
                     wx.showModal({
                       title: '提示',
@@ -1124,28 +1174,81 @@ Page({
                       wx.switchTab({
                         url: '../room/roomlist',
                       })
-                    }, 1500)   
+                    }, 1500)
                   }
-                } else if (ress.result == "2") {
+                } else if (res.data.result == "2") {
                   utils.alertView("提示", "你已退出，请点击“确认”重新登录", function () {
                     app.getLogin();
                   })
                 } else {
-                  if (!ress.result) {
+                  if (!res.data.result) {
                     utils.alertViewNosucces("提示", "服务未响应，请稍后再试", false);
                     return;
                   }
-                  utils.alertViewNosucces("提示", ress.message + " ", false);
+                  utils.alertViewNosucces("提示", res.data.message + " ", false);
                 }
-              }
-            })
+              })
+            } else {
+              wx.showLoading({
+                title: '正在上传不动产证照片',
+              })
+              wx.uploadFile({
+                url: app.globalData.urls + '/saveHouseInfo',
+                filePath: imgPaths2[0],
+                name: 'housePropertyPhoto',
+                header: {
+                  "Authorization": "Bearer " + app.globalData.pcloginstate.token
+                },
+                formData: formvalue,
+                success(res) {
+                  wx.hideLoading();
+                  var ress = JSON.parse(res.data);
+                  if (ress.result == "0") {
+                    if (that.data.nethouseid == '') {
+                      wx.showModal({
+                        title: '提示',
+                        content: '房源添加成功，是否要绑定锁？',
+                        success(res) {
+                          if (res.confirm) {
+                            wx.redirectTo({
+                              url: '../room/bindlock?nethouseid=' + net_house_id + "&locktype=0"
+                            })
+                          } else if (res.cancel) {
+                            wx.switchTab({
+                              url: '../room/roomlist',
+                            })
+                          }
+                        }
+                      })
+                    } else {
+                      utils.showSuccess("房源修改成功", 1500, "success");
+                      setTimeout(function () {
+                        wx.switchTab({
+                          url: '../room/roomlist',
+                        })
+                      }, 1500)
+                    }
+                  } else if (ress.result == "2") {
+                    utils.alertView("提示", "你已退出，请点击“确认”重新登录", function () {
+                      app.getLogin();
+                    })
+                  } else {
+                    if (!ress.result) {
+                      utils.alertViewNosucces("提示", "服务未响应，请稍后再试", false);
+                      return;
+                    }
+                    utils.alertViewNosucces("提示", ress.message + " ", false);
+                  }
+                }
+              })
+            }
+          } else {
+            //递归调用，上传下一张
+            that.uploadOneByOne(imgPaths, imgPaths2, successUp, failUp, count, length, uuid);
+            console.log('正在上传第' + count + '张');
           }
-        } else {
-          //递归调用，上传下一张
-          that.uploadOneByOne(imgPaths, imgPaths2, successUp, failUp, count, length, uuid);
-          console.log('正在上传第' + count + '张');
         }
-      }
-    })
+      })
+    }
   }
 })

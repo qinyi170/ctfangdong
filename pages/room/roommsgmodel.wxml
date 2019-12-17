@@ -1,0 +1,54 @@
+<view class='con_con'>
+  <view bindtap='updateroom' data-houseitemid="0">
+    <view class='con_t'>
+      <view>房源概况</view>
+      <view>{{roomInfo.net_house_name}}</view>
+    </view>
+    <view class='con_b'>
+      <view><image src='../images/2019.9.3/housemsg{{houseitem1}}.png'></image></view>
+      <view wx:if="{{houseitem1==1}}">已完成</view>
+      <view wx:if="{{houseitem1==2}}">待完善</view>
+    </view>
+  </view>
+  <view bindtap='updateroom' data-houseitemid="1">
+    <view class='con_t'>
+      <view>位置信息</view>
+      <view>{{roomInfo.net_house_addr}}{{roomInfo.room_id}}</view>
+    </view>
+    <view class='con_b'>
+      <view><image src='../images/2019.9.3/housemsg{{houseitem2}}.png'></image></view>
+      <view wx:if="{{houseitem2==1}}">已完成</view>
+      <view wx:if="{{houseitem2==2}}">待完善</view>
+    </view>
+  </view>
+  <view bindtap='updateroom' data-houseitemid="2">
+    <view class='con_t'>
+      <view>经营信息</view>
+      <view>{{houseRentoutType[roomInfo.house_rentout_type]}} {{houseTypeArr[roomInfo.house_type]}} {{houseLayoutIndex}}</view>
+    </view>
+    <view class='con_b'>
+      <view><image src='../images/2019.9.3/housemsg{{houseitem3}}.png'></image></view>
+      <view wx:if="{{houseitem3==1}}">已完成</view>
+      <view wx:if="{{houseitem3==2}}">待完善</view>
+    </view>
+  </view>
+  <view bindtap='updateroom' data-houseitemid="3">
+    <view class='con_t'>
+      <view>产权信息</view>
+      <view>{{houseSourceArr[roomInfo.house_source-1]}}</view>
+    </view>
+    <view class='con_b'>
+      <view><image src='../images/2019.9.3/housemsg{{houseitem4}}.png'></image></view>
+      <view wx:if="{{houseitem4==1}}">已完成</view>
+      <view wx:if="{{houseitem4==2}}">待完善</view>
+    </view>
+  </view>
+</view>
+<view class='con_btn' wx:if="{{roomInfo.is_check!=2}}">
+  <text class='aa' wx:if="{{roomInfo.is_check==1 || roomInfo.is_check==3}}" bindtap='auditingroom'>提交审核</text>
+  <text class='cc' wx:if="{{roomInfo.is_check==1 || roomInfo.is_check==3}}"></text>
+  <text class='aa' bindtap='deleteroom'>删除房源</text>
+</view>
+<view class='con_msg'>
+  <view bindtap='msgroom' hover-class="viewhouer"><image src='../images/2019.9.3/housemsg.png'></image>预览</view>
+</view>

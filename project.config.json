@@ -51,14 +51,14 @@
 				{
 					"id": 0,
 					"name": "a",
-					"pathName": "pages/room/roomupdate",
+					"pathName": "pages/room/roommsg",
 					"query": "",
 					"scene": null
 				},
 				{
 					"id": 1,
 					"name": "b",
-					"pathName": "pages/test/testPic1",
+					"pathName": "pages/room/roomupdate",
 					"query": "",
 					"scene": null
 				}

@@ -1,107 +1,66 @@
-<view class="viewcon">
-  <view class='view3 view_width1'>
-    <view class="formview">
-      <text>审核状态</text>
-      <text wx:if="{{roomInfo.is_check=='0'}}">已审核</text>
-      <text wx:if="{{roomInfo.is_check=='1'}}">未审核</text>
-      <text wx:if="{{roomInfo.is_check=='2'}}">审核中</text>
-      <text wx:if="{{roomInfo.is_check=='3'}}">审核未通过</text>
-      <text wx:if="{{roomInfo.is_check=='9'}}">无需审核</text>
-    </view>
-  </view>
-  <view class='view3 view_width1'>
-    <view>
-      <text>房源名称</text>
-      <text>{{roomInfo.net_house_name}}</text>
-    </view>
-    <view>
-      <text>房屋简介</text>
-      <text wx:if="{{roomInfo.house_basic_declare==''}}">-</text>
-      <text wx:if="{{roomInfo.house_basic_declare!=''}}">{{roomInfo.house_basic_declare}}</text>
-    </view>
-    <view class="roomimg">
-      <text>房源图片</text>
-      <view>
-        <image bindtap="previewImage" wx:for="{{roomInfo.house_photo}}" wx:for-item="item" src='data:image/png;base64,{{item.house_photo}}' data-src='{{item.house_photo}}' wx:key="a" mode='aspectFill'></image>
-      </view>
-    </view>
-    <view>
-      <text>网约房地址</text>
-      <text>{{roomInfo.net_house_addr}}-{{roomInfo.room_id}}</text>
-    </view>
-    <view>
-      <text>房屋面积</text>
-      <text>{{roomInfo.house_acreage}}平方米</text>
-    </view>
-  </view>
-  <view class='view3 view_width1'>
-    <view>
-      <text>房屋来源</text>
-      <text wx:if="{{roomInfo.house_source==1}}">转租</text>
-      <text wx:if="{{roomInfo.house_source==2}}">自营</text>
-    </view>
-    <view>
-      <text>出租类型</text>
-      <text wx:if="{{roomInfo.house_rentout_type==1}}">整套房屋</text>
-      <text wx:if="{{roomInfo.house_rentout_type==2}}">独立房间</text>
-      <text wx:if="{{roomInfo.house_rentout_type==3}}">合住房间</text>
-    </view>
-    <view>
-      <text>房源类型</text>
-      <text>{{houseTypeArr[roomInfo.house_type]}}</text>
-    </view>
-    <view>
-      <text>房源户型</text>
-      <text wx:if="{{roomInfo.house_layout==''}}">-</text>
-      <text wx:if="{{roomInfo.house_layout!=''}}">{{roomInfo.house_layout}}</text>
-    </view>
-    <view>
-      <text>床型</text>
-      <text wx:if="{{roomInfo.house_bed==''}}">-</text>
-      <text wx:if="{{roomInfo.house_bed!=''}}">{{roomInfo.house_bed}}</text>
-    </view>
-    <view>
-      <text>可住人数</text>
-      <text>{{roomInfo.reside_num_max}}人</text>
-    </view>
-    <view>
-      <text>便利设施</text>
-      <text wx:if="{{roomInfo.house_facility==''}}">-</text>
-      <text wx:if="{{roomInfo.house_facility!=''}}">{{roomInfo.house_facility}}</text>
-    </view>
-    <view>
-      <text>周日 ~ 周四房价</text>
-      <text wx:if="{{roomInfo.price_common==''}}">-</text>
-      <text wx:if="{{roomInfo.price_common!=''}}">{{roomInfo.price_common}}元</text>
-    </view>
-    <view>
-      <text>周五、周六房价</text>
-      <text wx:if="{{roomInfo.price_holiday==''}}">-</text>
-      <text wx:if="{{roomInfo.price_holiday!=''}}">{{roomInfo.price_holiday}}元</text>
-    </view>
-  </view>
-  <view class='view3 view_width1'>
-    <view>
-      <text>创建时间</text>
-      <text>{{roomInfo.register_date}}</text>
-    </view>
-    <view wx:if="{{roomInfo.start_date!=''}}">
-      <text>审核时间</text>
-      <text>{{roomInfo.start_date}}</text>
-    </view>
-    <view wx:if="{{roomInfo.stop_date!=''}}">
-      <text>有效日期</text>
-      <text>{{tiems}}</text>
-    </view>
-  </view>
+<view class="viewnav">
+    <button class="viewback" hover-class="viewbackhover" bindtap='backhome'>
+      <image src='../images/backicon.png'></image>
+    </button>
+    <!-- <text class='viewbacktext'>房源详情</text> -->
 </view>
-<view class='group_btn statetwo' wx:if="{{roomInfo.is_check=='0' || roomInfo.is_check=='9'}}">
-  <button type="button" class="button1_1" bindtap='deleteroom'>删除</button>
-  <button type="button" class="button1_1" data-ischeck="{{roomInfo.is_check}}" bindtap='updateroom'>编辑</button>
-</view>
-<view class='group_btn statewait' wx:if="{{roomInfo.is_check=='1' || roomInfo.is_check=='3'}}">
-  <button type="button" class="button1_1" bindtap='deleteroom'>删除</button>
-  <button type="button" class="button1_1" data-ischeck="{{roomInfo.is_check}}" bindtap='updateroom'>编辑</button>
-  <button type="button" class="button1_1" bindtap='auditingroom' data-cid="0" wx:if="{{roomInfo.is_check=='1'}}">审核</button>
-  <button type="button" class="button1_1" bindtap='auditingroom' data-cid="1" wx:if="{{roomInfo.is_check=='3'}}">重新审核</button>
+<swiper class='con_banners' indicator-dots="true" autoplay="true" interval="5000" duration="1500" circular="true" indicator-color="white" indicator-active-color="coral">
+  <block wx:for="{{roomInfo.house_photo}}">
+    <swiper-item>
+      <image src="data:image/png;base64,{{item.house_photo}}" class="slide-image" mode='aspectFill'/>
+    </swiper-item>
+  </block>
+</swiper>
+<view class='con_msg'>
+  <view class='con_msg_1'>
+    <text>{{roomInfo.net_house_name}}</text>
+    <view><text>¥ </text>{{roomInfo.price_today}}</view>
+  </view>
+  <view class='con_msg_2'>{{roomInfo.house_basic_declare}}</view>
+  <view class='con_msg_3'>
+    <view wx:if="{{roomInfo.house_rentout_type!=''}}"> 
+      <image src='../images/2019.9.3/housemsg3.png'></image>
+      {{houseRentoutArr[roomInfo.house_rentout_type-1]}}
+    </view>
+    <view wx:if="{{roomInfo.reside_num_max!=''}}"> 
+      <image src='../images/2019.9.3/housemsg4.png'></image>
+      宜住{{roomInfo.reside_num_max}}人
+    </view>
+    <view wx:if="{{houseBedIndex!=''}}"> 
+      <image src='../images/2019.9.3/housemsg5.png'></image>
+      {{houseBedIndex}}张床
+    </view>
+    <view wx:if="{{roomInfo.house_acreage!=''}}"> 
+      <image src='../images/2019.9.3/housemsg6.png'></image>
+      {{roomInfo.house_acreage}}㎡
+    </view>
+    <view wx:if="{{houseLayoutIndex!=''}}"> 
+      <image src='../images/2019.9.3/housemsg7.png'></image>
+      {{houseLayoutIndex}}
+    </view>
+    <view wx:if="{{roomInfo.house_source-1!=''}}"> 
+      <image src='../images/2019.9.3/housemsg8.png'></image>
+      {{houseSourceArr[roomInfo.house_source-1]}}
+    </view>
+  </view>
+  <view class='con_msg_4'><text></text>房源位置</view>
+  <view class='con_msg_5'>
+    <map
+      id="myMap"
+      style="width: 100%; height: 400rpx;"
+      latitude="{{roomInfo.house_latitude}}"
+      longitude="{{roomInfo.house_longitude}}"
+      markers="{{house_markers}}"
+      show-location
+      class='myapp'
+    ></map>
+    <view><image src='../images/iconss.png'></image>{{roomInfo.net_house_addr}}{{roomInfo.room_id}}</view>
+  </view>
+  <view class='con_msg_4'><text></text>便利设施</view>
+  <view class='con_msg_6'>
+    <view wx:for="{{houseFacilityNowArr}}" wx:for-item="item" wx:for-index="index">
+      <view class='con_msg_6_1'><image src='../images/FacilityHover{{item.id}}.png'></image></view>
+      <view class='con_msg_6_2'>{{item.name}}</view>
+    </view>
+  </view>
 </view>

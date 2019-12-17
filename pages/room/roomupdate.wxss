@@ -1,57 +1,60 @@
 @import "../order/ordercreate";
 page{background-color: #fff;font-size: 30rpx;}
 
-.formSubmit{overflow: hidden;position: relative;z-index: 99}
-.viewnav{height: 120rpx;background-color: #ffca3e;color: #fff;padding-top: 60rpx;}
+.formSubmit{overflow: hidden;z-index: 99}
+.viewnav{height: 120rpx;background-color: #ffca3e;color: #fff;padding-top: 60rpx;position: fixed;top:0;width: 100%;z-index: 100}
 .viewback{float:left; height: 45px;width: 40px;line-height: 50px;text-align: center;vertical-align:middle;border-radius: 0;background: none;}
 .viewback::after{border:none;}
 .viewback image{height: 19px;width: 10px;}
 .viewbackhover{background-color: #e5e5e5;color: #fff}
 .viewnav text{font-size: 18px;height: 45px;line-height: 43px;text-align: center;display: inline-block}
 
-.navlist{margin: 15rpx 30rpx;}
-.navlist button{float: left;height: 70rpx;line-height: 70rpx;width:120rpx;margin-right: 45rpx;background-color: #fff;font-size: 30rpx;padding: 0}
-.navlist button::after{border:none;border-bottom: 1rpx solid #fff;}
-.navlist button.hovers::after{border-bottom-color: #F5C343}
-.conlist{padding: 15rpx 30rpx;overflow-y:auto}
-.title_item{margin-top: 30rpx;font-size: 30rpx;color: #000;font-weight: bold}
+.navlist{margin: 195rpx 30rpx 15rpx 30rpx;}
+.navlist button{float: left;height: 70rpx;line-height: 70rpx;width:130rpx;margin-right: 35rpx;background-color: #fff;font-size: 30rpx;padding: 0;color: #666666}
+.navlist button::after{border:none;border-bottom: 2rpx solid #fff;}
+.navlist button.hovers{color: #333333;font-size: 32rpx;font-weight: bold;line-height: 65rpx;}
+.navlist button.hovers::after{border-bottom-color: #F5C343;}
+.conlist{padding: 15rpx 0;}
+.title_item{margin: 30rpx 30rpx 0 30rpx;font-size: 30rpx;color: #000;font-weight: bold}
 .title_item text{display: inline-block; width: 6rpx;height: 30rpx;background-color: #F5C343;margin-right: 10rpx;vertical-align: middle}
-.group_item{margin: 30rpx 0}
-.group_title{padding-bottom: 10rpx}
+.claer_item{height: 20rpx;background-color: #F7F7F7}
+.group_item{margin: 30rpx 0;padding: 0 30rpx}
+.group_title{padding-bottom: 10rpx;color:#333333}
 .group_title text{margin-left: 10rpx;color: red;vertical-align: middle}
-.group_title1{font-size: 24rpx;color: #cfcccc}
+.group_title1{font-size: 24rpx;color: #999999}
 .group_form.group_flex{display: flex;align-items: center}
 .group_form.group_flex input{width: 50%;margin-right: 10rpx}
-.group_form input,.group_form textarea{border:1rpx solid #DDDDDD;border-radius: 4px;font-size: 28rpx;}
+.group_form input,.group_form .textarea{border:1rpx solid #DDDDDD;border-radius: 4px;font-size: 28rpx;min-height: auto}
 .group_form input{padding: 12rpx 15rpx}
-.group_form textarea{height: 180rpx;width: 658rpx;padding: 13rpx 15rpx;box-sizing: content-box;}
-.group_form .phcolor{color: #cfcccc;}
+.group_form .textarea{height: 180rpx;width: 658rpx;padding: 13rpx 15rpx;box-sizing: content-box;}
+.group_form .phcolor{color: #999999;}
 
-.addPhoto{display: inline-block;width: 150rpx;height: 150rpx;text-align: center;line-height: 150rpx;color: #F5C343;border:1rpx dashed #F5C343;font-size: 40rpx;margin-top: 20rpx;}
+.addPhoto{display: inline-block;width: 131rpx;height: 131rpx;text-align: center;line-height: 131rpx;color: #F5C343;border:1rpx dashed #F5C343;font-size: 40rpx;margin-top: 20rpx;}
 .head_pic{margin-top: 20rpx;}
-.head_pic image{width: 250rpx;height: 150rpx;}
-.head_pic text{font-size: 30rpx;color: #cfcccc;margin-left: 20rpx}
+.head_pic image{width: 220rpx;height: 132rpx;border-radius: 3px}
+.head_pic text{font-size: 30rpx;color: #F5C343;margin-left: 20rpx}
 
 .roomimages{display: flex;flex-direction: row;flex-wrap:wrap;margin-top: 20rpx}
-.roomimages view{width: 250rpx;text-align: center;margin-bottom: 20rpx;position: relative;margin-right: 20rpx;}
-.roomimages view image{width: 250rpx;height: 150rpx;display: block}
-.addimages{height: 150rpx;background-color: #e5e5e5;text-align: center}
-.roomimages view.addPhoto{margin-top:0;width: 150rpx}
+.roomimages view{width: 220rpx;text-align: center;margin-bottom: 20rpx;position: relative;margin-right: 15rpx;}
+.roomimages view:nth-of-type(3n){margin-right: 0}
+.roomimages view image{width: 220rpx;height: 132rpx;display: block;border-radius: 3px}
+.addimages{height: 150rpx;background-color: #e5e5e5;text-align: center;}
+.roomimages view.addPhoto{margin-top:0;width: 131rpx}
 .addimages text{display: inline-block; color: #fff;font-size: 80rpx;line-height: 140rpx}
 .addimgtitle{height: 150rpx;line-height: 150rpx;text-align: right;font-size: 30rpx;color: #c0bdbd;}
-.deleteimg text{position: absolute;top:3rpx;right: 0rpx;width: 40rpx;height: 40rpx;background-color: red;color: #fff;line-height: 35rpx;font-weight: bold;border-radius: 40rpx;}
+.deleteimg text{position: absolute;top:3rpx;right: 0rpx;width: 35rpx;height: 35rpx;background-color: #F64A4A;color: #fff;line-height: 25rpx;font-weight: bold;border-radius: 35rpx;}
 
-.addChouse>view{border:1rpx solid #DDDDDD;border-radius: 4px;font-size: 28rpx;height: 70rpx;line-height: 70rpx;color: #DDDDDD;padding-left: 15rpx}
+.addChouse>view{border:1rpx solid #DDDDDD;border-radius: 4px;font-size: 28rpx;height: 70rpx;line-height: 70rpx;color: #999999;padding-left: 15rpx}
 .addChouse>view>view image{width: 24rpx;height: 29rpx;vertical-align:middle;margin-right: 10rpx;}
 .addChouse>view.showaddmsg{color: #333}
 
 /* 出租类型 */
-.rentoutType{display: flex;align-items: center;margin:10rpx 20rpx 20rpx 20rpx;}
-.rentoutType>view:first-of-type{padding: 25rpx;border:1rpx solid #DDDDDD;border-radius: 4px}
+.rentoutType{display: flex;align-items: center;margin:10rpx 20rpx 20rpx 20rpx;border:1rpx solid #DDDDDD;border-radius: 3px;}
+.rentoutType>view:first-of-type{padding: 25rpx;border-radius: 4px}
 .rentoutType>view:first-of-type image{width: 70rpx;height: 70rpx;display: block}
-.rentoutType>view:last-of-type{margin-left: 30rpx;width: 495rpx}
+.rentoutType>view:last-of-type{margin-left: 30rpx;width: 490rpx}
 .rentoutType>view:last-of-type>view:last-of-type{color:#999999;font-size: 26rpx}
-.rentoutType.hovers>view:first-of-type{background-color: #FFFBF2}
+.rentoutType.hovers{border:1rpx solid #F5C343;}
 .rentoutType:last-of-type{margin-bottom: 0}
 
 /* 房源类型 */
@@ -124,9 +127,8 @@ page{background-color: #fff;font-size: 30rpx;}
 }
 
 .imgDisposeControlLine{
-  width: 690rpx;
-  height:8vh;
-  padding: 2vh 30rpx 0 30rpx;
+  width: 750rpx;
+  height:10vh;
   background-color: rgba(0, 0, 0, 0.8);
   display: flex;
   align-content: center;
@@ -138,7 +140,6 @@ page{background-color: #fff;font-size: 30rpx;}
   transform: translateY(-50%);
   width:200rpx;
   height: 70rpx;
-  background: #F5C343;
   font-size: 30rpx;
   text-align: center;
   line-height: 70rpx;

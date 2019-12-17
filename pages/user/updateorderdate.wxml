@@ -1,0 +1,9 @@
+<view class='con_con'>
+  <picker bindchange="changeBeginDate" range="{{orderDateArr}}" value="{{orderBeginDateIndex}}">
+    <view><text>最早入驻时间</text><text>{{orderBeginDateIndex}}:00</text></view>
+  </picker>
+  <picker bindchange="changeEndDate" range="{{orderDateArr}}" value="{{orderEndDateIndex}}">
+    <view><text>最晚离店时间</text><text>{{orderEndDateIndex}}:00</text></view>
+  </picker>
+  <button class="button1_1" bindtap='saveOrderDate'>提交</button>
+</view>

@@ -185,7 +185,7 @@ Page({
   //房源详情
   roommsg: function (e) {
     wx.navigateTo({
-      url: '../room/roommsg?nethouseid=' + e.currentTarget.dataset.nethouseid
+      url: '../room/roommsgmodel?nethouseid=' + e.currentTarget.dataset.nethouseid
     })
   },
   //创建房源

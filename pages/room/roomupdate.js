@@ -14,11 +14,12 @@ var formvalue;
 Page({
   data: {
     scrollheight: "height:" + (app.globalData.pheight - app.globalData.pwidth/750*(180+70+60)) + "px",
-    currentTopItem:0,
-    roomItem0: false,
+    currentTopItem:4,
+    roomItem0: true,
     roomItem1: true,
     roomItem2: true,
     roomItem3: true,
+    basicDeclareValue:"",
     picmadel:true,
     imgSrc: '',//确定裁剪后的图片
     cropperOpt: {
@@ -40,14 +41,14 @@ Page({
     roomimaegstitle: 1,
     addrmsg: {},//选择地址
     addrstate: 1,
-    houseRentoutTypeIndex:"",
+    houseRentoutTypeIndex:"1",
     houseTypeArr: ["请选择","普通公寓", "酒店式公寓", "精品客栈", "乡间名宿", "别墅", "loft复式", "房车", "四合院"],
     houseTypeIndex:"",
     houseLayoutArr: ["卧室", "客厅", "卫生间", "厨房", "书房", "阳台"],
     houseLayoutIndexArr: ["0", "0", "0", "0", "0", "0"],
     houseBedArr: ["大型双人床", "标准双人床", "单人床", "上下铺", "沙发床", "榻榻米", "其他"],
     houseBedIndexArr: ["0", "0", "0", "0", "0", "0", "0"],
-    houseNumIndex:"0",
+    houseNumIndex:"1",
     houseFacilityArr: [],
     houseFacilityIndexArr: [],
     houseFacilityState:1,
@@ -76,12 +77,12 @@ Page({
       house_latitude:"",
       house_longitude:"",
       room_id:"",
-      house_rentout_type:"",
+      house_rentout_type:"1",
       house_type:"",
-      house_layout:"",
+      house_layout:"0,0,0,0,0,0",
       house_acreage:"",
-      house_bed:"",
-      reside_num_max:"",
+      house_bed:"0,0,0,0,0,0,0",
+      reside_num_max:"1",
       house_facility:"",
       price_common:"",
       price_holiday:"",
@@ -100,6 +101,7 @@ Page({
     oldcardimaegsarray:[]
   },
   onLoad: function (e) {
+    console.log(e)
     qqmapsdk = new QQMapWX({
       //此key需要用户自己申请
       key: 'MNXBZ-G5TWD-GYF42-HHZJL-2W2J3-PVBX4'
@@ -129,6 +131,11 @@ Page({
     if (e.nethouseid != undefined) {
       this.setData({
         nethouseid: e.nethouseid,
+        currentTopItem: e.houseitemid,
+        roomItem0: true,
+        roomItem1: true,
+        roomItem2: true,
+        roomItem3: true,
         type:"update"
       })
       if (e.ischeck == 0){
@@ -137,6 +144,11 @@ Page({
         })
       }
       this.roommsg(e.nethouseid)
+    }else{
+      this.setData({
+        currentTopItem: 0,
+        roomItem0: false,
+      })
     }
   },
 
@@ -149,11 +161,11 @@ Page({
       "net_house_id": data
     }, function (e) {
       console.log(e)
-      wx.hideLoading();
       if (e.data.result == "0") {
         var rooms = e.data.dataObject;
         athis.setData({
           roomInfo: rooms,
+          basicDeclareValue: rooms.house_basic_declare,
           imgSrc: rooms.head_pic,
           addrmsg: {
             address: rooms.net_house_addr,
@@ -216,9 +228,13 @@ Page({
           athis.addallimg(rooms.house_photo[i].house_photo, attrr[i]);
         }
         //房源户型
-        if (rooms.house_layout != null) {
+        if (rooms.house_layout == "" || rooms.house_layout == null){
+          athis.setData({
+            houseLayoutIndexArr: ["0", "0", "0", "0", "0", "0"]
+          })
+        }else{
           var house_layout = rooms.house_layout.split(",");
-          var tempHouseLayoutIndexArr=[]
+          var tempHouseLayoutIndexArr = []
           for (var i in house_layout) {
             tempHouseLayoutIndexArr.push(house_layout[i])
           }
@@ -227,7 +243,11 @@ Page({
           })
         }
         //选择床型
-        if (rooms.house_bed != null) {
+        if (rooms.house_bed == null || rooms.house_bed != "") {
+          athis.setData({
+            houseBedIndexArr: ["0", "0", "0", "0", "0", "0", "0"]
+          })
+        }else{
           var house_bed = rooms.house_bed.split(",");
           var tempHouseBedIndexArr = []
           for (var i in house_bed) {
@@ -238,11 +258,15 @@ Page({
           })
         }
         //设置便利设施
-        if (rooms.house_facility != null) {
+        if (rooms.house_facility == null || rooms.house_facility == "") {
+          athis.setData({
+            houseFacilityIndexArr: []
+          })
+        }else{
           var houseFacilityIndexArr = athis.data.houseFacilityIndexArr
-          if (rooms.house_facility.length==1){
+          if (rooms.house_facility.length == 1) {
             houseFacilityIndexArr.push(rooms.house_facility)
-          }else{
+          } else {
             var house_facility = rooms.house_facility.split(",")
             for (var i in house_facility) {
               houseFacilityIndexArr.push(house_facility[i])
@@ -301,11 +325,37 @@ Page({
             }
           })
         }
+        if (athis.data.currentTopItem == 0) {
+          athis.setData({
+            roomItem0: false
+          })
+        } else if (athis.data.currentTopItem == 1) {
+          athis.setData({
+            roomItem1: false
+          })
+        } else if (athis.data.currentTopItem == 2) {
+          athis.setData({
+            roomItem2: false
+          })
+          if (athis.data.houseFacilityState == "1") {
+            athis.setData({
+              houseFacilityState: 2
+            })
+            athis.getHouseFacility();
+          }
+        } else if (athis.data.currentTopItem == 3) {
+          athis.setData({
+            roomItem3: false
+          })
+        }
+        wx.hideLoading();
       } else if (e.data.result == "2") {
+        wx.hideLoading();
         utils.alertView("提示", "你已退出，请点击“确认”重新登录", function () {
           app.getLogin();
         })
       } else {
+        wx.hideLoading();
         utils.alertViewNosucces("提示", e.data.message + " ", false);
       }
     })
@@ -330,6 +380,25 @@ Page({
       }
     })
   },
+  intBasicDeclare:function(){
+    const that = this
+    wx.createSelectorQuery().select('#editor').context(function (res) {
+      that.editorCtx = res.context
+      that.editorCtx.setContents({
+        html: '<span>' + that.data.basicDeclareValue+'</span>',
+        success: function () {
+          console.log('insert html success')
+        }
+      })
+    }).exec()
+  },
+  //获取房屋简介
+  getBasicDeclare(e){
+    this.setData({
+      basicDeclareValue: e.detail.text
+    })
+  },
+
   //上传封面图片 --begin
   touchStart(e) {
     this.cropper.touchStart(e)
@@ -821,11 +890,13 @@ Page({
   
   //跳页及表单提交
   formSubmit:function(e){
-    console.log(e)
     formvalue = e.detail.value;
-    formvalue.head_pic = athis.data.imgSrc
+    formvalue.head_pic = this.data.imgSrc;
+    // formvalue.house_basic_declare = this.data.basicDeclareValue
     var btns = e.detail.target.dataset
     var athis=this;
+    console.log(formvalue)
+    console.log(athis.data.oldroomInfo)
     if (btns.btntype==1){
       if (athis.data.currentTopItem==0){
         if (formvalue.net_house_name == "") {
@@ -901,9 +972,9 @@ Page({
             confirmText: "是",
             success(res) {
               if (res.confirm) {
-                wx.switchTab({
-                  url: '../room/roomlist',
-                })
+                wx.navigateBack({
+                  delta: 1
+                }) 
               }
             }
           })
@@ -915,8 +986,8 @@ Page({
             confirmText: "是",
             success(res) {
               if (res.confirm) {
-                wx.switchTab({
-                  url: '../room/roomlist',
+                wx.navigateBack({
+                  delta: 1
                 })
               }
             }
@@ -929,15 +1000,15 @@ Page({
             confirmText: "是",
             success(res) {
               if (res.confirm) {
-                wx.switchTab({
-                  url: '../room/roomlist',
+                wx.navigateBack({
+                  delta: 1
                 })
               }
             }
           })
         } else {
-          wx.switchTab({
-            url: '../room/roomlist',
+          wx.navigateBack({
+            delta: 1
           })
         }
       } else if (btns.btnindex == "1") {

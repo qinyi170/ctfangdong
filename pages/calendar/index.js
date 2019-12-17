@@ -25,6 +25,7 @@ Page({
     tt1: ""
   },
   onLoad:function(){
+    this.getnowhours();
     this.grouplist();
   },
   onShow: function () {
@@ -36,6 +37,28 @@ Page({
   onHide: function () {
     this.setData({
       morestate: 1
+    })
+  },
+  getnowhours(){
+    var athis = this;
+    utils.showLoading("请稍等")
+    utils.request1("/weboperate/queryResideTime", {
+      "skey": app.globalData.skey
+    }, function (e) {
+      console.log(e)
+      wx.hideLoading();
+      if (e.data.result == "0") {
+        athis.setData({
+          orderBeginDateIndex: e.data.dataObject[0].reside_date,
+          orderEndDateIndex: e.data.dataObject[0].retreate_date
+        })
+      } else if (e.data.result == "2") {
+        utils.alertView("提示", "你已退出，请点击“确认”重新登录", function () {
+          app.getLogin();
+        })
+      } else {
+        utils.alertViewNosucces("提示", e.data.message + " ", false);
+      }
     })
   },
   grouplist(){
@@ -200,7 +223,7 @@ Page({
     var orderlist = e.currentTarget.dataset.orderlist;
     if (orderlist.length==0){
       wx.navigateTo({
-        url: '../order/ordercreate?nethouseid=' + nethouseid + "&nethousename=" + nethousename + "&lockid=" + lockid + "&locktype=" + locktype + "&startdate=" + this.data.startDate + " 14:00:00" + "&stopdate=" + utils.getAllDate(this.data.startDate, 1) + " 12:00:00",
+        url: '../order/ordercreate?nethouseid=' + nethouseid + "&nethousename=" + nethousename + "&lockid=" + lockid + "&locktype=" + locktype + "&startdate=" + this.data.startDate + " " + this.data.orderBeginDateIndex + ":00:00" + "&stopdate=" + utils.getAllDate(this.data.startDate, 1) + " " + this.data.orderEndDateIndex + ":00:00",
       })
     }else{
       var tempdate=0;
@@ -209,54 +232,18 @@ Page({
           tempdate = orderlist[i].reside_retreat_date
         }
       }
-      var temphour= utils.getDateWhereType("hour", utils.changeDate1(tempdate), 0);
-      if (temphour<12){
+      var temphour = utils.getDateWhereType("hour", utils.getAllDateTime(utils.changeDate1(tempdate), 2, 1), 0);
+      if (temphour < this.data.orderBeginDateIndex*1){
         wx.navigateTo({
-          url: '../order/ordercreate?nethouseid=' + nethouseid + "&nethousename=" + nethousename + "&lockid=" + lockid + "&locktype=" + locktype + "&startdate=" + this.data.startDate + " 14:00:00" + "&stopdate=" + utils.getAllDate(this.data.startDate, 1) + " 12:00:00",
+          url: '../order/ordercreate?nethouseid=' + nethouseid + "&nethousename=" + nethousename + "&lockid=" + lockid + "&locktype=" + locktype + "&startdate=" + this.data.startDate + " " + this.data.orderBeginDateIndex + ":00:00" + "&stopdate=" + utils.getAllDate(this.data.startDate, 1) + " " + this.data.orderEndDateIndex + ":00:00",
         })
       }else{
         var a=utils.getAllDateTime(utils.changeDate1(tempdate),2,1)
         wx.navigateTo({
-          url: '../order/ordercreate?nethouseid=' + nethouseid + "&nethousename=" + nethousename + "&lockid=" + lockid + "&locktype=" + locktype + "&startdate=" + a + "&stopdate=" + utils.getAllDate(this.data.startDate, 1) + " 12:00:00",
+          url: '../order/ordercreate?nethouseid=' + nethouseid + "&nethousename=" + nethousename + "&lockid=" + lockid + "&locktype=" + locktype + "&startdate=" + a + "&stopdate=" + utils.getAllDate(this.data.startDate, 1) + " " + this.data.orderEndDateIndex+ ":00:00",
         })
       }
     }
-    // var athis = this;
-    // utils.request("/queryOperateInfo", {
-    //   "skey": app.globalData.skey
-    // }, function (e) {
-    //   if (e.data.result == "0") {
-    //     if (e.data.errorCode == "0000000") {
-    //       utils.request("/queryAvailableHouse", {
-    //         "skey": app.globalData.skey
-    //       }, function (e) {
-    //         if (e.data.result == "0") {
-    //           if (e.data.errorCode == "0102004") {
-    //             utils.alertViewNosucces("提示", "您没有绑定门锁的房源，暂不能添加订单", false);
-    //           } else {
-    //             wx.navigateTo({
-    //               url: '../order/ordercreate'
-    //             });
-    //           }
-    //         } else if (e.data.result == "2") {
-    //           utils.alertView("提示", "你已退出，请点击“确认”重新登录", function () {
-    //             app.getLogin();
-    //           })
-    //         } else {
-    //           utils.alertViewNosucces("提示", e.data.message + " ", false);
-    //         }
-    //       })
-    //     } else {
-    //       utils.alertViewNosucces("提示", "你还没有经营者信息，请先登记经营者信息", false);
-    //     }
-    //   } else if (e.data.result == "2") {
-    //     utils.alertView("提示", "你已退出，请点击“确认”重新登录", function () {
-    //       app.getLogin();
-    //     })
-    //   } else {
-    //     utils.alertViewNosucces("提示", e.data.message + " ", false);
-    //   }
-    // })
   },
   //换房
   updateorder(e){

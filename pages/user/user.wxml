@@ -22,6 +22,9 @@
   <view bindtap='locksystem'>
     <image src='../images/icon3.png'></image>门锁管理
   </view>
+  <view bindtap='updateorderdate'>
+    <image src='../images/icon7.png'></image>入离时间配置
+  </view>
   <!-- <view bindtap='updatephone'>
     <image src='../images/icon6.png'></image>手机号码
     <text class="text1"></text>

@@ -1,0 +1,15 @@
+.con_con,.con_btn{padding:0 30rpx;}
+.con_con>view{margin: 25rpx 0;padding:20rpx 30rpx;border-radius: 3px;display: flex;align-items: center;justify-content: space-between;box-shadow:0rpx 0rpx 10rpx #c9c9c9}
+.con_con>view>view>view:last-of-type{font-size: 26rpx;color: #666666}
+.con_con>view>view.con_t{width: 520rpx}
+.con_con>view>view.con_t>view:first-of-type{font-size: 30rpx;margin-bottom: 15rpx;color: #333333;font-weight: bold}
+.con_con>view>view.con_b>view:first-of-type{text-align: center}
+.con_con>view>view>view image{display: inline-block; width: 50rpx;height: 50rpx;}
+.con_btn{text-align: right;}
+.con_btn text.aa{color: #666666;font-size: 26rpx;padding: 0 20rpx;}
+.con_btn text.aa:last-of-type{border-right: none;padding: 0 0 0 20rpx;}
+.con_btn text.cc{display: inline-block; width: 2rpx;height: 26rpx;background-color: #666666;vertical-align: middle}
+.con_msg{position: absolute;width: 690rpx;padding: 30rpx 30rpx 20rpx 30rpx;bottom: 0;border-top: 1rpx solid #f2f2f2;text-align: right;box-shadow:0rpx -1rpx 8rpx #f2f2f2}
+.con_msg view{display: inline-block;width: 152rpx;height: 52rpx;border:1rpx solid #d2d2d2;line-height: 52rpx;text-align: center;border-radius: 52rpx;font-size: 30rpx;}
+.con_msg view image{display: inline-block;width: 25rpx;height: 26rpx;margin-right: 10rpx}
+.viewhouer{background-color: #ebe8e8}

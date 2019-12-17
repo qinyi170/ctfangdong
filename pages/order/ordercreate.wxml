@@ -6,7 +6,7 @@
   <view class="userdatedays">{{daycount}}</view>
   <picker class='usedatestart' mode="multiSelector" bindchange="bindMultiPickerChange2" bindcolumnchange="bindMultiPickerColumnChange2" value="{{stoptimeIndex}}" range="{{stoptimeArray}}">
     <text>{{date2timeview}}</text>
-    <view>最晚{{stophour}}：00退房</view>
+    <view>最晚{{stophour}}:00退房</view>
   </picker>
 </view>
 <view class="formview" wx:if="{{createstate==2}}">

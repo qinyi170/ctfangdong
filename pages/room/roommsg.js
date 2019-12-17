@@ -1,99 +1,107 @@
 const app = getApp()
 var utils = require("../../utils/util.js");
+var timers;
 Page({
   data:{
+    loadingstate: 1,
     roominfo:{},
     nethouseid:"",
-    houseTypeArr: ["-", "普通公寓", "酒店式公寓", "精品客栈", "乡间名宿", "别墅", "loft复式", "房车", "四合院"],
-    houseLayoutArr: ["室", "厅", "卫", "厨房", "书房", "阳台"],
-    houseBedArr: ["大型双人床", "标准双人床", "单人床", "上下铺", "沙发床", "榻榻米", "其他"],
-    houseFacilityArr:[]
+    gotype:"",
+    houseRentoutArr: ["整套房屋", "独立房间", "合住房间"],
+    houseBedIndex:"",
+    houseLayoutArr: ["室", "厅", "卫"],
+    houseLayoutIndex: "",
+    houseSourceArr: ["转租", "自营"],
+    houseFacilityArr:[],
   },
   onLoad: function (e) {
+    console.log(e)
     this.setData({
-      nethouseid: e.nethouseid
+      nethouseid: e.nethouseid,
+      gotype: e.gotype
     })
+    if (e.gotype == 0) {
+      this.getHouseFacility();
+    } else {
+      this.checkloging();
+    }
   },
-  onReady:function (e) {
-    this.getHouseFacility();
+  onHide: function () {
+    clearTimeout(timers);
   },
-  //获取房源列表
-  roommsg: function (data) {
+  onUnload: function () {
+    clearTimeout(timers);
+  },
+  // 登录
+  checkloging: function () {
     var athis = this;
     utils.showLoading("请稍等")
-    utils.request1("/weboperate/queryNetHouseById", {
-      "skey": app.globalData.skey,
-      "net_house_id": data
-    }, function (e) {
-      console.log(e)
-      wx.hideLoading();
-      if (e.data.result == "0") {
-        var templist = e.data.dataObject;
-        if (templist.house_type==""){
-          templist.house_type=0
-        } else if (templist.house_type.length > 2) {
-          templist.house_type=0
-        }
-        //房源户型
-        if (templist.house_layout != null) {
-          var house_layout = templist.house_layout.split(",");
-          var tempval = ""
-          for (var i in house_layout) {
-            if (house_layout[i] != 0) {
-              tempval += house_layout[i] + athis.data.houseLayoutArr[i]
-            }
-          }
-          templist.house_layout = tempval
-        } else {
-          templist.house_layout = "-"
-        }
-        //床型
-        if (templist.house_bed != null) {
-          var house_bed = templist.house_bed.split(",");
-          var tempval = ""
-          for (var i in house_bed) {
-            if (house_bed[i] != 0) {
-              tempval += house_bed[i] + athis.data.houseBedArr[i]
-            }
-          }
-          templist.house_bed = tempval
-        } else {
-          templist.house_bed = "-"
-        }
-        //便利设施
-        if (templist.house_facility != null) {
-          var house_facility = templist.house_facility.split(",");
-          var houseFacilityArr = athis.data.houseFacilityArr;
-          var tempval = ""
-          for (var i in house_facility) {
-            for (var j in houseFacilityArr) {
-              if (house_facility[i] == houseFacilityArr[j].id){
-                tempval += houseFacilityArr[j].name+'、';
-                break;
+    timers = setTimeout(function () {
+      wx.hideLoading()
+      if (athis.data.loadingstate == 1) {
+        utils.alertView("提示", "请求失败，请点击“确定”重新请求", function () {
+          athis.checkloging();
+        })
+      }
+    }, 10000)
+    wx.login({
+      success: res => {
+        utils.request("/onLogin", {
+          code: res.code
+        }, function (ee) {
+          if (ee.data.result == "0") {
+            clearTimeout(timers);
+            app.globalData.skey = ee.data.dataObject.skey;
+            app.globalData.openid = ee.data.dataObject.openid;
+            utils.request("/queryUserState", {
+              "skey": ee.data.dataObject.skey
+            }, function (e) {
+              wx.hideLoading();
+              if (e.data.result == "0") {
+                if (e.data.dataObject.userState == "enroll") {
+                  utils.request1("/login/smsCode", {
+                    type: "3",
+                    username: ee.data.dataObject.phone
+                  }, function (eee) {
+                    wx.hideLoading();
+                    if (eee.data.result == "0") {
+                      var tempe = eee.data.dataObject;
+                      app.globalData.pcloginstate = tempe;
+                      athis.getHouseFacility();
+                    }
+                  })
+                } else {
+                  if (e.data.dataObject.wxtestpage == "testpage") {
+                    wx.redirectTo({
+                      url: '../login/login',
+                    })
+                  } else {
+                    athis.setData({
+                      buttontype: 2
+                    });
+                  }
+                }
+              } else if (e.data.result == "2") {
+                utils.alertView("提示", "你已退出，请点击“确认”重新登录", function () {
+                  app.getLogin();
+                })
+              } else {
+                if (!e.data.result) {
+                  utils.alertViewNosucces("提示", "服务未响应，请稍后再试", false);
+                  return;
+                }
+                utils.alertViewNosucces("提示", e.data.message + "", false);
               }
+            })
+          } else {
+            wx.hideLoading();
+            if (!ee.data.result) {
+              utils.alertViewNosucces("提示", "服务未响应，请稍后再试", false);
+              return;
             }
+            utils.alertViewNosucces("提示", ee.data.message + "", false);
           }
-          templist.house_facility = tempval.substring(0, tempval.length-1)
-        } else {
-          templist.house_facility = "-"
-        }
-        if (templist.price_common == null){
-          templist.price_common=''
-        }
-        if (templist.price_holiday == null) {
-          templist.price_holiday = ''
-        }
-
-        athis.setData({
-          roomInfo: templist,
-          tiems: e.data.dataObject.start_date.substring(0, 10) + "～" + e.data.dataObject.stop_date.substring(0, 10)
         })
-      } else if (e.data.result == "2") {
-        utils.alertView("提示", "你已退出，请点击“确认”重新登录", function () {
-          app.getLogin();
-        })
-      } else {
-        utils.alertViewNosucces("提示", e.data.message + " ", false);
       }
     })
   },
@@ -120,100 +128,111 @@ Page({
       }
     })
   },
-  previewImage: function (e) {
-    var athis = this
-    var aa = wx.getFileSystemManager();
-    aa.writeFile({
-      filePath: wx.env.USER_DATA_PATH + '/orderqrcode.png',
-      data: e.currentTarget.dataset.src,
-      encoding: 'base64',
-      success: res => {
-        wx.previewImage({
-          current: wx.env.USER_DATA_PATH + '/orderqrcode.png',
-          urls: [wx.env.USER_DATA_PATH + '/orderqrcode.png']
+  //获取房源列表
+  roommsg: function (data) {
+    var athis = this;
+    utils.showLoading("请稍等")
+    utils.request1("/weboperate/queryNetHouseById", {
+      "skey": app.globalData.skey,
+      "net_house_id": data
+    }, function (e) {
+      console.log(e)
+      wx.hideLoading();
+      if (e.data.result == "0") {
+        var templist = e.data.dataObject;
+        //床型
+        var tempbedval=0
+        if (templist.house_bed == null || templist.house_bed == "") {
+          tempbedval=""
+        } else {
+          var house_bed = templist.house_bed.split(",");
+          for (var i in house_bed) {
+            if (house_bed[i] != 0) {
+              tempbedval = tempbedval * 1 + house_bed[i] * 1
+            }
+          }
+        }
+        //房源户型
+        var templayoutval=""
+        if (templist.house_layout == null || templist.house_layout == "") {
+          templayoutval=""
+        } else {
+          var house_layout = templist.house_layout.split(",");
+          for (var i in house_layout.splice(3)) {
+            if (house_layout[i] != 0) {
+              templayoutval += house_layout[i] + athis.data.houseLayoutArr[i]
+            }
+          }
+        }
+        //便利设施
+        var tempfacilityval=[];
+        if (templist.house_facility == null || templist.house_facility == "") {
+          tempfacilityval = []
+        } else {
+          var house_facility = templist.house_facility.split(",");
+          var houseFacilityArr = athis.data.houseFacilityArr;
+          var tempval = ""
+          for (var i in house_facility) {
+            for (var j in houseFacilityArr) {
+              if (house_facility[i] == houseFacilityArr[j].id) {
+                tempfacilityval.push(houseFacilityArr[j]);
+                break;
+              }
+            }
+          }
+        }
+        athis.setData({
+          houseBedIndex: tempbedval,
+          houseLayoutIndex: templayoutval,
+          house_markers: [{
+            id: 1,
+            latitude: templist.house_latitude,
+            longitude: templist.house_longitude,
+            callout: {
+              padding: 1,
+              content: templist.net_house_name,
+              bgColor: "#ffffff",
+              color: "#000000",
+              display: "ALWAYS"
+            },
+          }],
+          houseFacilityNowArr: tempfacilityval,
+          roomInfo: templist,
         })
-      }, fail: err => {
-        console.log(err)
+      } else if (e.data.result == "2") {
+        utils.alertView("提示", "你已退出，请点击“确认”重新登录", function () {
+          app.getLogin();
+        })
+      } else {
+        utils.alertViewNosucces("提示", e.data.message + " ", false);
       }
     })
   },
-  updateroom:function(e){
-    wx.navigateTo({
-      url: '../room/roomupdate?nethouseid=' + this.data.nethouseid +"&ischeck="+e.target.dataset.ischeck,
-    })
-  },
-  deleteroom:function(){
-    var athis = this;
-    wx.showModal({
-      title: '提示',
-      content: '删除房源时将同时删除与该房源相关的订单，确定要删除该房源？',
-      success(res) {
-        if (res.confirm) {
-          utils.showLoading("请稍等")
-          utils.request1("/weboperate/deleteNetHouseById", {
-            "net_house_id": athis.data.nethouseid,
-            "skey": app.globalData.skey
-          }, function (res1) {
-            wx.hideLoading()
-            if (res1.data.result == "0") {
-              wx.showToast({
-                title: "删除成功",
-                icon: "none",
-              });
-              setTimeout(function () {
-                wx.switchTab({
-                  url: '../room/roomlist',
-                })
-              }, 1500)
-            } else {
-              if (!res1.data.result) {
-                utils.alertViewNosucces("提示", "服务未响应，请稍后再试", false);
-                return;
-              }
-              utils.alertViewNosucces("提示", res1.data.message + "", false);
-            }
-          })
-        }
-      }
-    })
-  },
-  auditingroom(e){
-    var tempstr ="确定要将该房源提交审核？"
-    if (e.target.dataset.cid=="1"){
-      tempstr ="确定要再次提交审核？"
+  backhome(){
+    if (this.data.gotype == 0) {
+      wx.navigateBack({
+        delta: 1
+      }) 
+    } else {
+      wx.switchTab({
+        url: '../calendar/index',
+      })
     }
-    var athis = this;
-    wx.showModal({
-      title: '提示',
-      content: tempstr,
-      success(res) {
-        if (res.confirm) {
-          utils.showLoading("请稍等")
-          utils.request1("/weboperate/reportHouseState", {
-            "net_house_id": athis.data.nethouseid,
-            "skey": app.globalData.skey
-          }, function (res1) {
-            wx.hideLoading()
-            if (res1.data.result == "0") {
-              wx.showToast({
-                title: "房源成功提交审核",
-                icon: "none",
-              });
-              setTimeout(function () {
-                wx.switchTab({
-                  url: '../room/roomlist',
-                })
-              }, 1500)
-            } else {
-              if (!res1.data.result) {
-                utils.alertViewNosucces("提示", "服务未响应，请稍后再试", false);
-                return;
-              }
-              utils.alertViewNosucces("提示", res1.data.message + "", false);
-            }
-          })
-        }
+  },
+  //转发功能
+  onShareAppMessage: function (ops) {
+    if (ops.from === 'button') {
+      console.log(ops.target)
+    }
+    return {
+      title: '网约房登记',
+      path: 'pages/room/roommsg?nethouseid=' + this.data.nethouseid + "&gotype=1",
+      success: function (res) {
+        console.log("转发成功:" + JSON.stringify(res));
+      },
+      fail: function (res) {
+        console.log("转发失败:" + JSON.stringify(res));
       }
-    })
+    }
   }
 })

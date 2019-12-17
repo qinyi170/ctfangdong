@@ -93,89 +93,109 @@ Page({
   //获取当前时间和后一天时间
   getNowDate: function () {
     var startnowyear, stopnowyear, startnowmonth, stopnowmonth, startnowday, stopnowday, startnowhour, stopnowhour;
-    if (this.data.createstate == 1) {
-      startnowyear = utils.getDateWhereType("year", "", 0);
-      stopnowyear = utils.getDateWhereType("year", "", 1);
-      startnowmonth = utils.getDateWhereType("month", "", 0);
-      stopnowmonth = utils.getDateWhereType("month", "", 1);
-      startnowday = utils.getDateWhereType("day", "", 0);
-      stopnowday = utils.getDateWhereType("day", "", 1);
-      startnowhour = "14";
-      stopnowhour = "12";
-    }else{
-      startnowyear = utils.getDateWhereType("year", this.data.date1time, 0);
-      stopnowyear = utils.getDateWhereType("year", this.data.date2time, 0);
-      startnowmonth = utils.getDateWhereType("month", this.data.date1time, 0);
-      stopnowmonth = utils.getDateWhereType("month", this.data.date2time, 0);
-      startnowday = utils.getDateWhereType("day", this.data.date1time, 0);
-      stopnowday = utils.getDateWhereType("day", this.data.date2time, 0);
-      startnowhour = utils.getDateWhereType("hour", this.data.date1time, 0);
-      stopnowhour = utils.getDateWhereType("hour", this.data.date2time, 0);
-      this.setData({
-        starthour: startnowhour,
-        stophour: stopnowhour
-      })
-    }  
-    var stopnowyearindex, startnowmonthindex, stopnowmonthindex, startnowdayindex, stopnowdayindex, startnowhourindex, stopnowhourindex;
-    var starttimeArray = this.getNowDateDay(this.data.starttimeArray, startnowyear, startnowmonth);
-    var stoptimeArray = this.getNowDateDay(this.data.stoptimeArray, stopnowyear, stopnowmonth);
-    this.setData({
-      starttimeArray: starttimeArray,
-      stoptimeArray: stoptimeArray
+    var athis = this;
+    utils.showLoading("请稍等")
+    utils.request1("/weboperate/queryResideTime", {
+      "skey": app.globalData.skey
+    }, function (e) {
+      console.log(e)
+      wx.hideLoading();
+      if (e.data.result == "0") {
+        if (athis.data.createstate == 1) {
+          startnowyear = utils.getDateWhereType("year", "", 0);
+          stopnowyear = utils.getDateWhereType("year", "", 1);
+          startnowmonth = utils.getDateWhereType("month", "", 0);
+          stopnowmonth = utils.getDateWhereType("month", "", 1);
+          startnowday = utils.getDateWhereType("day", "", 0);
+          stopnowday = utils.getDateWhereType("day", "", 1);
+          startnowhour = e.data.dataObject[0].reside_date;
+          stopnowhour = e.data.dataObject[0].retreate_date;
+          athis.setData({
+            starthour: e.data.dataObject[0].reside_date,
+            stophour: e.data.dataObject[0].retreate_date
+          })
+        } else {
+          startnowyear = utils.getDateWhereType("year", athis.data.date1time, 0);
+          stopnowyear = utils.getDateWhereType("year", athis.data.date2time, 0);
+          startnowmonth = utils.getDateWhereType("month", athis.data.date1time, 0);
+          stopnowmonth = utils.getDateWhereType("month", athis.data.date2time, 0);
+          startnowday = utils.getDateWhereType("day", athis.data.date1time, 0);
+          stopnowday = utils.getDateWhereType("day", athis.data.date2time, 0);
+          startnowhour = utils.getDateWhereType("hour", athis.data.date1time, 0);
+          stopnowhour = utils.getDateWhereType("hour", athis.data.date2time, 0);
+          athis.setData({
+            starthour: startnowhour,
+            stophour: stopnowhour
+          })
+        }
+        var stopnowyearindex, startnowmonthindex, stopnowmonthindex, startnowdayindex, stopnowdayindex, startnowhourindex, stopnowhourindex;
+        var starttimeArray = athis.getNowDateDay(athis.data.starttimeArray, startnowyear, startnowmonth);
+        var stoptimeArray = athis.getNowDateDay(athis.data.stoptimeArray, stopnowyear, stopnowmonth);
+        athis.setData({
+          starttimeArray: starttimeArray,
+          stoptimeArray: stoptimeArray
+        })
+        for (var i = 0; i < stoptimeArray[0].length; i++) {
+          if (stoptimeArray[0][i] == stopnowyear) {
+            stopnowyearindex = i;
+            break
+          }
+        }
+        for (var i = 0; i < starttimeArray[1].length; i++) {
+          if (starttimeArray[1][i] == startnowmonth) {
+            startnowmonthindex = i;
+            break
+          }
+        }
+        for (var i = 0; i < stoptimeArray[1].length; i++) {
+          if (stoptimeArray[1][i] == stopnowmonth) {
+            stopnowmonthindex = i;
+            break
+          }
+        }
+        for (var i = 0; i < starttimeArray[2].length; i++) {
+          if (starttimeArray[2][i] == startnowday) {
+            startnowdayindex = i;
+            break
+          }
+        }
+        for (var i = 0; i < stoptimeArray[2].length; i++) {
+          if (stoptimeArray[2][i] == stopnowday) {
+            stopnowdayindex = i;
+            break
+          }
+        }
+        for (var i = 0; i < starttimeArray[3].length; i++) {
+          if (starttimeArray[3][i] == startnowhour) {
+            startnowhourindex = i;
+            break
+          }
+        }
+        for (var i = 0; i < stoptimeArray[3].length; i++) {
+          if (stoptimeArray[3][i] == stopnowhour) {
+            stopnowhourindex = i;
+            break
+          }
+        }
+        athis.setData({
+          date1time: startnowyear + '-' + startnowmonth + '-' + startnowday + ' ' + startnowhour + ':00:00',
+          date1timeview: startnowyear + '-' + startnowmonth + '-' + startnowday,
+          date2time: stopnowyear + '-' + stopnowmonth + '-' + stopnowday + ' ' + stopnowhour + ':00:00',
+          date2timeview: stopnowyear + '-' + stopnowmonth + '-' + stopnowday,
+          starttimeIndex: [0, startnowmonthindex, startnowdayindex, startnowhourindex],
+          stoptimeIndex: [stopnowyearindex, stopnowmonthindex, stopnowdayindex, stopnowhourindex]
+        })
+        if (athis.data.net_house_id != "") {
+          athis.getNewPrice(athis.data.net_house_id, athis.data.date1time, athis.data.date2time)
+        }
+      } else if (e.data.result == "2") {
+        utils.alertView("提示", "你已退出，请点击“确认”重新登录", function () {
+          app.getLogin();
+        })
+      } else {
+        utils.alertViewNosucces("提示", e.data.message + " ", false);
+      }
     })
-    for (var i = 0; i < stoptimeArray[0].length; i++) {
-      if (stoptimeArray[0][i] == stopnowyear) {
-        stopnowyearindex = i;
-        break
-      }
-    }
-    for (var i = 0; i < starttimeArray[1].length; i++) {
-      if (starttimeArray[1][i] == startnowmonth) {
-        startnowmonthindex = i;
-        break
-      }
-    }
-    for (var i = 0; i < stoptimeArray[1].length; i++) {
-      if (stoptimeArray[1][i] == stopnowmonth) {
-        stopnowmonthindex = i;
-        break
-      }
-    }
-    for (var i = 0; i < starttimeArray[2].length; i++) {
-      if (starttimeArray[2][i] == startnowday) {
-        startnowdayindex = i;
-        break
-      }
-    }
-    for (var i = 0; i < stoptimeArray[2].length; i++) {
-      if (stoptimeArray[2][i] == stopnowday) {
-        stopnowdayindex = i;
-        break
-      }
-    }
-    for (var i = 0; i < starttimeArray[3].length; i++) {
-      if (starttimeArray[3][i] == startnowhour) {
-        startnowhourindex = i;
-        break
-      }
-    }
-    for (var i = 0; i < stoptimeArray[3].length; i++) {
-      if (stoptimeArray[3][i] == stopnowhour) {
-        stopnowhourindex = i;
-        break
-      }
-    }
-    this.setData({
-      date1time: startnowyear + '-' + startnowmonth + '-' + startnowday + ' ' + startnowhour + ':00:00',
-      date1timeview: startnowyear + '-' + startnowmonth + '-' + startnowday,
-      date2time: stopnowyear + '-' + stopnowmonth + '-' + stopnowday + ' ' + stopnowhour + ':00:00',
-      date2timeview: stopnowyear + '-' + stopnowmonth + '-' + stopnowday,
-      starttimeIndex: [0, startnowmonthindex, startnowdayindex, startnowhourindex],
-      stoptimeIndex: [stopnowyearindex, stopnowmonthindex, stopnowdayindex, stopnowhourindex]
-    })
-    if(this.data.net_house_id!=""){
-      this.getNewPrice(this.data.net_house_id, this.data.date1time, this.data.date2time)
-    }
   },
   //获取当前时间的日期数组
   getNowDateDay: function (arry, year, month) {

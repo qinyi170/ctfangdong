@@ -1,0 +1,5 @@
+.con_con{padding: 30rpx}
+.con_con picker{border-bottom: 1rpx solid #c2c2c2;overflow: hidden}
+.con_con picker:last-of-type{margin-bottom: 0}
+.con_con picker view{display: flex;align-items: center;justify-content: space-between;padding: 30rpx 0;}
+.con_con button{margin-top: 50rpx}

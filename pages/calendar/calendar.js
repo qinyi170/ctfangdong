@@ -16,7 +16,6 @@ Page({
     isTodayWeek: false,
     todayIndex: 0
   },
-  
   onLoad: function (options) {
     this.setData({
       net_house_id: options.nethouseid,
@@ -54,9 +53,32 @@ Page({
       day: day,
       isToday: '' + year + month + day
     })
+    this.getnowhours();
   },
   onShow:function(){
     this.active(this.data.year, this.data.month * 1 - 1);
+  },
+  getnowhours() {
+    var athis = this;
+    utils.showLoading("请稍等")
+    utils.request1("/weboperate/queryResideTime", {
+      "skey": app.globalData.skey
+    }, function (e) {
+      console.log(e)
+      wx.hideLoading();
+      if (e.data.result == "0") {
+        athis.setData({
+          orderBeginDateIndex: e.data.dataObject[0].reside_date,
+          orderEndDateIndex: e.data.dataObject[0].retreate_date
+        })
+      } else if (e.data.result == "2") {
+        utils.alertView("提示", "你已退出，请点击“确认”重新登录", function () {
+          app.getLogin();
+        })
+      } else {
+        utils.alertViewNosucces("提示", e.data.message + " ", false);
+      }
+    })
   },
   active(year, month) { 
     utils.showLoading("请稍等")
@@ -220,7 +242,7 @@ Page({
         if (temp.orderlist==""){
           startdate = utils.changeYearAndMonth(this.data.year, this.data.month * 1 - 1, temp.dateNum);
           wx.navigateTo({
-            url: '../order/ordercreate?nethouseid=' + this.data.net_house_id + "&nethousename=" + this.data.net_house_name + "&lockid=" + this.data.lock_id + "&locktype=" + this.data.lock_type + "&startdate=" + startdate + " 14:00:00" + "&stopdate=" + utils.getAllDate(startdate, 1) + " 12:00:00",
+            url: '../order/ordercreate?nethouseid=' + this.data.net_house_id + "&nethousename=" + this.data.net_house_name + "&lockid=" + this.data.lock_id + "&locktype=" + this.data.lock_type + "&startdate=" + startdate + " " + this.data.orderBeginDateIndex + ":00:00" + "&stopdate=" + utils.getAllDate(startdate, 1) + " " + this.data.orderEndDateIndex +":00:00",
           })
         }else{
           var orderlist = temp.orderlist;
@@ -231,14 +253,14 @@ Page({
             }
           }
           var tempdatetime = utils.changeDate1(tempordertime);
-          var tempdatetimeandhour = utils.getDateWhereType("hour",tempdatetime,0);
-          if (tempdatetimeandhour<12){
-            startdate = utils.getAllDate(tempdatetime, 0) + " 14:00:00"
+          var tempdatetimeandhour = utils.getDateWhereType("hour", utils.getAllDateTime(tempdatetime, 2, 1),0);
+          if (tempdatetimeandhour < this.data.orderBeginDateIndex * 1){
+            startdate = utils.getAllDate(tempdatetime, 0) + " " + this.data.orderBeginDateIndex +":00:00"
           }else{
             startdate = utils.getAllDateTime(tempdatetime, 2,1);
           }
           wx.navigateTo({
-            url: '../order/ordercreate?nethouseid=' + this.data.net_house_id + "&nethousename=" + this.data.net_house_name + "&lockid=" + this.data.lock_id + "&locktype=" + this.data.lock_type + "&startdate=" + startdate + "&stopdate=" + utils.getAllDate(startdate, 1) + " 12:00:00",
+            url: '../order/ordercreate?nethouseid=' + this.data.net_house_id + "&nethousename=" + this.data.net_house_name + "&lockid=" + this.data.lock_id + "&locktype=" + this.data.lock_type + "&startdate=" + startdate + "&stopdate=" + utils.getAllDate(startdate, 1) + " " + this.data.orderEndDateIndex +":00:00",
           })
         }
       } else if (temp.house_use_state == 4) {

@@ -1,3 +1,31 @@
-@import "../order/ordermsg";
-.roomimg{display: flex;justify-content:space-between}
-.roomimg image{width: 100rpx;height: 100rpx;border-radius: 6px;margin-left: 5rpx;}
+.viewnav{height: 120rpx;background-color: none;color: #fff;padding-top: 60rpx;position: fixed;width: 100%;top:0;z-index: 100}
+.viewback{float:left; height: 45px;width: 40px;line-height: 50px;text-align: center;vertical-align:middle;border-radius: 0;background: none;}
+.viewback::after{border:none;}
+.viewback image{height: 19px;width: 10px;}
+.viewbackhover{background-color: #e5e5e5;color: #fff}
+.viewbacktext{font-size: 18px;height: 45px;line-height: 43px;text-align: center;display: inline-block;}
+
+.con_banners{height: 450rpx;position:relative;z-index: 99}
+.con_banners swiper-item{z-index: 99}
+.con_banners swiper-item image{width: 100%;height: 450rpx;}
+
+.con_msg{margin: 30rpx 48rpx}
+.con_msg_1{display:flex;align-items: center;justify-content: space-between; font-size: 36rpx;}
+.con_msg_1>view{color: #fb6e37}
+.con_msg_1>view text{font-size: 30rpx;}
+.con_msg_2{margin-top:15rpx;color: #999999}
+.con_msg_3{display: flex;align-items: center; margin-top:30rpx;background-color: #f7f7f7;flex-wrap:wrap;font-size: 30rpx;padding-left: 20rpx;padding-top: 30rpx;border-radius: 3px;}
+.con_msg_3 view{display: flex;align-items: center; width: 208rpx; color: #666666;padding: 0 0 30rpx 20rpx;}
+.con_msg_3 view:nth-of-type(3n){width: 158rpx;}
+.con_msg_3 view image{display: inline-block;width: 28rpx;height: 28rpx;margin-right: 10rpx;}
+.con_msg_4{margin-top: 30rpx;display: flex;align-items: center}
+.con_msg_4 text{display: inline-block;width: 6rpx;height: 28rpx;font-size: 30rpx;background-color: #f5c343;margin-right: 15rpx;}
+.con_msg_5{margin-top: 15rpx;font-size: 30rpx;color: #666666}
+.con_msg_5 map{border-radius: 3px;margin-bottom: 10rpx}
+.con_msg_5 image{width: 18rpx;height: 22rpx;margin-right: 10rpx}
+.con_msg_6{margin-top: 20rpx;display: flex;flex-wrap:wrap;}
+.con_msg_6>view{width: 130rpx;margin-bottom: 30rpx;text-align: center}
+.con_msg_6>view .con_msg_6_1{display: inline-block; width: 90rpx;height: 90rpx;background-color: #fffbf2;border-radius: 90rpx;overflow: hidden}
+.con_msg_6>view .con_msg_6_1 image{display: block;width: 90rpx;height: 90rpx;}
+.con_msg_6>view .con_msg_6_2{text-align: center;margin-top: 5rpx;font-size: 26rpx;}
+

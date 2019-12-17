@@ -4,9 +4,9 @@
       <template is="we-cropper" data="{{...cropperOpt}}"/>
   </view>
   <view class='imgDisposeControlLine'>
+    <view class='editBtn' bindtap="closeCropperImage">取消</view>
     <view class='editBtn' bindtap="uploadTap">重新选择</view>
     <view class='editBtn' bindtap="getCropperImage">确定</view>
-    <view class='editBtn' bindtap="closeCropperImage">取消</view>
   </view>
 </view>
 <form bindsubmit="formSubmit" bindreset="formReset" class='formSubmit'>
@@ -23,7 +23,7 @@
     <button class="{{currentTopItem==2 ? 'hovers' : ''}}" form-type="submit" data-btntype="1" data-navid='2'>经营信息</button>
     <button class="{{currentTopItem==3 ? 'hovers' : ''}}" form-type="submit" data-btntype="1" data-navid='3'>产权信息</button>
   </view>
-  <view class='conlist' style='{{scrollheight}}' hidden="{{roomItem0}}">
+  <view class='conlist' hidden="{{roomItem0}}">
     <view class='group_item'>
       <view class='group_title'>房源名称<text>*</text></view>
       <view class='group_form'>
@@ -33,7 +33,9 @@
     <view class='group_item'>
       <view class='group_title'>房屋简介</view>
       <view class='group_form'>
-        <textarea name="house_basic_declare" value='{{roomInfo.house_basic_declare}}' ></textarea>
+        <textarea class='textarea' name="house_basic_declare" placeholder="可描述房屋装修风格、小区环境、家具配套、交通情况等。" placeholder-class="phcolor" value='{{roomInfo.house_basic_declare}}'></textarea>
+        <!-- <input name="house_basic_declare" value='{{roomInfo.house_basic_declare}}' placeholder="可描述房屋装修风格、小区环境、家具配套、交通情况等。" placeholder-class="phcolor"></input> -->
+        <!-- <editor id="editor"  bindinput="getBasicDeclare" bindblur="getBasicDeclare" class="textarea" placeholder="可描述房屋装修风格、小区环境、家具配套、交通情况等。" placeholder-class="phcolor"></editor> -->
       </view>
     </view>
     <view class='group_item'>
@@ -62,10 +64,10 @@
       </view>
     </view>
     <view class="buttoncroom">
-      <button class="button1_1" form-type="submit" data-btntype="2" data-btnindex="1">下一步</button>
+      <button class="button1_1 btnroom" form-type="submit" data-btntype="2" data-btnindex="1">下一步</button>
     </view>
   </view>
-  <view class='conlist' style='{{scrollheight}}' hidden="{{roomItem1}}">
+  <view class='conlist' hidden="{{roomItem1}}">
     <!-- <view class='group_item' hidden='{{ischeck}}'>
       <view class='group_title'>省/市/区（县）</view>
       <view class='group_form'>
@@ -100,7 +102,7 @@
       <button class="button1_1 btnroom" form-type="submit" data-btntype="2" data-btnindex="2">下一步</button>
     </view>
   </view>
-  <view class='conlist' style='{{scrollheight}}' hidden="{{roomItem2}}">
+  <view class='conlist' hidden="{{roomItem2}}">
     <view class='title_item'><text></text>房屋</view>
     <view class='group_item'>
       <view class='group_title'>出租类型</view>
@@ -160,6 +162,7 @@
         <text>平方米</text>
       </view>
     </view>
+    <view class='claer_item'></view>
     <view class='title_item'><text></text>床铺</view>
     <view class='group_item'>
       <view class='group_title'>选择床型</view>
@@ -197,6 +200,7 @@
       </view>
       <input hidden='true' name="house_facility" value='{{houseFacilityIndexArr}}'></input>
     </view>
+    <view class='claer_item'></view>
     <view class='title_item'><text></text>价格</view>
     <view class='group_item'>
       <view class='group_title'>周日 ~ 周四</view>
@@ -216,7 +220,7 @@
       <button class="button1_1 btnroom" form-type="submit" data-btntype="2" data-btnindex="3">下一步</button>
     </view>
   </view>
-  <view class='conlist' style='{{scrollheight}}' hidden="{{roomItem3}}">
+  <view class='conlist' hidden="{{roomItem3}}">
     <view class='group_item'>
       <view class='group_title'>房屋来源</view>
       <view class='group_form'>
@@ -226,6 +230,7 @@
         <input hidden='true' name="house_source" value='{{houseSourceIndex}}'></input>
       </view>
     </view>
+    <view class='claer_item'></view>
     <view class='title_item'><text></text>产权人信息</view>
     <view class='group_item'>
       <view class='group_title'>产权人类型</view>
@@ -248,7 +253,7 @@
     <view class='group_item'>
       <view class='group_title'>产权人/法人姓名</view>
       <view class='group_form'>
-        <input name="house_property_name" value='{{roomInfo.house_property_name}}' placeholder='请输入详细地址' placeholder-class="phcolor"></input>
+        <input name="house_property_name" value='{{roomInfo.house_property_name}}' placeholder='请输入产权人/法人姓名' placeholder-class="phcolor"></input>
       </view>
     </view>
     <view class='group_item'>
